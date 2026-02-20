@@ -1,9 +1,9 @@
-// services/readiness.service.js
+// services/readiness.js
 
 import { supabase } from '../config/supabase.js'
 
 export async function generateReadiness(userId, roleName) {
-    console.log("ROADMAP LOGIC EXECUTING")
+
     // 1️⃣ Get role
     const { data: role, error: roleError } = await supabase
         .from('roles')
@@ -35,12 +35,12 @@ export async function generateReadiness(userId, roleName) {
 
     if (userSkills) {
         userSkills.forEach(us => {
-            userSkillMap[us.skill_id] = us.strength_score
+            userSkillMap[us.skill_id] = Number(us.strength_score)
         })
     }
 
 
-    // 4️⃣ Skill Match Calculation
+    // 🔥 4️⃣ Skill Match Calculation (Weighted + Penalty)
     let weightedSum = 0
     let totalWeight = 0
 
@@ -50,21 +50,35 @@ export async function generateReadiness(userId, roleName) {
         totalWeight += rs.weight
     })
 
-    const skillMatchScore = totalWeight > 0
+    let skillMatchScore = totalWeight > 0
         ? weightedSum / totalWeight
         : 0
 
+    // Missing skill penalty
+    const totalRequiredSkills = roleSkills.length
 
-    // 5️⃣ Project Strength (No N+1)
+    const presentSkills = roleSkills.filter(
+        rs => userSkillMap[rs.skill_id]
+    ).length
+
+    const coverageRatio =
+        totalRequiredSkills > 0
+            ? presentSkills / totalRequiredSkills
+            : 0
+
+    skillMatchScore = skillMatchScore * coverageRatio
+
+
+    // 🔥 5️⃣ Project Strength (No N+1 + Normalization)
     const { data: projects, error: projectsError } = await supabase
         .from('projects')
         .select(`
-      id,
-      complexity_score,
-      project_skills (
-        skill_id
-      )
-    `)
+            id,
+            complexity_score,
+            project_skills (
+                skill_id
+            )
+        `)
         .eq('user_id', userId)
 
     if (projectsError) throw projectsError
@@ -86,11 +100,17 @@ export async function generateReadiness(userId, roleName) {
                 ? matchedSkills / roleSkillIds.length
                 : 0
 
-            totalProjectScore += project.complexity_score * coverage
+            totalProjectScore +=
+                Number(project.complexity_score) * coverage
         })
 
-        projectStrength = totalProjectScore / projects.length
+        projectStrength =
+            totalProjectScore / projects.length
     }
+
+    // Normalize to 0–100 scale
+    const projectStrengthNormalized =
+        Math.min(100, projectStrength * 10)
 
 
     // 6️⃣ GitHub Score
@@ -100,14 +120,17 @@ export async function generateReadiness(userId, roleName) {
         .eq('user_id', userId)
         .single()
 
-    const githubScore = githubStats?.activity_score || 0
+    const githubScore =
+        githubStats?.activity_score
+            ? Number(githubStats.activity_score)
+            : 0
 
 
-    // 7️⃣ Total Score
+    // 🔥 7️⃣ Rebalanced Final Score
     const totalScore =
-        (skillMatchScore * 0.6) +
-        (projectStrength * 0.25) +
-        (githubScore * 0.15)
+        (skillMatchScore * 0.5) +
+        (projectStrengthNormalized * 0.3) +
+        (githubScore * 0.2)
 
 
     // 8️⃣ Generate Skill Gaps
@@ -135,7 +158,7 @@ export async function generateReadiness(userId, roleName) {
             user_id: userId,
             role_id: role.id,
             skill_match_score: skillMatchScore,
-            project_score: projectStrength,
+            project_score: projectStrengthNormalized,
             github_score: githubScore,
             total_score: totalScore
         })
@@ -160,14 +183,14 @@ export async function generateReadiness(userId, roleName) {
     if (gapError) throw gapError
 
 
-    // 11️⃣ Delete previous roadmap
+    // 🧹 Delete previous roadmap
     const { data: existingRoadmaps } = await supabase
         .from('roadmaps')
         .select('id')
         .eq('user_id', userId)
         .eq('role_id', role.id)
 
-    if (existingRoadmaps && existingRoadmaps.length > 0) {
+    if (existingRoadmaps?.length > 0) {
 
         const roadmapIds = existingRoadmaps.map(r => r.id)
 
@@ -183,7 +206,7 @@ export async function generateReadiness(userId, roleName) {
     }
 
 
-    // 12️⃣ Build prioritized roadmap
+    // 🧠 Build prioritized roadmap
     const prioritizedSkills = gapResults
         .filter(g => g.gap_type !== 'strong')
         .map(g => ({
@@ -195,10 +218,7 @@ export async function generateReadiness(userId, roleName) {
         .sort((a, b) => b.priorityScore - a.priorityScore)
 
 
-        console.log("About to insert roadmap")
-        console.log("Prioritized skills count:", prioritizedSkills.length)
-
-    // 13️⃣ Insert new roadmap
+    // Insert new roadmap
     const { data: roadmapData, error: roadmapError } = await supabase
         .from('roadmaps')
         .insert({
@@ -213,7 +233,7 @@ export async function generateReadiness(userId, roleName) {
     if (roadmapError) throw roadmapError
 
 
-    // 14️⃣ Insert roadmap steps
+    // Insert roadmap steps
     if (prioritizedSkills.length > 0) {
         await supabase.from('roadmap_steps').insert(
             prioritizedSkills.map((skill, index) => ({
@@ -225,10 +245,9 @@ export async function generateReadiness(userId, roleName) {
         )
     }
 
-
     return {
         skillMatchScore,
-        projectStrength,
+        projectStrength: projectStrengthNormalized,
         githubScore,
         totalScore
     }

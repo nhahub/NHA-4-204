@@ -2,6 +2,33 @@
 
 import { supabase } from "../config/supabase.js";
 
+const PER_PAGE = 100;
+
+async function fetchAllRepos(username, headers) {
+    const repos = [];
+    let page = 1;
+    const maxPages = 10;
+
+    while (page <= maxPages) {
+        const response = await fetch(
+            `https://api.github.com/users/${username}/repos?per_page=${PER_PAGE}&page=${page}`,
+            { headers }
+        );
+
+        if (!response.ok) {
+            throw new Error("GitHub user not found or API error");
+        }
+
+        const batch = await response.json();
+        repos.push(...batch);
+
+        if (batch.length < PER_PAGE) break;
+        page += 1;
+    }
+
+    return repos;
+}
+
 export async function syncGitHub(userId, username) {
 
     const headers = {};
@@ -9,17 +36,8 @@ export async function syncGitHub(userId, username) {
         headers.Authorization = `token ${process.env.GITHUB_TOKEN}`;
     }
 
-    // 1️⃣ Fetch repositories
-    const response = await fetch(
-        `https://api.github.com/users/${username}/repos?per_page=100`,
-        { headers }
-    );
-
-    if (!response.ok) {
-        throw new Error("GitHub user not found or API error");
-    }
-
-    const repos = await response.json();
+    // 1️⃣ Fetch repositories (with pagination)
+    const repos = await fetchAllRepos(username, headers);
 
     for (const repo of repos) {
 
@@ -54,11 +72,15 @@ export async function syncGitHub(userId, username) {
         if (langResponse.ok) {
             const langData = await langResponse.json();
             languages = Object.keys(langData);
+        } else if (repo.language) {
+            languages = [repo.language];
         }
 
         for (let lang of languages) {
 
             lang = normalizeLanguage(lang);
+
+            if (!lang) continue;
 
             const { data: skill } = await supabase
                 .from("skills")
@@ -125,7 +147,7 @@ export async function syncGitHub(userId, username) {
         const skillFrequency = {};
 
         userProjects.forEach((project) => {
-            project.project_skills.forEach((ps) => {
+            (project.project_skills || []).forEach((ps) => {
                 skillFrequency[ps.skill_id] =
                     (skillFrequency[ps.skill_id] || 0) + 1;
             });

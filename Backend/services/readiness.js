@@ -2,9 +2,35 @@
 
 import { supabase } from '../config/supabase.js'
 
+async function rollbackReadinessWrite(reportId, roadmapId) {
+    if (roadmapId) {
+        await supabase
+            .from('roadmap_steps')
+            .delete()
+            .eq('roadmap_id', roadmapId)
+
+        await supabase
+            .from('roadmaps')
+            .delete()
+            .eq('id', roadmapId)
+    }
+
+    if (reportId) {
+        await supabase
+            .from('skill_gap_results')
+            .delete()
+            .eq('report_id', reportId)
+
+        await supabase
+            .from('readiness_reports')
+            .delete()
+            .eq('id', reportId)
+    }
+}
+
 export async function generateReadiness(userId, roleName) {
 
-    // 1️⃣ Get role
+    // Get role
     const { data: role, error: roleError } = await supabase
         .from('roles')
         .select('*')
@@ -14,7 +40,7 @@ export async function generateReadiness(userId, roleName) {
     if (roleError || !role) throw new Error('Role not found')
 
 
-    // 2️⃣ Get role skills
+    // Get role skills
     const { data: roleSkills, error: roleSkillsError } = await supabase
         .from('role_skills')
         .select('skill_id, weight')
@@ -22,8 +48,10 @@ export async function generateReadiness(userId, roleName) {
 
     if (roleSkillsError) throw roleSkillsError
 
+    const safeRoleSkills = roleSkills || []
 
-    // 3️⃣ Get user skills
+
+    // Get user skills
     const { data: userSkills, error: userSkillsError } = await supabase
         .from('user_skills')
         .select('skill_id, strength_score')
@@ -35,19 +63,23 @@ export async function generateReadiness(userId, roleName) {
 
     if (userSkills) {
         userSkills.forEach(us => {
-            userSkillMap[us.skill_id] = Number(us.strength_score)
+            const strength = Number(us.strength_score)
+            userSkillMap[us.skill_id] = Number.isFinite(strength)
+                ? strength
+                : 0
         })
     }
 
 
-    // 🔥 4️⃣ Skill Match Calculation (Weighted + Penalty)
+    // Skill Match Calculation (Weighted + Penalty)
     let weightedSum = 0
     let totalWeight = 0
 
-    roleSkills.forEach(rs => {
+    safeRoleSkills.forEach(rs => {
         const strength = userSkillMap[rs.skill_id] || 0
-        weightedSum += strength * rs.weight
-        totalWeight += rs.weight
+        const weight = Number(rs.weight) || 0
+        weightedSum += strength * weight
+        totalWeight += weight
     })
 
     let skillMatchScore = totalWeight > 0
@@ -55,9 +87,9 @@ export async function generateReadiness(userId, roleName) {
         : 0
 
     // Missing skill penalty
-    const totalRequiredSkills = roleSkills.length
+    const totalRequiredSkills = safeRoleSkills.length
 
-    const presentSkills = roleSkills.filter(
+    const presentSkills = safeRoleSkills.filter(
         rs => userSkillMap[rs.skill_id]
     ).length
 
@@ -69,7 +101,7 @@ export async function generateReadiness(userId, roleName) {
     skillMatchScore = skillMatchScore * coverageRatio
 
 
-    // 🔥 5️⃣ Project Strength (No N+1 + Normalization)
+    // Project Strength (No N+1 + Normalization)
     const { data: projects, error: projectsError } = await supabase
         .from('projects')
         .select(`
@@ -87,12 +119,13 @@ export async function generateReadiness(userId, roleName) {
 
     if (projects && projects.length > 0) {
 
-        const roleSkillIds = roleSkills.map(rs => rs.skill_id)
+        const roleSkillIds = safeRoleSkills.map(rs => rs.skill_id)
         let totalProjectScore = 0
 
         projects.forEach(project => {
+            const projectSkills = project.project_skills || []
 
-            const matchedSkills = project.project_skills
+            const matchedSkills = projectSkills
                 .filter(ps => roleSkillIds.includes(ps.skill_id))
                 .length
 
@@ -110,10 +143,10 @@ export async function generateReadiness(userId, roleName) {
 
     // Normalize to 0–100 scale
     const projectStrengthNormalized =
-        Math.min(100, projectStrength * 10)
+        Math.min(100, projectStrength)
 
 
-    // 6️⃣ GitHub Score
+    // GitHub Score
     const { data: githubStats } = await supabase
         .from('github_stats')
         .select('activity_score')
@@ -126,17 +159,18 @@ export async function generateReadiness(userId, roleName) {
             : 0
 
 
-    // 🔥 7️⃣ Rebalanced Final Score
+    // Rebalanced Final Score
     const totalScore =
         (skillMatchScore * 0.5) +
         (projectStrengthNormalized * 0.3) +
         (githubScore * 0.2)
 
 
-    // 8️⃣ Generate Skill Gaps
-    const gapResults = roleSkills.map(rs => {
+    // Generate Skill Gaps
+    const gapResults = safeRoleSkills.map(rs => {
 
         const strength = userSkillMap[rs.skill_id] || 0
+        const weight = Number(rs.weight) || 0
 
         let gapType = 'strong'
         if (strength === 0) gapType = 'missing'
@@ -146,103 +180,120 @@ export async function generateReadiness(userId, roleName) {
             skill_id: rs.skill_id,
             gap_type: gapType,
             strength_score: strength,
-            weight: rs.weight
+            weight
         }
     })
 
 
-    // 9️⃣ Save readiness report
-    const { data: reportData, error: reportError } = await supabase
-        .from('readiness_reports')
-        .insert({
-            user_id: userId,
-            role_id: role.id,
-            skill_match_score: skillMatchScore,
-            project_score: projectStrengthNormalized,
-            github_score: githubScore,
-            total_score: totalScore
-        })
-        .select()
-        .single()
+    let reportId = null
+    let roadmapId = null
 
-    if (reportError) throw reportError
+    try {
+        // Save readiness report
+        const { data: reportData, error: reportError } = await supabase
+            .from('readiness_reports')
+            .insert({
+                user_id: userId,
+                role_id: role.id,
+                skill_match_score: skillMatchScore,
+                project_score: projectStrengthNormalized,
+                github_score: githubScore,
+                total_score: totalScore
+            })
+            .select()
+            .single()
 
+        if (reportError) throw reportError
+        reportId = reportData.id
 
-    // 🔟 Save skill gaps
-    const { error: gapError } = await supabase
-        .from('skill_gap_results')
-        .insert(
-            gapResults.map(g => ({
-                report_id: reportData.id,
+        // Save skill gaps
+        if (gapResults.length > 0) {
+            const { error: gapError } = await supabase
+                .from('skill_gap_results')
+                .insert(
+                    gapResults.map(g => ({
+                        report_id: reportData.id,
+                        skill_id: g.skill_id,
+                        gap_type: g.gap_type,
+                        strength_score: g.strength_score
+                    }))
+                )
+
+            if (gapError) throw gapError
+        }
+
+        // Build prioritized roadmap
+        const prioritizedSkills = gapResults
+            .filter(g => g.gap_type !== 'strong')
+            .map(g => ({
                 skill_id: g.skill_id,
-                gap_type: g.gap_type,
-                strength_score: g.strength_score
+                priorityScore:
+                    (g.weight * 0.7) +
+                    ((100 - g.strength_score) * 0.3 / 100)
             }))
-        )
+            .sort((a, b) => b.priorityScore - a.priorityScore)
 
-    if (gapError) throw gapError
-
-
-    // 🧹 Delete previous roadmap
-    const { data: existingRoadmaps } = await supabase
-        .from('roadmaps')
-        .select('id')
-        .eq('user_id', userId)
-        .eq('role_id', role.id)
-
-    if (existingRoadmaps?.length > 0) {
-
-        const roadmapIds = existingRoadmaps.map(r => r.id)
-
-        await supabase
-            .from('roadmap_steps')
-            .delete()
-            .in('roadmap_id', roadmapIds)
-
-        await supabase
+        // Insert new roadmap first
+        const { data: roadmapData, error: roadmapError } = await supabase
             .from('roadmaps')
-            .delete()
-            .in('id', roadmapIds)
-    }
+            .insert({
+                user_id: userId,
+                role_id: role.id,
+                readiness_report_id: reportData.id,
+                total_steps: prioritizedSkills.length
+            })
+            .select()
+            .single()
 
+        if (roadmapError) throw roadmapError
+        roadmapId = roadmapData.id
 
-    // 🧠 Build prioritized roadmap
-    const prioritizedSkills = gapResults
-        .filter(g => g.gap_type !== 'strong')
-        .map(g => ({
-            skill_id: g.skill_id,
-            priorityScore:
-                (g.weight * 0.7) +
-                ((100 - g.strength_score) * 0.3 / 100)
-        }))
-        .sort((a, b) => b.priorityScore - a.priorityScore)
+        // Insert roadmap steps
+        if (prioritizedSkills.length > 0) {
+            const { error: stepsError } = await supabase
+                .from('roadmap_steps')
+                .insert(
+                    prioritizedSkills.map((skill, index) => ({
+                        roadmap_id: roadmapData.id,
+                        skill_id: skill.skill_id,
+                        order_index: index + 1,
+                        status: 'pending'
+                    }))
+                )
 
+            if (stepsError) throw stepsError
+        }
 
-    // Insert new roadmap
-    const { data: roadmapData, error: roadmapError } = await supabase
-        .from('roadmaps')
-        .insert({
-            user_id: userId,
-            role_id: role.id,
-            readiness_report_id: reportData.id,
-            total_steps: prioritizedSkills.length
-        })
-        .select()
-        .single()
+        // Delete previous roadmaps only after new roadmap is fully written
+        const { data: existingRoadmaps, error: oldRoadmapsError } = await supabase
+            .from('roadmaps')
+            .select('id')
+            .eq('user_id', userId)
+            .eq('role_id', role.id)
+            .neq('id', roadmapData.id)
 
-    if (roadmapError) throw roadmapError
+        if (oldRoadmapsError) throw oldRoadmapsError
 
+        if (existingRoadmaps?.length > 0) {
+            const oldRoadmapIds = existingRoadmaps.map(r => r.id)
 
-    // Insert roadmap steps
-    if (prioritizedSkills.length > 0) {
-        await supabase.from('roadmap_steps').insert(
-            prioritizedSkills.map((skill, index) => ({
-                roadmap_id: roadmapData.id,
-                skill_id: skill.skill_id,
-                order_index: index + 1,
-                status: 'pending'
-            }))
-        )
+            const { error: oldStepsDeleteError } = await supabase
+                .from('roadmap_steps')
+                .delete()
+                .in('roadmap_id', oldRoadmapIds)
+
+            if (oldStepsDeleteError) throw oldStepsDeleteError
+
+            const { error: oldRoadmapsDeleteError } = await supabase
+                .from('roadmaps')
+                .delete()
+                .in('id', oldRoadmapIds)
+
+            if (oldRoadmapsDeleteError) throw oldRoadmapsDeleteError
+        }
+    } catch (writeError) {
+        await rollbackReadinessWrite(reportId, roadmapId)
+        throw writeError
     }
 
     return {

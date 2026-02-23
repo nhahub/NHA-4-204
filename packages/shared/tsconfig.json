@@ -1,0 +1,3 @@
+{
+  "extends": "@careergps/config/tsconfig.base.json"
+}

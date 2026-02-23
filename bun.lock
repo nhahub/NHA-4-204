@@ -20,6 +20,7 @@
       "name": "server",
       "dependencies": {
         "@careergps/env": "workspace:*",
+        "@careergps/shared": "workspace:*",
         "@trpc/server": "catalog:",
         "better-auth": "catalog:",
         "cors": "^2.8.5",
@@ -46,6 +47,7 @@
       "dependencies": {
         "@base-ui/react": "^1.0.0",
         "@careergps/env": "workspace:*",
+        "@careergps/shared": "workspace:*",
         "@react-router/fs-routes": "^7.10.1",
         "@react-router/node": "^7.10.1",
         "@react-router/serve": "^7.10.1",
@@ -94,6 +96,18 @@
       "dependencies": {
         "@t3-oss/env-core": "^0.13.1",
         "dotenv": "catalog:",
+        "zod": "catalog:",
+      },
+      "devDependencies": {
+        "@careergps/config": "workspace:*",
+        "@types/node": "^22.13.14",
+        "typescript": "^5",
+      },
+    },
+    "packages/shared": {
+      "name": "@careergps/shared",
+      "version": "0.0.0",
+      "dependencies": {
         "zod": "catalog:",
       },
       "devDependencies": {
@@ -191,6 +205,8 @@
     "@careergps/config": ["@careergps/config@workspace:packages/config"],
 
     "@careergps/env": ["@careergps/env@workspace:packages/env"],
+
+    "@careergps/shared": ["@careergps/shared@workspace:packages/shared"],
 
     "@dotenvx/dotenvx": ["@dotenvx/dotenvx@1.52.0", "", { "dependencies": { "commander": "^11.1.0", "dotenv": "^17.2.1", "eciesjs": "^0.4.10", "execa": "^5.1.1", "fdir": "^6.2.0", "ignore": "^5.3.0", "object-treeify": "1.1.33", "picomatch": "^4.0.2", "which": "^4.0.0" }, "bin": { "dotenvx": "src/cli/dotenvx.js" } }, "sha512-CaQcc8JvtzQhUSm9877b6V4Tb7HCotkcyud9X2YwdqtQKwgljkMRwU96fVYKnzN3V0Hj74oP7Es+vZ0mS+Aa1w=="],
 

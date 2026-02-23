@@ -15,6 +15,7 @@
   },
   "dependencies": {
     "@careergps/env": "workspace:*",
+    "@careergps/shared": "workspace:*",
     "@trpc/server": "catalog:",
     "better-auth": "catalog:",
     "cors": "^2.8.5",

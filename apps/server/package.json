@@ -14,7 +14,6 @@
     "@careergps/auth": "workspace:*",
     "@careergps/db": "workspace:*",
     "@careergps/env": "workspace:*",
-    "@hono/trpc-server": "^0.4.0",
     "@trpc/server": "catalog:",
     "better-auth": "catalog:",
     "cors": "^2.8.5",

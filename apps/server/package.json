@@ -7,19 +7,22 @@
     "check-types": "tsc -b",
     "compile": "bun build --compile --minify --sourcemap --bytecode ./src/index.ts --outfile server",
     "dev": "tsx watch src/index.ts",
-    "start": "node dist/index.mjs"
+    "start": "node dist/index.mjs",
+    "db:push": "drizzle-kit push",
+    "db:generate": "drizzle-kit generate",
+    "db:studio": "drizzle-kit studio",
+    "db:migrate": "drizzle-kit migrate"
   },
   "dependencies": {
-    "@careergps/api": "workspace:*",
-    "@careergps/auth": "workspace:*",
-    "@careergps/db": "workspace:*",
     "@careergps/env": "workspace:*",
     "@trpc/server": "catalog:",
     "better-auth": "catalog:",
     "cors": "^2.8.5",
     "dotenv": "catalog:",
     "express": "^5.1.0",
-    "zod": "catalog:"
+    "zod": "catalog:",
+    "drizzle-orm": "^0.45.1",
+    "pg": "^8.17.1"
   },
   "devDependencies": {
     "@careergps/config": "workspace:*",
@@ -28,6 +31,8 @@
     "@types/node": "^22.13.14",
     "tsdown": "^0.16.5",
     "tsx": "^4.19.2",
+    "drizzle-kit": "^0.31.8",
+    "@types/pg": "^8.16.0",
     "typescript": "^5"
   }
 }

@@ -1,6 +1,6 @@
-import { createContext } from "@careergps/api/context";
-import { appRouter } from "@careergps/api/routers/index";
-import { auth } from "@careergps/auth";
+import { createContext } from "./trpc/context";
+import { appRouter } from "./trpc/routers";
+import { auth } from "./utils/auth";
 import { env } from "@careergps/env/server";
 import { createExpressMiddleware } from "@trpc/server/adapters/express";
 import { toNodeHandler } from "better-auth/node";

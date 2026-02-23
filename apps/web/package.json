@@ -10,8 +10,6 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.0.0",
-    "@careergps/api": "workspace:*",
-    "@careergps/auth": "workspace:*",
     "@careergps/env": "workspace:*",
     "@react-router/fs-routes": "^7.10.1",
     "@react-router/node": "^7.10.1",

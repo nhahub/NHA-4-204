@@ -1,6 +1,6 @@
 import type { CreateExpressContextOptions } from "@trpc/server/adapters/express";
 
-import { auth } from "@careergps/auth";
+import { auth } from "@/utils/auth";
 import { fromNodeHeaders } from "better-auth/node";
 
 export async function createContext(opts: CreateExpressContextOptions) {

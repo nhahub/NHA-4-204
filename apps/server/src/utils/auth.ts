@@ -1,5 +1,5 @@
-import { db } from "@careergps/db";
-import * as schema from "@careergps/db/schema/auth";
+import { db } from "@/db";
+import * as schema from "@/db/schema/auth";
 import { env } from "@careergps/env/server";
 import { betterAuth } from "better-auth";
 import { drizzleAdapter } from "better-auth/adapters/drizzle";

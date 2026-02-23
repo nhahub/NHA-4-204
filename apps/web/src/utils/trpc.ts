@@ -1,4 +1,4 @@
-import type { AppRouter } from "@careergps/api/routers/index";
+import type { AppRouter } from "../../../server/src/trpc/routers/index";
 
 import { env } from "@careergps/env/web";
 import { QueryCache, QueryClient } from "@tanstack/react-query";

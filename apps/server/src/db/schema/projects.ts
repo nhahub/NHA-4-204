@@ -1,4 +1,4 @@
-import { pgTable, uuid, text, numeric, timestamp, uniqueIndex } from "drizzle-orm/pg-core";
+import { pgTable, uuid, text, doublePrecision, timestamp , unique } from "drizzle-orm/pg-core";
 import { user } from "./auth";
 
 export const projects = pgTable(
@@ -14,14 +14,11 @@ export const projects = pgTable(
         description: text("description"),
         source: text("source").notNull(),
 
-        complexityScore: numeric("complexity_score").notNull(),
+        complexityScore: doublePrecision("complexity_score").notNull(),
 
         createdAt: timestamp("created_at").defaultNow().notNull(),
     },
     (table) => ({
-        userTitleUnique: uniqueIndex("projects_user_title_unique").on(
-            table.userId,
-            table.title
-        ),
+        userTitleUnique: unique().on(table.userId, table.title),
     })
 );

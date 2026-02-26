@@ -1,5 +1,5 @@
 {
-  "id": "aa90b799-22e1-4f6e-9be0-a5e5054e44e5",
+  "id": "2d174fca-a59e-4678-840c-1c4fe62a3447",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -464,6 +464,66 @@
       "checkConstraints": {},
       "isRLSEnabled": false
     },
+    "public.skill_dependencies": {
+      "name": "skill_dependencies",
+      "schema": "",
+      "columns": {
+        "skill_id": {
+          "name": "skill_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "depends_on_skill_id": {
+          "name": "depends_on_skill_id",
+          "type": "uuid",
+          "primaryKey": false,
+          "notNull": true
+        }
+      },
+      "indexes": {},
+      "foreignKeys": {
+        "skill_dependencies_skill_id_skills_id_fk": {
+          "name": "skill_dependencies_skill_id_skills_id_fk",
+          "tableFrom": "skill_dependencies",
+          "tableTo": "skills",
+          "columnsFrom": [
+            "skill_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        },
+        "skill_dependencies_depends_on_skill_id_skills_id_fk": {
+          "name": "skill_dependencies_depends_on_skill_id_skills_id_fk",
+          "tableFrom": "skill_dependencies",
+          "tableTo": "skills",
+          "columnsFrom": [
+            "depends_on_skill_id"
+          ],
+          "columnsTo": [
+            "id"
+          ],
+          "onDelete": "cascade",
+          "onUpdate": "no action"
+        }
+      },
+      "compositePrimaryKeys": {
+        "skill_dependencies_skill_id_depends_on_skill_id_pk": {
+          "name": "skill_dependencies_skill_id_depends_on_skill_id_pk",
+          "columns": [
+            "skill_id",
+            "depends_on_skill_id"
+          ]
+        }
+      },
+      "uniqueConstraints": {},
+      "policies": {},
+      "checkConstraints": {},
+      "isRLSEnabled": false
+    },
     "public.skills": {
       "name": "skills",
       "schema": "",
@@ -480,6 +540,13 @@
           "type": "text",
           "primaryKey": false,
           "notNull": true
+        },
+        "has_no_dependencies": {
+          "name": "has_no_dependencies",
+          "type": "boolean",
+          "primaryKey": false,
+          "notNull": true,
+          "default": false
         }
       },
       "indexes": {},
@@ -601,7 +668,7 @@
         },
         "complexity_score": {
           "name": "complexity_score",
-          "type": "numeric",
+          "type": "double precision",
           "primaryKey": false,
           "notNull": true
         },
@@ -630,7 +697,16 @@
         }
       },
       "compositePrimaryKeys": {},
-      "uniqueConstraints": {},
+      "uniqueConstraints": {
+        "projects_user_id_title_unique": {
+          "name": "projects_user_id_title_unique",
+          "nullsNotDistinct": false,
+          "columns": [
+            "user_id",
+            "title"
+          ]
+        }
+      },
       "policies": {},
       "checkConstraints": {},
       "isRLSEnabled": false

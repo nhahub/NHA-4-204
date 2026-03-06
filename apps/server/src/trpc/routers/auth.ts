@@ -2,6 +2,7 @@ import { z } from "zod";
 import { router, publicProcedure } from "../index";
 import { db } from "@/db";
 import { user } from "@/db/schema";
+import { TRPCError } from "@trpc/server";
 
 export const authRouter = router({
     createUser: publicProcedure
@@ -34,7 +35,10 @@ export const authRouter = router({
 
             const createdUser = inserted[0];
             if (!createdUser) {
-                throw new Error("Failed to create user");
+                throw new TRPCError({
+                    code: "INTERNAL_SERVER_ERROR",
+                    message: "Failed to create user",
+                });
             }
 
             return createdUser;

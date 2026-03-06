@@ -47,6 +47,7 @@ export const rolesRouter = router({
         )
         .mutation(async ({ input }) => {
             const { roleId, skillId, weight } = input;
+            const weightValue = weight.toString();
 
             const [role, skill] = await Promise.all([
                 db.query.roles.findFirst({ where: eq(roles.id, roleId) }),
@@ -72,12 +73,12 @@ export const rolesRouter = router({
                 .values({
                     roleId,
                     skillId,
-                    weight: weight.toString(),
+                    weight: weightValue,
                 })
                 .onConflictDoUpdate({
                     target: [roleSkills.roleId, roleSkills.skillId],
                     set: {
-                        weight: weight.toString(),
+                        weight: weightValue,
                     },
                 })
                 .returning();

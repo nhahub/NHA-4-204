@@ -18,7 +18,7 @@ export const skillsRouter = router({
             const { name, hasNoDependencies, dependencyIds } = input;
             const uniqueDependencyIds = [...new Set(dependencyIds ?? [])];
 
-            return await db.transaction(async (tx) => {
+            return db.transaction(async (tx) => {
                 if (hasNoDependencies && uniqueDependencyIds.length > 0) {
                     throw new TRPCError({
                         code: "BAD_REQUEST",

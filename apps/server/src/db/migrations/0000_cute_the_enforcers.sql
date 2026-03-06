@@ -112,7 +112,8 @@ CREATE TABLE "readiness_reports" (
 	"role_id" uuid NOT NULL,
 	"skill_match_score" numeric NOT NULL,
 	"project_score" numeric NOT NULL,
-	"github_score" numeric NOT NULL,
+	"general_github_score" numeric NOT NULL,
+	"role_github_score" numeric NOT NULL,
 	"total_score" numeric NOT NULL,
 	"created_at" timestamp DEFAULT now() NOT NULL
 );

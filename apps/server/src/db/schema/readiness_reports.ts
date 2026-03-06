@@ -23,7 +23,8 @@ export const readinessReports = pgTable("readiness_reports", {
 
     skillMatchScore: numeric("skill_match_score").notNull(),
     projectScore: numeric("project_score").notNull(),
-    githubScore: numeric("github_score").notNull(),
+    generalGithubScore: numeric("general_github_score").notNull(),
+    roleGithubScore: numeric("role_github_score").notNull(),
     totalScore: numeric("total_score").notNull(),
 
     createdAt: timestamp("created_at").defaultNow().notNull(),

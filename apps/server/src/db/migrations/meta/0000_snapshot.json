@@ -1,5 +1,5 @@
 {
-  "id": "2d174fca-a59e-4678-840c-1c4fe62a3447",
+  "id": "85ec9d9c-0487-43ce-8ad3-c716cf2527d5",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -872,8 +872,14 @@
           "primaryKey": false,
           "notNull": true
         },
-        "github_score": {
-          "name": "github_score",
+        "general_github_score": {
+          "name": "general_github_score",
+          "type": "numeric",
+          "primaryKey": false,
+          "notNull": true
+        },
+        "role_github_score": {
+          "name": "role_github_score",
           "type": "numeric",
           "primaryKey": false,
           "notNull": true

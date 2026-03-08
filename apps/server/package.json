@@ -5,6 +5,8 @@
   "scripts": {
     "build": "tsdown",
     "check-types": "tsc -b",
+    "test:github": "tsx src/scripts/github-logic-test.ts",
+    "test:role": "tsx src/scripts/role-based-test.ts",
     "compile": "bun build --compile --minify --sourcemap --bytecode ./src/index.ts --outfile server",
     "dev": "tsx watch src/index.ts",
     "start": "node dist/index.mjs",

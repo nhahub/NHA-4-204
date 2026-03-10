@@ -1,5 +1,8 @@
 import { z } from "zod";
-import { generateLearningRoadmapByRoleName } from "@/engine/guidanceEngine";
+import {
+    completeRoadmapStep,
+    generateLearningRoadmapByRoleName,
+} from "@/engine/guidanceEngine";
 import { router, publicProcedure } from "../index";
 
 export const roadmapRouter = router({
@@ -24,5 +27,19 @@ export const roadmapRouter = router({
                 totalSteps: result.totalSteps,
                 roadmap: result.roadmap,
             };
+        }),
+
+    completeStep: publicProcedure
+        .input(
+            z.object({
+                userId: z.string(),
+                stepId: z.string().uuid(),
+            })
+        )
+        .mutation(async ({ input }) => {
+            return completeRoadmapStep({
+                userId: input.userId,
+                stepId: input.stepId,
+            });
         }),
 });

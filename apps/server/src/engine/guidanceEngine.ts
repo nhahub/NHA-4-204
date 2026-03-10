@@ -1,5 +1,5 @@
 import { TRPCError } from "@trpc/server";
-import { desc, eq, inArray } from "drizzle-orm";
+import { and, desc, eq, inArray } from "drizzle-orm";
 
 import { db } from "@/db";
 import {
@@ -54,6 +54,110 @@ export async function generateLearningRoadmapByRoleName({
     }
 
     return generateLearningRoadmapInternal({ userId, roleId: role.id });
+}
+
+export async function completeRoadmapStep({
+    userId,
+    stepId,
+}: {
+    userId: string;
+    stepId: string;
+}) {
+    const matchingStep = await db
+        .select({
+            stepId: roadmapSteps.id,
+            roadmapId: roadmapSteps.roadmapId,
+            skillId: roadmapSteps.skillId,
+            status: roadmapSteps.status,
+            roadmapUserId: roadmaps.userId,
+        })
+        .from(roadmapSteps)
+        .innerJoin(roadmaps, eq(roadmaps.id, roadmapSteps.roadmapId))
+        .where(
+            and(
+                eq(roadmapSteps.id, stepId),
+                eq(roadmaps.userId, userId)
+            )
+        )
+        .limit(1);
+
+    const step = matchingStep[0];
+
+    if (!step) {
+        throw new TRPCError({
+            code: "BAD_REQUEST",
+            message: "Roadmap step not found for this user",
+        });
+    }
+
+    await db
+        .update(roadmapSteps)
+        .set({ status: "completed" })
+        .where(eq(roadmapSteps.id, step.stepId));
+
+    let skill = await db.query.skills.findFirst({
+        where: eq(skills.id, step.skillId),
+    });
+
+    if (!skill) {
+        await db
+            .insert(skills)
+            .values({
+                id: step.skillId,
+                name: `generated-skill-${step.skillId}`,
+                hasNoDependencies: true,
+            })
+            .onConflictDoNothing();
+
+        skill = await db.query.skills.findFirst({
+            where: eq(skills.id, step.skillId),
+        });
+
+        if (!skill) {
+            throw new TRPCError({
+                code: "INTERNAL_SERVER_ERROR",
+                message: "Failed to resolve step skill",
+            });
+        }
+    }
+
+    const currentUserSkill = await db.query.userSkills.findFirst({
+        where: and(
+            eq(userSkills.userId, userId),
+            eq(userSkills.skillId, step.skillId)
+        ),
+    });
+
+    const currentStrength = currentUserSkill
+        ? clamp(Number(currentUserSkill.strengthScore), 0, 100)
+        : 0;
+
+    const newStrength = currentUserSkill
+        ? Math.min(currentStrength + 15, 100)
+        : 15;
+
+    await db
+        .insert(userSkills)
+        .values({
+            userId,
+            skillId: step.skillId,
+            strengthScore: newStrength.toString(),
+        })
+        .onConflictDoUpdate({
+            target: [userSkills.userId, userSkills.skillId],
+            set: {
+                strengthScore: newStrength.toString(),
+            },
+        });
+
+    return {
+        stepId: step.stepId,
+        status: "completed" as const,
+        skillId: step.skillId,
+        skillName: skill.name,
+        previousStrength: currentStrength,
+        newStrength,
+    };
 }
 
 async function generateLearningRoadmapInternal({

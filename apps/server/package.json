@@ -7,6 +7,8 @@
     "check-types": "tsc -b",
     "test:github": "tsx src/scripts/github-logic-test.ts",
     "test:role": "tsx src/scripts/role-based-test.ts",
+    "test:roadmap-progress": "bunx tsx src/scripts/roadmap-progress-test.ts",
+    "test:system": "bunx tsx src/scripts/github-logic-test.ts && bunx tsx src/scripts/manual-skill-merge-test.ts && bunx tsx src/scripts/roadmap-progress-test.ts && bunx tsx src/scripts/test.ts",
     "compile": "bun build --compile --minify --sourcemap --bytecode ./src/index.ts --outfile server",
     "dev": "tsx watch src/index.ts",
     "start": "node dist/index.mjs",

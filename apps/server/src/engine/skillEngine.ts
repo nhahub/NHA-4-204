@@ -1,5 +1,5 @@
 import { TRPCError } from "@trpc/server";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 
 import { db } from "@/db";
 import {
@@ -272,16 +272,31 @@ export async function syncGithubSkillsForUser({
         const matchedSkills = skillsByNormalizedName.get(normalized) ?? [];
 
         for (const skill of matchedSkills) {
+            const githubStrength = Number(strength.toFixed(2));
+
+            const existingUserSkill = await db.query.userSkills.findFirst({
+                where: and(
+                    eq(userSkills.userId, userId),
+                    eq(userSkills.skillId, skill.id)
+                ),
+            });
+
+            const existingStrength = existingUserSkill
+                ? Number(existingUserSkill.strengthScore)
+                : 0;
+
+            const mergedStrength = Math.max(existingStrength, githubStrength);
+
             await db
                 .insert(userSkills)
                 .values({
                     userId,
                     skillId: skill.id,
-                    strengthScore: strength.toFixed(2),
+                    strengthScore: mergedStrength.toFixed(2),
                 })
                 .onConflictDoUpdate({
                     target: [userSkills.userId, userSkills.skillId],
-                    set: { strengthScore: strength.toFixed(2) },
+                    set: { strengthScore: mergedStrength.toFixed(2) },
                 });
         }
     }

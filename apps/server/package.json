@@ -20,20 +20,24 @@
     "better-auth": "catalog:",
     "cors": "^2.8.5",
     "dotenv": "catalog:",
-    "express": "^5.1.0",
-    "zod": "catalog:",
     "drizzle-orm": "^0.45.1",
-    "pg": "^8.17.1"
+    "express": "^5.1.0",
+    "octokit": "^5.0.5",
+    "openai": "^6.34.0",
+    "pdf-parse": "^2.4.5",
+    "pg": "^8.17.1",
+    "zod": "catalog:"
   },
   "devDependencies": {
     "@careergps/config": "workspace:*",
     "@types/cors": "^2.8.17",
     "@types/express": "catalog:",
     "@types/node": "^22.13.14",
+    "@types/pdf-parse": "^1.1.5",
+    "@types/pg": "^8.16.0",
+    "drizzle-kit": "^0.31.8",
     "tsdown": "^0.16.5",
     "tsx": "^4.19.2",
-    "drizzle-kit": "^0.31.8",
-    "@types/pg": "^8.16.0",
     "typescript": "^5"
   }
 }

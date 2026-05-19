@@ -78,8 +78,8 @@ export default function SignUpForm() {
   }
 
   return (
-    <div className="mx-auto mt-10 w-full max-w-md p-6">
-      <Card>
+    <div className="flex justify-center items-center min-h-screen p-6">
+      <Card className="w-full max-w-md">
         <CardHeader>
           <CardTitle className="text-center text-2xl font-bold">
             Create an account
@@ -224,7 +224,7 @@ export default function SignUpForm() {
               </Button>
             )}
           </form.Subscribe>
-          <Button variant="link" render={<Link to="/login" />}>
+          <Button className="w-full" variant="link" render={<Link to="/login" />}>
             Already have an account? Log in
           </Button>
         </CardFooter>

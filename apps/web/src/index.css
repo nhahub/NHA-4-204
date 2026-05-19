@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@import "@fontsource-variable/inter";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -15,7 +16,7 @@
 	--card-foreground: oklch(0.141 0.005 285.823);
 	--popover: var(--surface);
 	--popover-foreground: oklch(0.141 0.005 285.823);
-	--primary: oklch(0.2056 0.0687 261.87);
+	--primary: oklch(0.2921 0.0629 262.05);
 	--primary-foreground: oklch(0.97 0.014 254.604);
 	--secondary: oklch(0.967 0.001 286.375);
 	--secondary-foreground: oklch(0.21 0.006 285.885);
@@ -64,7 +65,7 @@
 	--popover: var(--surface);
 	--popover-foreground: oklch(0.985 0 0);
 	--primary: oklch(0.97 0.014 254.604);
-	--primary-foreground: oklch(0.2056 0.0687 261.87);
+	--primary-foreground: oklch(0.2921 0.0629 262.05);
 	--secondary: oklch(0.274 0.006 286.033);
 	--secondary-foreground: oklch(0.985 0 0);
 	--muted: oklch(0.274 0.006 286.033);

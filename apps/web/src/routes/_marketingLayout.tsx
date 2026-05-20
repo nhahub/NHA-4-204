@@ -3,7 +3,7 @@ import { Outlet } from 'react-router'
 
 function MarketingLayout() {
   return (
-    <div className="container mx-auto max-w-3xl px-4 [--header-height:3.5rem]">
+    <div className="container mx-auto max-w-7xl px-4 [--header-height:3.5rem]">
       <Header/>
       <Outlet/>
     </div>

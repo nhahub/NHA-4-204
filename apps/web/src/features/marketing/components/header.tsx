@@ -5,7 +5,7 @@ import { Link } from 'react-router'
 
 function Header() {
   return (
-    <header className="flex justify-between items-center flex-wrap uppercase h-(--header-height)">
+    <header className="sticky top-0 left-0 bg-background z-50 flex justify-between items-center flex-wrap uppercase h-(--header-height)">
             <Link to="/" className="text-xl font-bold flex justify-center items-center gap-1"><CompassIcon className="size-6" /> CareerGPS</Link>
             <ul className='hidden md:flex justify-center text-xs items-center gap-4'>
               <li><Link to="/#how-it-works">How it works</Link></li>

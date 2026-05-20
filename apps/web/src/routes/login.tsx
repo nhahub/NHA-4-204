@@ -10,7 +10,7 @@ import {
   InputGroupAddon,
   InputGroupInput,
 } from "@/components/ui/input-group";
-import { Mail, Lock, ArrowRight } from "lucide-react";
+import { Mail, ArrowRight } from "lucide-react";
 import {
   Card,
   CardContent,
@@ -125,20 +125,15 @@ export default function LoginForm() {
                   return (
                     <Field data-invalid={isInvalid}>
                       <FieldLabel htmlFor={field.name}>Password</FieldLabel>
-                      <InputGroup variant="secondary">
-                        <InputGroupAddon align="inline-start">
-                          <Lock />
-                        </InputGroupAddon>
-                        <InputGroupInput
-                          id={field.name}
-                          name={field.name}
-                          type="password"
-                          value={field.state.value}
-                          onBlur={field.handleBlur}
-                          onChange={(e) => field.handleChange(e.target.value)}
-                          aria-invalid={isInvalid}
-                        />
-                      </InputGroup>
+                      <PasswordInput
+                        id={field.name}
+                        name={field.name}
+                        variant="secondary"
+                        value={field.state.value}
+                        onBlur={field.handleBlur}
+                        onChange={(e) => field.handleChange(e.target.value)}
+                        aria-invalid={isInvalid}
+                      />
                       {isInvalid && (
                         <FieldError errors={field.state.meta.errors} />
                       )}

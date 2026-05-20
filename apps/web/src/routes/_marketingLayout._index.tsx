@@ -1,3 +1,4 @@
+import HeroSection from "@/features/marketing/components/hero-section";
 import type { Route } from "./+types/_marketingLayout._index";
 
 export function meta({}: Route.MetaArgs) {
@@ -10,6 +11,8 @@ export function meta({}: Route.MetaArgs) {
 export default function Home() {
 
   return (
-    <></>
+    <main>
+      <HeroSection/>
+    </main>
   );
 }

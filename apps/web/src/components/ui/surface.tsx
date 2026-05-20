@@ -2,7 +2,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "@/lib/utils";
 
 export const surfaceVariants = cva(
-	"group/surface p-6 rounded-3xl relative text-foreground",
+	"group/surface p-6 rounded-3xl border border-border relative text-foreground",
 	{
 		variants: {
 			variant: {

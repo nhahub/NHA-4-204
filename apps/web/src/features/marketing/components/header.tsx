@@ -13,7 +13,7 @@ function Header() {
   return (
     <header className="sticky top-0 left-0 bg-background z-50 flex justify-between items-center flex-wrap uppercase h-(--header-height)">
       <Link to="/" className="text-xl font-bold flex justify-center items-center gap-1"><CompassIcon className="size-6" /> CareerGPS</Link>
-      <NavigationMenu>
+      <NavigationMenu className="hidden lg:flex">
         <NavigationMenuList>
           <NavigationMenuItem>
             <NavigationMenuLink render={<Link to="/#how-it-works" />}>
@@ -38,8 +38,8 @@ function Header() {
         </NavigationMenuList>
       </NavigationMenu>
       <div className="flex justify-center items-center gap-2">
-        <ModeToggle/>
-        <UserMenu/>
+        <ModeToggle />
+        <UserMenu />
       </div>
     </header>
   )

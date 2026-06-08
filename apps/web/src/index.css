@@ -5,28 +5,24 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-	/* Primitive Colors (Do not change between light and dark) */
-	--snow: oklch(0.9911 0 0);
-	--eclipse: oklch(0.2103 0.0059 285.89);
-
-	--radius: 0.1rem;
-	--background: oklch(0.9702 0 0);
-	--foreground: oklch(0.141 0.005 285.823);
+	--radius: 0.25rem;
+	--background: oklch(97.02% 0.0000 0.00);
+	--foreground: oklch(21.03% 0.0000 0.00);
 	--card: var(--surface);
-	--card-foreground: oklch(0.141 0.005 285.823);
+	--card-foreground: oklch(21.03% 0.0000 0.00);
 	--popover: var(--surface);
-	--popover-foreground: oklch(0.141 0.005 285.823);
-	--primary: oklch(0.2921 0.0629 262.05);
-	--primary-foreground: oklch(0.97 0.014 254.604);
-	--secondary: oklch(0.967 0.001 286.375);
-	--secondary-foreground: oklch(0.21 0.006 285.885);
-	--muted: oklch(0.94 0.001 286.375);
-	--muted-foreground: oklch(0.552 0.016 285.938);
-	--accent: oklch(0.94 0.001 286.375);
-	--accent-foreground: oklch(0.21 0.006 285.885);
-	--destructive: oklch(0.6532 0.2328 25.74);
-	--destructive-foreground: var(--snow);
-	--border: oklch(87.302% 0.0001 271.152);
+	--popover-foreground: oklch(21.03% 0.0000 0.00);
+	--primary: oklch(0 0 0);
+	--primary-foreground: oklch(99.11% 0 0);
+	--secondary: oklch(95.24% 0.0000 0.00);
+	--secondary-foreground: oklch(21.03% 0.0000 0.00);
+	--muted: oklch(94.00% 0.0000 0.00);
+	--muted-foreground: oklch(55.17% 0.0000 0.00);
+	--accent: oklch(94.00% 0.0000 0.00);
+	--accent-foreground: oklch(21.03% 0.0059 0.00);
+	--destructive: oklch(0.573 0.2249 21.97);
+	--destructive-foreground: oklch(98% 0.0200 21.97);
+	--border: oklch(90.00% 0.0000 0.00);
 	--input: white;
 	--ring: var(--primary);
 	--chart-1: oklch(0.809 0.105 251.813);
@@ -35,46 +31,46 @@
 	--chart-4: oklch(0.488 0.243 264.376);
 	--chart-5: oklch(0.424 0.199 265.638);
 	--sidebar: oklch(0.985 0 0);
-	--sidebar-foreground: oklch(0.141 0.005 285.823);
+	--sidebar-foreground: oklch(21.03% 0.0000 0.00);
 	--sidebar-primary: var(--primary);
 	--sidebar-primary-foreground: var(--primary-foreground);
-	--sidebar-accent: oklch(0.93 0.001 286.375);
-	--sidebar-accent-foreground: oklch(0.21 0.006 285.885);
+	--sidebar-accent: oklch(94.00% 0.0000 0.00);
+	--sidebar-accent-foreground: oklch(21.03% 0.0000 0.00);
 	--sidebar-border: var(--border);
 	--sidebar-ring: var(--foreground);
 
 	/* herocn Colors */
-	--default: oklch(94% 0.001 286.375);
-	--default-foreground: var(--eclipse);
-	--success: oklch(0.7329 0.1935 150.81);
-	--success-foreground: var(--eclipse);
-	--warning: oklch(0.7819 0.1585 72.33);
-	--warning-foreground: var(--eclipse);
+	--default: oklch(94.00% 0.0000 0.00);
+	--default-foreground: oklch(21.03% 0.0059 0.00);
+	--success: oklch(0.6277 0.1604 153.06);
+	--success-foreground: oklch(98% 0.0160 153.06);
+	--warning: oklch(0.8446 0.1525 80.6);
+	--warning-foreground: oklch(15% 0.0457 80.60);
 
 	/* herocn surface */
-	--surface: white;
-	--surface-secondary: oklch(0.9524 0.0013 286.37);
-	--surface-tertiary: oklch(0.9373 0.0013 286.37);
+	--surface: oklch(100.00% 0.0000 0.00);
+	--surface-secondary: oklch(95.24% 0.0000 0.00);
+	--surface-tertiary: oklch(93.73% 0.0000 0.00);
 }
 
 .dark {
-	--background: oklch(0.1228 0.0029 285.97);
-	--foreground: oklch(0.985 0 0);
+	--background: oklch(12.00% 0.0000 0.00);
+	--foreground: oklch(99.11% 0.0000 0.00);
 	--card: var(--surface);
-	--card-foreground: oklch(0.985 0 0);
+	--card-foreground: oklch(99.11% 0.0000 0.00);
 	--popover: var(--surface);
-	--popover-foreground: oklch(0.985 0 0);
-	--primary: oklch(0.97 0.014 254.604);
-	--primary-foreground: oklch(0.2921 0.0629 262.05);
-	--secondary: oklch(0.274 0.006 286.033);
-	--secondary-foreground: oklch(0.985 0 0);
-	--muted: oklch(0.274 0.006 286.033);
-	--muted-foreground: oklch(0.705 0.015 286.067);
-	--accent: oklch(0.274 0.006 286.033);
-	--accent-foreground: oklch(0.985 0 0);
-	--destructive: oklch(0.594 0.1967 24.63);
-	--destructive-foreground: var(--snow);
-	--border: oklch(1 0 0 / 25%);
+	--popover-foreground: oklch(99.11% 0.0000 0.00);
+	--primary: oklch(0.9848 0 0);
+	--primary-foreground: oklch(15% 0.0000 0.00);
+	--secondary: oklch(25.70% 0.0000 0.00);
+	--secondary-foreground: oklch(99.11% 0.0000 0.00);
+	--muted: oklch(27.40% 0.0000 0.00);
+	--muted-foreground: oklch(70.50% 0.0000 0.00);
+	--accent: oklch(27.40% 0.0000 0.00);
+	--accent-foreground: oklch(99.11% 0 0);
+	--destructive: oklch(0.7044 0.1872 23.19);
+	--destructive-foreground: oklch(15% 0.0500 23.19);
+	--border: oklch(28.00% 0.0000 0.00);
 	--input: oklch(0.2103 0.0059 285.89);
 	--ring: var(--primary);
 	--chart-1: oklch(0.809 0.105 251.813);
@@ -82,25 +78,27 @@
 	--chart-3: oklch(0.546 0.245 262.881);
 	--chart-4: oklch(0.488 0.243 264.376);
 	--chart-5: oklch(0.424 0.199 265.638);
-	--sidebar: oklch(0.21 0.006 285.885);
-	--sidebar-foreground: oklch(0.985 0 0);
+	--sidebar: oklch(21.03% 0.0000 0.00);
+	--sidebar-foreground: oklch(99.11% 0.0000 0.00);
 	--sidebar-primary: var(--primary);
 	--sidebar-primary-foreground: var(--primary-foreground);
-	--sidebar-accent: oklch(0.274 0.006 286.033);
-	--sidebar-accent-foreground: oklch(0.985 0 0);
+	--sidebar-accent: oklch(27.40% 0.0000 0.00);
+	--sidebar-accent-foreground: oklch(99.11% 0.0000 0.00);
 	--sidebar-border: var(--border);
 	--sidebar-ring: var(--foreground);
 
 	/* herocn Colors */
-	--default: oklch(27.4% 0.006 286.033);
-	--default-foreground: var(--snow);
-	--warning: oklch(0.8203 0.1388 76.34);
-	--warning-foreground: var(--eclipse);
+	--default: oklch(27.40% 0.0000 0.00);
+	--default-foreground: oklch(99.11% 0 0);
+	--success: oklch(0.6514 0.1321 156.22);
+	--success-foreground: oklch(15% 0.0396 156.22);
+	--warning: oklch(0.8803 0.1348 86.06);
+	--warning-foreground: oklch(15% 0.0404 86.06);
 
 	/* herocn surface */
-	--surface: oklch(0.2103 0.0059 285.89);
-	--surface-secondary: oklch(0.257 0.0037 286.14);
-	--surface-tertiary: oklch(0.2721 0.0024 247.91);
+	--surface: oklch(21.03% 0.0000 0.00);
+	--surface-secondary: oklch(25.70% 0.0000 0.00);
+	--surface-tertiary: oklch(27.21% 0.0000 0.00);
 }
 
 @theme inline {
@@ -163,6 +161,7 @@
 
 	/* herocn animations */
 	--animate-skeleton: skeleton 2s linear infinite;
+
 	@keyframes skeleton {
 		100% {
 			transform: translateX(200%);
@@ -174,9 +173,11 @@
 	* {
 		@apply border-border outline-ring/50;
 	}
+
 	body {
 		@apply font-sans bg-background text-foreground;
 	}
+
 	html {
 		@apply font-sans;
 	}
@@ -205,6 +206,7 @@
 		box-shadow 100ms var(--ease-out);
 	@apply transform-gpu motion-reduce:transition-none active:scale-[0.97] aria-expanded:scale-[0.97];
 }
+
 .skeleton--shimmer {
 	@apply relative overflow-hidden rtl:[--skeleton-animation-dir:reverse];
 }

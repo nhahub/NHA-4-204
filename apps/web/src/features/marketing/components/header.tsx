@@ -1,6 +1,5 @@
 import { ModeToggle } from '@/components/composites/mode-toggle'
 import UserMenu from '@/components/composites/user-menu'
-import { CompassIcon } from 'lucide-react'
 import { Link } from 'react-router'
 import {
   NavigationMenu,
@@ -8,11 +7,12 @@ import {
   NavigationMenuList,
   NavigationMenuLink,
 } from '@/components/ui/navigation-menu'
+import Logo from '@/components/ui/logo'
 
 function Header() {
   return (
     <header className="sticky top-0 left-0 bg-background z-50 flex justify-between items-center flex-wrap uppercase h-(--header-height)">
-      <Link to="/" className="text-xl font-bold flex justify-center items-center gap-1"><CompassIcon className="size-6" /> CareerGPS</Link>
+      <Link to="/"><Logo /></Link>
       <NavigationMenu className="hidden lg:flex">
         <NavigationMenuList>
           <NavigationMenuItem>

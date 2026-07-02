@@ -45,21 +45,4 @@ export const authRouter = router({
             return createdUser;
         }),
 
-    updateRole: protectedProcedure
-        .input(z.object({ roleId: z.string().uuid() }))
-        .mutation(async ({ ctx, input }) => {
-            const updated = await db
-                .update(user)
-                .set({ roleId: input.roleId })
-                .where(eq(user.id, ctx.session.user.id))
-                .returning();
-            
-            if (!updated[0]) {
-                throw new TRPCError({
-                    code: "INTERNAL_SERVER_ERROR",
-                    message: "Failed to update user role",
-                });
-            }
-            return updated[0];
-        }),
 });

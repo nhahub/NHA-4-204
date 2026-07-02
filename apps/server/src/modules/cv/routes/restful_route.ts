@@ -26,12 +26,11 @@ async function requireAuth(req: express.Request, res: express.Response, next: ex
   }
 }
 
-router.post("/parse", requireAuth, upload.array("file"), async (req, res) => {
+router.post("/parse", requireAuth, upload.single("file"), async (req, res) => {
 
-  const files = req.files as Express.Multer.File[];
-  if (!files || files.length === 0) return res.status(400).json({ error: "No file uploaded" });
-  if (files.length > 1) return res.status(400).json({ error: "Only upload 1 file" });
-  const file = files[0];
+  const file = req.file as Express.Multer.File;
+  if (!file) return res.status(400).json({ error: "No file uploaded" });
+  
 
   const header = file.buffer.subarray(0, 5).toString("ascii");
 

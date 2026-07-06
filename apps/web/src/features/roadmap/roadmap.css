@@ -1,0 +1,359 @@
+/* ── Theming Variables ───────────────────────────────────────────────────────── */
+.roadmap-page {
+  /* LIGHT MODE (Default) */
+  --rm-bg: #ffffff;
+  --rm-panel: #fafafa;
+  --rm-border: #e4e4e7;
+  --rm-text: #09090b;
+  --rm-muted: #71717a;
+  --rm-card: #ffffff;
+  --rm-card-hover: #e4e4e7;
+  --rm-btn-bg: #09090b;
+  --rm-btn-text: #ffffff;
+  --rm-btn-hover: #27272a;
+  --rm-check: #10b981;
+  
+  /* Canvas Nodes - Light */
+  --node-comp-bg: #ffffff;
+  --node-comp-border: #10b981;
+  --node-text: #000000;
+  --node-prog-bg: #ffffff;
+  --node-prog-border: #3b82f6;
+  --node-lock-bg: #f9fafb;
+  --node-lock-border: #e5e7eb;
+  --node-lock-text: #9ca3af;
+  --node-grid: #e5e7eb;
+  --node-path: #10b981;
+  --node-path-locked: #e5e7eb;
+}
+
+/* DARK MODE (Original Uber-inspired style) */
+.dark .roadmap-page,
+[data-theme="dark"] .roadmap-page {
+  --rm-bg: #000000;
+  --rm-panel: #0a0a0a;
+  --rm-border: #1f2937;
+  --rm-text: #ffffff;
+  --rm-muted: #9ca3af;
+  --rm-card: #111111;
+  --rm-card-hover: #374151;
+  --rm-btn-bg: #ffffff;
+  --rm-btn-text: #000000;
+  --rm-btn-hover: #f3f4f6;
+  --rm-check: #ffffff;
+
+  /* Canvas Nodes - Dark */
+  --node-comp-bg: #1a1a1a;
+  --node-comp-border: #ffffff;
+  --node-text: #ffffff;
+  --node-prog-bg: #000000;
+  --node-prog-border: #ffffff;
+  --node-lock-bg: #111111;
+  --node-lock-border: #374151;
+  --node-lock-text: #6b7280;
+  --node-grid: #374151;
+  --node-path: #ffffff;
+  --node-path-locked: #374151;
+}
+
+/* ── Page shell ──────────────────────────────────────────────────────────────── */
+.roadmap-page {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: var(--rm-bg);
+  color: var(--rm-text);
+  font-family: 'Inter', system-ui, sans-serif;
+}
+.roadmap-page__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 28px 16px;
+  border-bottom: 1px solid var(--rm-border);
+  flex-shrink: 0;
+}
+.roadmap-page__title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--rm-text);
+  margin: 0;
+}
+.roadmap-page__subtitle {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--rm-muted);
+  margin: 3px 0 0;
+}
+.roadmap-page__track-badge {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--rm-muted);
+}
+/* ── Two-column body ─────────────────────────────────────────────────────────── */
+.roadmap-page__body {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  min-height: 0;
+}
+.roadmap-page__canvas-col {
+  flex: 1;
+  overflow: auto;
+  border-right: 1px solid var(--rm-border);
+  min-width: 0;
+}
+.roadmap-page__details-col {
+  width: 300px;
+  flex-shrink: 0;
+  overflow-y: auto;
+  background: var(--rm-panel);
+}
+/* ── Canvas scroll container ─────────────────────────────────────────────────── */
+.roadmap-canvas-scroll {
+  padding: 24px 16px;
+  min-height: 100%;
+}
+/* ── Details panel ───────────────────────────────────────────────────────────── */
+.roadmap-details {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 20px 20px 28px;
+  min-height: 100%;
+}
+.roadmap-details__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--rm-text);
+  margin: 0 0 6px;
+}
+.roadmap-details__desc {
+  font-size: 13px;
+  color: var(--rm-muted);
+  line-height: 1.5;
+  margin: 0;
+}
+.roadmap-details__sep {
+  background: var(--rm-border) !important;
+  margin: 0;
+}
+/* ── Stats row ───────────────────────────────────────────────────────────────── */
+.roadmap-details__stats {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Fits 2 cards perfectly */
+  gap: 8px;
+}
+.roadmap-details__stat-card {
+  background: var(--rm-card) !important;
+  border-color: var(--rm-border) !important;
+  border-radius: 6px !important;
+}
+.roadmap-details__stat-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 5px;
+  padding: 10px 6px !important;
+}
+.roadmap-details__stat-label {
+  font-size: 9px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--rm-muted);
+}
+.roadmap-details__stat-badge { font-size: 11px !important; }
+.roadmap-details__stat-value {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--rm-text);
+}
+/* ── Learn card ──────────────────────────────────────────────────────────────── */
+.roadmap-details__learn-card,
+.roadmap-details__playlist-card {
+  background: var(--rm-card) !important;
+  border-color: var(--rm-border) !important;
+  border-radius: 8px !important;
+}
+.roadmap-details__learn-header { padding-bottom: 8px !important; }
+.roadmap-details__section-label {
+  font-size: 10px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.1em !important;
+  color: var(--rm-muted) !important;
+  text-transform: uppercase;
+}
+.roadmap-details__learn-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.roadmap-details__learn-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--rm-text);
+  line-height: 1.4;
+}
+.roadmap-details__check {
+  color: var(--rm-check);
+  font-weight: 700;
+  font-size: 12px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+/* ── Playlist ────────────────────────────────────────────────────────────────── */
+.roadmap-details__playlist-thumb {
+  width: 100%;
+  height: 140px; /* Taller height for video thumbnails */
+  background: var(--rm-border);
+  border-radius: 6px;
+  display: block; 
+  position: relative; 
+  margin-bottom: 10px;
+  cursor: pointer;
+  overflow: hidden; 
+  text-decoration: none; 
+}
+
+.roadmap-details__playlist-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Dark overlay to make the play button pop */
+.roadmap-details__play-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s ease-in-out;
+}
+
+/* Darkens the image slightly when the user hovers over it */
+.roadmap-details__playlist-thumb:hover .roadmap-details__play-overlay { 
+  background: rgba(0, 0, 0, 0.5); 
+}
+
+.roadmap-details__play-icon {
+  font-size: 32px; 
+  color: #ffffff; /* Always white */
+  opacity: 0.9;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6); /* Drop shadow for visibility */
+}
+
+.roadmap-details__playlist-title {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--rm-text);
+  margin: 0 0 3px;
+}
+
+.roadmap-details__playlist-meta {
+  font-size: 11px;
+  color: var(--rm-muted);
+  margin: 0;
+}
+/* ── CTA buttons ─────────────────────────────────────────────────────────────── */
+.roadmap-details__cta {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.roadmap-details__btn {
+  width: 100% !important;
+  font-size: 13px !important;
+  font-weight: 600 !important;
+  height: 42px !important;
+}
+.roadmap-details__btn--primary {
+  background: var(--rm-btn-bg) !important;
+  color: var(--rm-btn-text) !important;
+  border-color: var(--rm-btn-bg) !important;
+}
+.roadmap-details__btn--primary:hover {
+  background: var(--rm-btn-hover) !important;
+}
+/* Hide the close button on desktop */
+.roadmap-details__close-btn {
+  display: none; 
+}
+/* ── Mobile Responsiveness ───────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .roadmap-page__body {
+    flex-direction: row; /* Keep row so they sit side by side logically */
+    position: relative;
+    overflow: hidden; /* Stop horizontal scrolling */
+  }
+
+  .roadmap-page__canvas-col {
+    border-right: none;
+    width: 100%;
+    height: 100%;
+  }
+
+  /* Turn details panel into a sliding drawer */
+  .roadmap-page__details-col {
+    position: fixed;
+    top: 0;
+    right: -100%; /* Hide it off-screen by default */
+    width: 85%;
+    max-width: 380px;
+    height: 100%;
+    z-index: 100;
+    box-shadow: -4px 0 24px rgba(0, 0, 0, 0.15);
+    transition: right 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* When a user taps a node, this class forces it to slide in */
+  .roadmap-page__details-col.is-open {
+    right: 0;
+  }
+
+  /* The dark overlay behind the drawer */
+  .roadmap-page__backdrop {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(2px);
+    z-index: 90;
+    animation: fadeIn 0.3s ease;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* Show and style the close button for mobile */
+  .roadmap-details__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+  }
+  .roadmap-details__close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    border: none;
+    background: var(--rm-border);
+    color: var(--rm-text);
+    font-size: 16px;
+    cursor: pointer;
+  }
+}

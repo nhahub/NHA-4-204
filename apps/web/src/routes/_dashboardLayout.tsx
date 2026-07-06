@@ -19,7 +19,7 @@ export default function ProtectedLayout() {
     return <Loader />;
   }
 
-  if (!session) {
+ if (!session) {
     return null;
   }
 

@@ -11,7 +11,7 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
-import { CompassIcon, FileTextIcon, UserRoundIcon } from "lucide-react"
+import { CompassIcon, FileTextIcon, TargetIcon, UserRoundIcon } from "lucide-react"
 import { authClient } from "@/lib/auth-client"
 import { Skeleton } from "@/components/ui/skeleton"
 import { Link, useLocation } from "react-router"
@@ -48,6 +48,12 @@ export function DashboardSidebar({ ...props }: React.ComponentProps<typeof Sideb
             <SidebarMenuButton isActive={location.pathname === "/ats"} render={<Link to="/ats" />}>
               <FileTextIcon className="size-4" />
               <span>ATS Scanner</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+          <SidebarMenuItem>
+            <SidebarMenuButton isActive={location.pathname === "/score-matching"} render={<Link to="/score-matching" />}>
+              <TargetIcon className="size-4" />
+              <span>Skill Matching</span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>

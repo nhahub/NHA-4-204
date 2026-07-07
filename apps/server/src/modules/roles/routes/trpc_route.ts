@@ -4,6 +4,7 @@ import { db } from "@/db";
 import { roles, roleSkills, skills, user } from "@/db/schema";
 import { eq, sql } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
+import { evaluateUserForRoleName } from "../service";
 
 export const rolesRouter = router({
     create: protectedProcedure
@@ -106,10 +107,27 @@ export const rolesRouter = router({
         }),
 
     getAllRoles: protectedProcedure
-        .query(async () => {
-            return db.query.roles.findMany({
+        .input(z.object({ includeScore:z.boolean()}))
+        .query(async ({ ctx , input }) => {
+            const rolesData =await db.query.roles.findMany({
                 orderBy: (roles, { asc }) => [asc(roles.title)],
             });
+
+            if(!input.includeScore) return rolesData; 
+
+            const userId = ctx.session.user.id;
+            const RolesScore = await Promise.all(rolesData.map(async (role)=>{
+               const evaluation = await evaluateUserForRoleName({
+                    userId: userId ,
+                    roleName: role.title,
+                });
+                return{
+                    ...role,
+                    "score":evaluation.finalScore
+                }
+            }));
+            
+            return RolesScore;
         }),
 
     setUserRole: protectedProcedure

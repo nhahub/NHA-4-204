@@ -51,8 +51,7 @@ export async function evaluateUserForRole({
 }
 
 export async function evaluateUserForRoleName({
-    userId,
-    roleName,
+    userId, roleName,
 }: {
     userId: string;
     roleName: string;

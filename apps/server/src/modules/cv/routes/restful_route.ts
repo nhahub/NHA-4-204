@@ -5,7 +5,7 @@ import { auth } from "@/shared/auth/auth";
 import { fromNodeHeaders } from "better-auth/node";
 import { uploadToCloudinary, deleteFromCloudinary } from "@/shared/storage/cloudinary";
 import { responseBodySchema } from '../parsedCv_schema';
-import { eq } from "drizzle-orm"
+import { eq, name } from "drizzle-orm"
 import { db } from "@/db";
 import { cv } from "@/db/schema";
 import { randomUUID, type UUID } from "crypto";
@@ -97,7 +97,6 @@ router.post("/parse", requireAuth, upload.single("file"), async (req, res) => {
     if (status === "completed") {
       const { parsedData } = cvData;
       const {technical} = parsedData.skills ;
-
       await db
         .update(cv)
         .set({ parsedData: parsedData ?? null, status: "completed" })
@@ -106,7 +105,10 @@ router.post("/parse", requireAuth, upload.single("file"), async (req, res) => {
       return res.status(200).json({
         cvId: id,
         status,
-        "skills" :technical ,
+        "skills" :technical.map((skill)=>({
+          "skillName":skill.name ,
+          "level":(!skill.level)? "beginner":"intermediate",
+        })) ,
       });
 
     } else if (status === "failed") {

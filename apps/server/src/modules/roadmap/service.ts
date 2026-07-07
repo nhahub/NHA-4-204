@@ -7,7 +7,6 @@ import {
     roles,
     roleSkills,
     userSkills,
-    readinessReports,
     skillGapResults,
     roadmaps,
     roadmapNodes,

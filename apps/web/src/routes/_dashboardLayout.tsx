@@ -1,27 +1,27 @@
-// import { authClient } from "@/lib/auth-client";
-// import { useEffect } from "react";
-import { Outlet } from "react-router";
-// import Loader from "@/components/composites/loader";
+import { authClient } from "@/lib/auth-client";
+import { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router";
+import Loader from "@/components/composites/loader";
 import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/components/ui/sidebar";
 import { DashboardSidebar } from "@/features/dashboard/components/sidebar";
 
 export default function ProtectedLayout() {
-  // const navigate = useNavigate();
-  // const { data: session, isPending } = authClient.useSession();
+  const navigate = useNavigate();
+  const { data: session, isPending } = authClient.useSession();
 
-  // useEffect(() => {
-  //   if (!isPending && !session) {
-  //     navigate("/login", { replace: true });
-  //   }
-  // }, [session, isPending, navigate]);
+  useEffect(() => {
+    if (!isPending && !session) {
+      navigate("/login", { replace: true });
+    }
+  }, [session, isPending, navigate]);
 
-  // if (isPending) {
-  //   return <Loader />;
-  // }
+  if (isPending) {
+    return <Loader />;
+  }
 
-  // if (!session) {
-  //   return null;
-  // }
+  if (!session) {
+    return null;
+  }
 
   return  <SidebarProvider>
       <DashboardSidebar />

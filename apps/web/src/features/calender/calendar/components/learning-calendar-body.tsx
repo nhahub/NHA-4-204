@@ -1,6 +1,6 @@
 "use client";
 
-import { getDay, getDaysInMonth } from "date-fns";
+import { getDay, getDaysInMonth, isPast, startOfDay } from "date-fns";
 import { useMemo } from "react";
 import { ClockIcon, PencilIcon } from "lucide-react";
 import {
@@ -26,6 +26,7 @@ export function LearningCalendarBody({
 }: LearningCalendarBodyProps) {
   const [month] = useCalendarMonth();
   const [year] = useCalendarYear();
+  const today = startOfDay(new Date());
 
   const currentMonthDate = useMemo(
     () => new Date(year, month, 1),
@@ -117,13 +118,49 @@ export function LearningCalendarBody({
       {dayNodes.map((node, index) => {
         const isSelected = node.type === "current" && daysSet.has(node.day);
         const studyDay = isSelected ? daysSet.get(node.day) : undefined;
+        const isPastDay =
+          node.type === "current" &&
+          isPast(startOfDay(new Date(year, month, node.day)));
+
+        if (isPastDay) {
+          return (
+            <div
+              key={node.day}
+              className="relative aspect-square overflow-hidden border-t border-e bg-secondary p-1"
+              style={{
+                borderInlineEnd: index % 7 === 6 ? "none" : undefined,
+              }}
+            >
+              <div className="flex items-start justify-between">
+                <span className="text-xs leading-none text-muted-foreground">
+                  {node.day}
+                </span>
+                {isSelected && (
+                  <span className="mt-0.5 block h-1.5 w-1.5 rounded-full bg-blue-500" />
+                )}
+              </div>
+              {studyDay && studyDay.timeSlots.length > 0 && (
+                <div className="mt-1 flex items-center gap-1 text-[10px] text-muted-foreground leading-tight">
+                  <ClockIcon className="size-2.5 shrink-0" />
+                  <span>
+                    {studyDay.timeSlots.length === 1
+                      ? `${studyDay.timeSlots[0].start}-${studyDay.timeSlots[0].end}`
+                      : `${studyDay.timeSlots.length} slots`}
+                  </span>
+                </div>
+              )}
+            </div>
+          );
+        }
 
         if (node.type !== "current") {
           return (
             <div
               key={`${node.type}-${index}`}
               className="relative aspect-square overflow-hidden border-t border-e bg-secondary p-1 text-muted-foreground text-xs"
-              style={{ borderInlineEnd: index % 7 === 6 ? "none" : undefined }}
+              style={{
+                borderInlineEnd: index % 7 === 6 ? "none" : undefined,
+              }}
             >
               {node.day}
             </div>
@@ -138,7 +175,9 @@ export function LearningCalendarBody({
               isSelected && "bg-blue-50 dark:bg-blue-950/40",
               !isSelected && "hover:bg-muted"
             )}
-            style={{ borderInlineEnd: index % 7 === 6 ? "none" : undefined }}
+            style={{
+              borderInlineEnd: index % 7 === 6 ? "none" : undefined,
+            }}
             onClick={() => onDayClick(node.day)}
           >
             <div className="flex items-start justify-between">

@@ -1,7 +1,7 @@
 "use client";
 
 import { Trash2Icon, BellIcon, BellOffIcon } from "lucide-react";
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import {
   CalendarProvider,
   CalendarDate,
@@ -15,6 +15,13 @@ import {
 } from "@/components/kibo-ui/calendar";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/dialog";
 import {
   useCurrentMonthDays,
   useToggleDay,
@@ -51,12 +58,15 @@ function CalendarInner({
   const clearMonth = useClearMonth();
 
   const [editorDay, setEditorDay] = useState<StudyDayData | null>(null);
+  const [confirmDeleteDay, setConfirmDeleteDay] = useState<StudyDayData | null>(null);
+  const [showNotifPrompt, setShowNotifPrompt] = useState(false);
   const [notificationsOn, setNotificationsOn] = useState(false);
   const { requestPermission, isSupported, permission } =
     useStudyNotifications(notificationsOn);
 
   const handleDayClick = (day: number) => {
-    toggleDay(month, year, day);
+    const existing = days.find((d) => d.day === day);
+    setEditorDay(existing ?? { year, month, day, timeSlots: [] });
   };
 
   const handleEditSlots = (day: number) => {
@@ -68,8 +78,54 @@ function CalendarInner({
 
   const handleSaveSlots = (timeSlots: StudyDayData["timeSlots"]) => {
     if (!editorDay) return;
+    const exists = days.some((d) => d.day === editorDay.day);
+
+    if (exists && timeSlots.length === 0) {
+      setConfirmDeleteDay(editorDay);
+      setEditorDay(null);
+      return;
+    }
+
+    if (!exists) {
+      toggleDay(month, year, editorDay.day);
+    }
     updateTimeSlots(month, year, editorDay.day, timeSlots);
+    setEditorDay(null);
+    setShowNotifPrompt(true);
   };
+
+  const handleConfirmDelete = (confirmed: boolean) => {
+    if (confirmed && confirmDeleteDay) {
+      toggleDay(month, year, confirmDeleteDay.day);
+    }
+    setConfirmDeleteDay(null);
+  };
+
+  const handleNotifResponse = useCallback(
+    (enable: boolean) => {
+      if (!enable) {
+        setShowNotifPrompt(false);
+        return;
+      }
+      if (!isSupported) {
+        setShowNotifPrompt(false);
+        return;
+      }
+      if (permission === "denied") {
+        setShowNotifPrompt(false);
+        return;
+      }
+      const doEnable = async () => {
+        if (permission === "default") {
+          await requestPermission();
+        }
+        setNotificationsOn(true);
+        setShowNotifPrompt(false);
+      };
+      doEnable();
+    },
+    [isSupported, permission, requestPermission]
+  );
 
   const handleRemoveDay = (day: number) => {
     toggleDay(month, year, day);
@@ -171,6 +227,54 @@ function CalendarInner({
           onSave={handleSaveSlots}
         />
       )}
+
+      <Dialog
+        open={showNotifPrompt}
+        onOpenChange={(open) => {
+          if (!open) setShowNotifPrompt(false);
+        }}
+      >
+        <DialogContent className="sm:max-w-sm" role="alertdialog">
+          <DialogHeader>
+            <DialogTitle>Enable Study Reminders?</DialogTitle>
+          </DialogHeader>
+          <p className="text-muted-foreground text-sm">
+            Would you like to receive notifications for your study sessions?
+          </p>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => handleNotifResponse(false)}>
+              No
+            </Button>
+            <Button onClick={() => handleNotifResponse(true)}>
+              Yes
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={!!confirmDeleteDay}
+        onOpenChange={(open) => {
+          if (!open) setConfirmDeleteDay(null);
+        }}
+      >
+        <DialogContent className="sm:max-w-sm" role="alertdialog">
+          <DialogHeader>
+            <DialogTitle>Delete Study Day?</DialogTitle>
+          </DialogHeader>
+          <p className="text-muted-foreground text-sm">
+            You're deleting this study day. Are you sure?
+          </p>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => handleConfirmDelete(false)}>
+              No
+            </Button>
+            <Button variant="destructive" onClick={() => handleConfirmDelete(true)}>
+              Yes
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </>
   );
 }

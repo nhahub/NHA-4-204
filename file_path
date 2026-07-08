@@ -1,0 +1,1550 @@
+[
+  {
+    "skillId": "9f4e9a22-931e-4f6b-8767-8ea9486ef1b2",
+    "skillName": "Python",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Python Syntax & Variables",
+        "description": "Learn Python's basic syntax, variables, data types, and operators, and write simple scripts that take input and print output."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Data Structures: Lists, Tuples, Dicts & Sets",
+        "description": "Practice creating and manipulating Python's core collection types and understand when to use each one."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Functions & Modules",
+        "description": "Write reusable functions with parameters and return values, and organize code into modules and packages."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Object-Oriented Programming in Python",
+        "description": "Learn classes, objects, inheritance, and magic methods to model real-world entities in code."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Error Handling & File I/O",
+        "description": "Use try/except blocks for robust error handling and read/write files using Python's built-in file operations."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Virtual Environments & Pip",
+        "description": "Set up isolated environments with venv and manage third-party packages using pip and requirements files."
+      }
+    ]
+  },
+  {
+    "skillId": "908cba0a-dc51-4e8c-af37-a34dac3584ec",
+    "skillName": "Java",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Java Syntax & JVM Basics",
+        "description": "Understand Java's syntax, compilation process, and how the JVM executes bytecode."
+      },
+      {
+        "orderIndex": 1,
+        "title": "OOP Principles in Java",
+        "description": "Practice classes, interfaces, inheritance, and polymorphism to build well-structured Java programs."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Collections Framework",
+        "description": "Learn List, Set, Map implementations and when to choose each collection type."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Exception Handling & Generics",
+        "description": "Write robust code using checked/unchecked exceptions and type-safe generic classes and methods."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Multithreading & Concurrency Basics",
+        "description": "Understand threads, synchronization, and the basics of concurrent execution in Java."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Build Tools: Maven & Gradle",
+        "description": "Configure a Java project with Maven or Gradle, manage dependencies, and package an application."
+      }
+    ]
+  },
+  {
+    "skillId": "bfe45812-ff9f-400a-976b-67cf0a719edf",
+    "skillName": "Go",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Go Syntax & Tooling",
+        "description": "Learn Go's syntax, the go toolchain, and how to build and run simple programs."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Structs, Interfaces & Methods",
+        "description": "Model data with structs and define behavior with interfaces and methods."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Goroutines & Channels",
+        "description": "Understand Go's concurrency model using goroutines and channels for safe parallel execution."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Error Handling Patterns",
+        "description": "Learn idiomatic Go error handling, including wrapping errors and custom error types."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Go Modules & Package Management",
+        "description": "Manage dependencies with go.mod, versioning, and organizing multi-package projects."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Building HTTP Servers with net/http",
+        "description": "Build a basic REST endpoint using Go's standard net/http package."
+      }
+    ]
+  },
+  {
+    "skillId": "a7a2e988-7a3a-4c46-a50a-5cef9e477a5d",
+    "skillName": "C#",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "C# Syntax & .NET Basics",
+        "description": "Learn C# syntax and how the .NET runtime compiles and executes programs."
+      },
+      {
+        "orderIndex": 1,
+        "title": "OOP in C#",
+        "description": "Practice classes, interfaces, inheritance, and access modifiers in C#."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Collections & LINQ",
+        "description": "Use built-in collections and LINQ to query and transform data expressively."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Async/Await & Tasks",
+        "description": "Understand asynchronous programming in C# using async/await and the Task Parallel Library."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Exceptions, Delegates & Events",
+        "description": "Handle errors with try/catch and implement callback patterns using delegates and events."
+      },
+      {
+        "orderIndex": 5,
+        "title": "NuGet & Project Structure",
+        "description": "Manage packages with NuGet and structure a typical .NET solution and project."
+      }
+    ]
+  },
+  {
+    "skillId": "e0583931-5574-45e5-b2a7-03af2da4dd81",
+    "skillName": "PHP",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "PHP Syntax & Basics",
+        "description": "Learn PHP's syntax, variables, control structures, and embedding PHP in HTML."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Arrays, Functions & Superglobals",
+        "description": "Work with arrays and functions, and use superglobals like $_GET, $_POST, and $_SESSION."
+      },
+      {
+        "orderIndex": 2,
+        "title": "OOP in PHP",
+        "description": "Build classes, use inheritance and interfaces, and apply OOP principles in PHP."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Composer & Autoloading",
+        "description": "Manage dependencies with Composer and understand PSR-4 autoloading."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Sessions, Cookies & Forms",
+        "description": "Handle user sessions, cookies, and form submissions securely."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Connecting to Databases with PDO",
+        "description": "Use PDO to connect PHP applications to a relational database and run parameterized queries."
+      }
+    ]
+  },
+  {
+    "skillId": "8b1691e5-799a-43e8-8480-c397327a3905",
+    "skillName": "Fastify",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Fastify Basics & Setup",
+        "description": "Set up a Fastify project and understand its performance-focused design philosophy."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Routing & Request/Reply Lifecycle",
+        "description": "Define routes and understand the request/reply lifecycle in Fastify."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Schema Validation & Serialization",
+        "description": "Use JSON Schema to validate input and speed up output serialization."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Plugins & Encapsulation",
+        "description": "Build reusable Fastify plugins and understand encapsulation contexts."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Hooks & Middleware",
+        "description": "Use lifecycle hooks to run logic at various stages of the request/response cycle."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Error Handling & Logging",
+        "description": "Implement centralized error handling and configure Fastify's built-in logger."
+      }
+    ]
+  },
+  {
+    "skillId": "c5563552-4032-4ffb-86ad-9030ef40a608",
+    "skillName": "FastAPI",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "FastAPI Basics & Setup",
+        "description": "Set up a FastAPI project and create your first endpoint."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Path/Query Params & Pydantic Models",
+        "description": "Define request data using path/query parameters and Pydantic models for validation."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Dependency Injection",
+        "description": "Use FastAPI's dependency injection system to share logic like DB sessions across routes."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Async Endpoints & Background Tasks",
+        "description": "Write async route handlers and offload work using background tasks."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Authentication & Middleware",
+        "description": "Add authentication schemes and custom middleware to a FastAPI app."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Auto Docs & Testing",
+        "description": "Explore FastAPI's automatic Swagger/OpenAPI docs and write tests with TestClient."
+      }
+    ]
+  },
+  {
+    "skillId": "463f2ad7-5b57-4ca7-880f-1265c89b6da6",
+    "skillName": "Django",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Django Project & App Structure",
+        "description": "Create a Django project, understand app structure, and the request/response cycle."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Models & ORM Basics",
+        "description": "Define models and use Django's ORM to query and manipulate data."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Views, URLs & Templates",
+        "description": "Wire up URL routes to views and render dynamic templates."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Django Admin & Forms",
+        "description": "Use the built-in admin site and Django forms for data entry and validation."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Authentication & Permissions",
+        "description": "Implement user authentication, authorization, and permission checks."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Django REST Framework Basics",
+        "description": "Build a simple REST API using Django REST Framework serializers and viewsets."
+      }
+    ]
+  },
+  {
+    "skillId": "bd27e599-cf2b-4c3c-aa59-d760830dfe8c",
+    "skillName": "Flask",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Flask Basics & Routing",
+        "description": "Set up a Flask app and define routes with different HTTP methods."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Templates with Jinja2",
+        "description": "Render dynamic HTML pages using the Jinja2 templating engine."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Request Handling & Forms",
+        "description": "Process form data and request objects in Flask."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Flask Extensions",
+        "description": "Integrate common extensions like Flask-SQLAlchemy and Flask-Login."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Blueprints & App Structure",
+        "description": "Organize a larger Flask app into blueprints for modularity."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Error Handling & Testing",
+        "description": "Add custom error handlers and write basic tests for Flask routes."
+      }
+    ]
+  },
+  {
+    "skillId": "ef3865d2-9599-4be1-91f6-cc38e53deb2b",
+    "skillName": "Spring Boot",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Spring Boot Basics & Setup",
+        "description": "Bootstrap a Spring Boot application and understand auto-configuration."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Dependency Injection & Beans",
+        "description": "Use Spring's IoC container to define and inject beans."
+      },
+      {
+        "orderIndex": 2,
+        "title": "REST Controllers & Request Mapping",
+        "description": "Build REST endpoints using @RestController and request mapping annotations."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Spring Data JPA",
+        "description": "Persist data using Spring Data JPA repositories and entity mappings."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Configuration & Profiles",
+        "description": "Manage application configuration with properties files and environment profiles."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Spring Security Basics",
+        "description": "Add basic authentication and authorization using Spring Security."
+      }
+    ]
+  },
+  {
+    "skillId": "3c60c3c4-d27c-4639-a3aa-ef94a440c683",
+    "skillName": "Laravel",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Laravel Basics & Installation",
+        "description": "Install Laravel and understand its MVC folder structure."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Routing & Controllers",
+        "description": "Define routes and controllers to handle incoming HTTP requests."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Eloquent ORM",
+        "description": "Model database tables and relationships using Laravel's Eloquent ORM."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Blade Templates",
+        "description": "Build dynamic views using Laravel's Blade templating engine."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Middleware & Validation",
+        "description": "Apply middleware for request filtering and validate incoming data."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Artisan CLI & Migrations",
+        "description": "Use the Artisan command line tool and write database migrations."
+      }
+    ]
+  },
+  {
+    "skillId": "021134bc-3e09-47ec-90e9-24fd49c86671",
+    "skillName": "ASP.NET Core",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "ASP.NET Core Basics & Setup",
+        "description": "Create a new ASP.NET Core project and understand its startup configuration."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Controllers & Routing",
+        "description": "Build API controllers and define attribute-based routing."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Middleware Pipeline",
+        "description": "Understand and customize the ASP.NET Core middleware request pipeline."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Entity Framework Core Basics",
+        "description": "Model data and query a database using Entity Framework Core."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Dependency Injection",
+        "description": "Use the built-in DI container to register and consume services."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Authentication & Authorization",
+        "description": "Secure endpoints using ASP.NET Core's identity and authorization policies."
+      }
+    ]
+  },
+  {
+    "skillId": "1640adcc-1f04-4605-ba43-304fd2ed4fb8",
+    "skillName": "MySQL",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "MySQL Basics & Data Types",
+        "description": "Learn MySQL's data types and how to create and structure tables."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Writing Queries: SELECT, WHERE, JOIN",
+        "description": "Practice filtering, sorting, and joining data across multiple tables."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Indexes & Query Optimization",
+        "description": "Understand how indexes work and use EXPLAIN to optimize slow queries."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Transactions & ACID",
+        "description": "Learn transaction control and how MySQL ensures ACID properties."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Stored Procedures & Triggers",
+        "description": "Write stored procedures and triggers to encapsulate database logic."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Backup, Replication & User Management",
+        "description": "Understand basic backup strategies, replication setup, and managing MySQL users/permissions."
+      }
+    ]
+  },
+  {
+    "skillId": "6d549ae6-43fe-4002-9493-1d93cce9f9d2",
+    "skillName": "SQLite",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "SQLite Basics & Use Cases",
+        "description": "Understand when SQLite is appropriate and how it differs from client-server databases."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Creating Tables & Data Types",
+        "description": "Create tables and learn SQLite's flexible type system."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Queries & Joins in SQLite",
+        "description": "Write SELECT queries and joins against a SQLite database."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Transactions in SQLite",
+        "description": "Use transactions to ensure data consistency in SQLite."
+      },
+      {
+        "orderIndex": 4,
+        "title": "SQLite in Application Code",
+        "description": "Embed SQLite in an application using a language driver or ORM."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Limitations & Migration Strategies",
+        "description": "Understand SQLite's concurrency limits and how to migrate to a server-based DB when needed."
+      }
+    ]
+  },
+  {
+    "skillId": "f1a3d367-78bb-4d82-8fd7-4f05b5f8ca81",
+    "skillName": "OAuth",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "OAuth 2.0 Concepts & Roles",
+        "description": "Learn the roles in OAuth 2.0: resource owner, client, authorization server, and resource server."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Authorization Code Flow",
+        "description": "Walk through the authorization code grant flow step by step."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Access & Refresh Tokens",
+        "description": "Understand the purpose and lifecycle of access tokens versus refresh tokens."
+      },
+      {
+        "orderIndex": 3,
+        "title": "OAuth Grant Types",
+        "description": "Compare grant types like client credentials, implicit (legacy), and PKCE."
+      },
+      {
+        "orderIndex": 4,
+        "title": "OpenID Connect Basics",
+        "description": "Learn how OpenID Connect extends OAuth 2.0 for authentication."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Implementing OAuth in an API",
+        "description": "Integrate an OAuth provider to protect an API with token-based access."
+      }
+    ]
+  },
+  {
+    "skillId": "a7a2b3f9-7ba6-4944-b7a3-5da754b785cf",
+    "skillName": "JavaScript",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "JS Syntax & Variables",
+        "description": "Learn JavaScript's syntax, variable scoping (var/let/const), and data types."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Functions & Closures",
+        "description": "Understand functions, higher-order functions, and closures."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Objects, Arrays & Prototypes",
+        "description": "Work with objects, arrays, and JavaScript's prototype-based inheritance."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Asynchronous JS: Promises & Async/Await",
+        "description": "Handle async operations using callbacks, Promises, and async/await."
+      },
+      {
+        "orderIndex": 4,
+        "title": "ES6+ Features",
+        "description": "Use modern JS features like destructuring, spread/rest, template literals, and modules."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Event Loop & Runtime Basics",
+        "description": "Understand the JavaScript event loop, call stack, and how Node's runtime executes code."
+      }
+    ]
+  },
+  {
+    "skillId": "3ecc39e2-38ca-4ec9-8715-c680aef0e9af",
+    "skillName": "TypeScript",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "TypeScript Basics & Types",
+        "description": "Learn TypeScript's basic types and how the compiler enforces type safety."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Interfaces & Type Aliases",
+        "description": "Define custom shapes for data using interfaces and type aliases."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Generics",
+        "description": "Write reusable, type-safe functions and classes using generics."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Advanced Types",
+        "description": "Explore union, intersection, and mapped types for flexible type modeling."
+      },
+      {
+        "orderIndex": 4,
+        "title": "tsconfig & Compilation",
+        "description": "Configure tsconfig.json and understand the TypeScript compilation process."
+      },
+      {
+        "orderIndex": 5,
+        "title": "TypeScript with Node/Express",
+        "description": "Apply TypeScript typings in a Node.js/Express backend project."
+      }
+    ]
+  },
+  {
+    "skillId": "e0b98311-8b9a-41c8-9648-ffa85933d882",
+    "skillName": "Git",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Git Basics & Repositories",
+        "description": "Initialize repositories and learn the add/commit/status workflow."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Branching & Merging",
+        "description": "Create branches and merge changes back into main lines of development."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Resolving Conflicts",
+        "description": "Practice identifying and resolving merge conflicts."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Remote Repos & Collaboration",
+        "description": "Push, pull, and collaborate using remotes and pull requests."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Rebase, Cherry-pick & History",
+        "description": "Rewrite history with rebase and cherry-pick, and inspect logs effectively."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Git Workflows",
+        "description": "Compare common workflows like GitFlow and trunk-based development."
+      }
+    ]
+  },
+  {
+    "skillId": "8e762b21-c014-44b7-862c-5516dfce0026",
+    "skillName": "Node.js",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Node.js Basics & Event Loop",
+        "description": "Understand Node's single-threaded, event-driven architecture."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Modules & npm",
+        "description": "Use CommonJS/ESM modules and manage packages with npm."
+      },
+      {
+        "orderIndex": 2,
+        "title": "File System & Streams",
+        "description": "Read and write files and process data efficiently using streams."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Building HTTP Servers",
+        "description": "Create a basic HTTP server using Node's core http module."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Async Patterns in Node",
+        "description": "Apply callbacks, Promises, and async/await idiomatically in Node."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Debugging & Performance",
+        "description": "Debug Node applications and identify common performance bottlenecks."
+      }
+    ]
+  },
+  {
+    "skillId": "b756a8ad-8e80-4a9d-ae2a-7560d0407295",
+    "skillName": "Express.js",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Express Basics & Routing",
+        "description": "Set up an Express app and define routes for different HTTP verbs."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Middleware",
+        "description": "Write and apply middleware functions for logging, parsing, and auth."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Request/Response Handling",
+        "description": "Work with request/response objects to read input and send output."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Error Handling",
+        "description": "Implement centralized error-handling middleware in Express."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Templating & Static Files",
+        "description": "Serve static assets and render templates with an Express app."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Building REST APIs with Express",
+        "description": "Structure a complete REST API with routers and controllers."
+      }
+    ]
+  },
+  {
+    "skillId": "caa284d1-38ff-453b-9391-a2a0b09a1d52",
+    "skillName": "NestJS",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "NestJS Basics & Architecture",
+        "description": "Understand Nest's modular, Angular-inspired architecture."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Modules, Controllers & Providers",
+        "description": "Organize an app into modules, controllers, and injectable providers."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Dependency Injection in Nest",
+        "description": "Use Nest's DI container to manage service dependencies."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Pipes, Guards & Interceptors",
+        "description": "Apply pipes for validation, guards for auth, and interceptors for cross-cutting logic."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Nest with Databases",
+        "description": "Integrate Nest with an ORM like TypeORM or Prisma for persistence."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Testing NestJS Apps",
+        "description": "Write unit and e2e tests for a NestJS application."
+      }
+    ]
+  },
+  {
+    "skillId": "640afa44-0b42-42b2-9dc8-2376a665eb07",
+    "skillName": "Drizzle ORM",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Drizzle Basics & Setup",
+        "description": "Install Drizzle ORM and connect it to a database."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Schema Definition",
+        "description": "Define tables and columns using Drizzle's TypeScript schema syntax."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Queries with Drizzle",
+        "description": "Write type-safe select, insert, update, and delete queries."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Migrations with Drizzle Kit",
+        "description": "Generate and run schema migrations using Drizzle Kit."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Relations in Drizzle",
+        "description": "Define and query one-to-many and many-to-many relations."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Drizzle with Postgres/SQLite",
+        "description": "Configure Drizzle to work with Postgres or SQLite drivers."
+      }
+    ]
+  },
+  {
+    "skillId": "91fcc429-f807-4642-9d38-891607829825",
+    "skillName": "PostgreSQL",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "PostgreSQL Basics",
+        "description": "Learn Postgres's data types, table creation, and basic constraints."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Queries & Joins",
+        "description": "Write SELECT queries with joins, filtering, and aggregation."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Indexes & Performance",
+        "description": "Use indexes and EXPLAIN ANALYZE to optimize query performance."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Transactions & Isolation Levels",
+        "description": "Understand transaction control and Postgres isolation levels."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Views, Functions & Triggers",
+        "description": "Create views, functions, and triggers to encapsulate logic in the database."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Backup, Replication & Extensions",
+        "description": "Learn basic backup strategies, replication, and useful Postgres extensions."
+      }
+    ]
+  },
+  {
+    "skillId": "ca03b940-9e7a-4f8d-9e71-404e83530a22",
+    "skillName": "SQL",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "SQL Basics: SELECT & WHERE",
+        "description": "Write basic SELECT statements with filtering and sorting."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Joins & Aggregations",
+        "description": "Combine tables with joins and summarize data with GROUP BY and aggregate functions."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Subqueries & CTEs",
+        "description": "Use subqueries and common table expressions to structure complex queries."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Data Modification",
+        "description": "Insert, update, and delete data safely using DML statements."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Indexes & Query Optimization",
+        "description": "Understand how indexes affect query performance."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Database Design & Normalization",
+        "description": "Apply normalization principles to design well-structured relational schemas."
+      }
+    ]
+  },
+  {
+    "skillId": "3d7efa54-ee1c-43a1-8ea5-819a21d925e6",
+    "skillName": "MongoDB",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "MongoDB Basics & Documents",
+        "description": "Understand MongoDB's document model and BSON data format."
+      },
+      {
+        "orderIndex": 1,
+        "title": "CRUD Operations",
+        "description": "Perform create, read, update, and delete operations on collections."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Queries & Aggregation Pipeline",
+        "description": "Write queries and build aggregation pipelines for data transformation."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Indexes in MongoDB",
+        "description": "Create indexes to speed up common query patterns."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Schema Design & Data Modeling",
+        "description": "Design document schemas using embedding and referencing strategies."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Replication & Sharding Basics",
+        "description": "Understand replica sets and sharding for scaling MongoDB."
+      }
+    ]
+  },
+  {
+    "skillId": "2fa78178-b863-4f27-a01c-42f913cc58c6",
+    "skillName": "JWT",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "JWT Structure & Concepts",
+        "description": "Learn the header, payload, and signature structure of a JSON Web Token."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Signing & Verifying Tokens",
+        "description": "Sign tokens with a secret/key and verify their authenticity."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Access vs Refresh Tokens",
+        "description": "Understand the difference in purpose and lifetime between token types."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Implementing JWT Auth in an API",
+        "description": "Protect API routes using JWT-based authentication middleware."
+      },
+      {
+        "orderIndex": 4,
+        "title": "JWT Security Best Practices",
+        "description": "Learn common JWT pitfalls like algorithm confusion and token leakage."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Token Storage & Revocation",
+        "description": "Compare storage options and strategies for revoking compromised tokens."
+      }
+    ]
+  },
+  {
+    "skillId": "f7e1b0b6-d851-4f24-99ae-1f544c5fec91",
+    "skillName": "REST API",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "REST Principles & HTTP Methods",
+        "description": "Learn REST constraints and how HTTP methods map to CRUD operations."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Resource Design & URI Structure",
+        "description": "Design clean, resource-oriented URIs for an API."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Status Codes & Error Handling",
+        "description": "Use appropriate HTTP status codes and structure error responses."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Versioning & Pagination",
+        "description": "Apply versioning strategies and paginate large result sets."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Authentication in REST APIs",
+        "description": "Secure REST endpoints using common auth mechanisms."
+      },
+      {
+        "orderIndex": 5,
+        "title": "API Documentation with OpenAPI",
+        "description": "Document an API using the OpenAPI/Swagger specification."
+      }
+    ]
+  },
+  {
+    "skillId": "b1c8830b-ddcc-411c-815f-146a356a92ee",
+    "skillName": "Docker",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Docker Basics & Containers",
+        "description": "Understand containers vs VMs and run your first Docker container."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Writing Dockerfiles",
+        "description": "Write a Dockerfile to package an application into an image."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Images & Docker Hub",
+        "description": "Build, tag, and push images to a registry like Docker Hub."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Docker Compose",
+        "description": "Define multi-container applications using docker-compose.yml."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Volumes & Networking",
+        "description": "Persist data with volumes and connect containers via Docker networks."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Docker in CI/CD & Production",
+        "description": "Understand how Docker images are used in deployment pipelines."
+      }
+    ]
+  },
+  {
+    "skillId": "83ad7e90-a85e-4511-83c4-2ae8ce39fa52",
+    "skillName": "Linux",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Linux Basics & File System",
+        "description": "Understand the Linux directory structure and basic file operations."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Command Line Essentials",
+        "description": "Practice core shell commands for navigation, search, and file manipulation."
+      },
+      {
+        "orderIndex": 2,
+        "title": "File Permissions & Users",
+        "description": "Learn ownership, permissions, and user/group management."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Process Management",
+        "description": "Monitor and control running processes using ps, top, and kill."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Shell Scripting Basics",
+        "description": "Write basic bash scripts to automate repetitive tasks."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Networking & System Monitoring",
+        "description": "Use basic networking and monitoring commands to inspect system state."
+      }
+    ]
+  },
+  {
+    "skillId": "8f6e8343-1d03-4873-bae1-cc1d714409e8",
+    "skillName": "Redis",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Redis Basics & Data Types",
+        "description": "Learn Redis's core data types: strings, lists, sets, hashes, and sorted sets."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Caching Patterns with Redis",
+        "description": "Implement cache-aside and TTL-based caching strategies."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Redis Pub/Sub",
+        "description": "Use Redis's publish/subscribe mechanism for simple messaging."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Persistence: RDB & AOF",
+        "description": "Understand Redis's persistence options and their trade-offs."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Redis in Application Architecture",
+        "description": "Integrate Redis for sessions, rate limiting, and caching in an app."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Redis Cluster & Scaling",
+        "description": "Learn the basics of Redis clustering and horizontal scaling."
+      }
+    ]
+  },
+  {
+    "skillId": "6de46a92-f6e2-427a-920f-1d6f38696cc8",
+    "skillName": "GraphQL",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "GraphQL Concepts & Schema",
+        "description": "Understand GraphQL's type system and how schemas describe an API."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Queries & Mutations",
+        "description": "Write queries to fetch data and mutations to modify it."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Resolvers",
+        "description": "Implement resolver functions that fetch data for schema fields."
+      },
+      {
+        "orderIndex": 3,
+        "title": "GraphQL Server Setup",
+        "description": "Set up a basic GraphQL server using a library like Apollo Server."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Subscriptions",
+        "description": "Implement real-time updates using GraphQL subscriptions."
+      },
+      {
+        "orderIndex": 5,
+        "title": "GraphQL vs REST & Best Practices",
+        "description": "Compare GraphQL and REST trade-offs and apply schema design best practices."
+      }
+    ]
+  },
+  {
+    "skillId": "4401571f-66bd-4408-9ce4-39bf36af3636",
+    "skillName": "WebSocket",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "WebSocket Protocol Basics",
+        "description": "Understand how WebSocket differs from HTTP and enables full-duplex communication."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Setting Up a WebSocket Server",
+        "description": "Build a basic WebSocket server using a library like ws or socket.io."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Client-Server Communication",
+        "description": "Send and receive real-time messages between client and server."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Rooms & Broadcasting",
+        "description": "Implement grouped communication using rooms/channels and broadcasting."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Scaling WebSockets",
+        "description": "Understand challenges and strategies for scaling WebSocket connections."
+      },
+      {
+        "orderIndex": 5,
+        "title": "WebSocket Security",
+        "description": "Apply authentication and validation to secure WebSocket connections."
+      }
+    ]
+  },
+  {
+    "skillId": "1b29acfc-5838-4ada-9900-896cd0ca1d3d",
+    "skillName": "gRPC",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "gRPC Basics & Protocol Buffers",
+        "description": "Understand gRPC's design and how Protocol Buffers define messages."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Defining Services with .proto",
+        "description": "Write a .proto file to define a gRPC service and its methods."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Unary & Streaming RPCs",
+        "description": "Implement unary, server-streaming, and client-streaming RPC calls."
+      },
+      {
+        "orderIndex": 3,
+        "title": "gRPC Server & Client Implementation",
+        "description": "Generate code from proto files and implement a working server/client."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Error Handling in gRPC",
+        "description": "Use gRPC status codes to handle and communicate errors."
+      },
+      {
+        "orderIndex": 5,
+        "title": "gRPC vs REST & Use Cases",
+        "description": "Compare gRPC with REST and identify when gRPC is the better fit."
+      }
+    ]
+  },
+  {
+    "skillId": "d3df2549-67b2-4892-a33a-5ba0d8121ea9",
+    "skillName": "RabbitMQ",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "RabbitMQ Basics & AMQP",
+        "description": "Understand the AMQP protocol and RabbitMQ's core concepts."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Exchanges, Queues & Bindings",
+        "description": "Learn how exchanges route messages to queues via bindings."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Publishing & Consuming Messages",
+        "description": "Write producer and consumer code to send and receive messages."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Acknowledgement & Durability",
+        "description": "Configure message acknowledgement and durability for reliability."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Routing Patterns",
+        "description": "Implement direct, fanout, and topic exchange routing patterns."
+      },
+      {
+        "orderIndex": 5,
+        "title": "RabbitMQ in Microservices",
+        "description": "Use RabbitMQ to decouple services in a microservices architecture."
+      }
+    ]
+  },
+  {
+    "skillId": "e897bca4-0066-44bf-a30a-0740d2e51923",
+    "skillName": "Kafka",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Kafka Basics & Architecture",
+        "description": "Understand Kafka's distributed log architecture and core components."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Topics, Partitions & Offsets",
+        "description": "Learn how topics are partitioned and how offsets track consumption."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Producers & Consumers",
+        "description": "Write basic producer and consumer applications using a Kafka client."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Consumer Groups",
+        "description": "Understand how consumer groups enable parallel, scalable consumption."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Kafka Streams Basics",
+        "description": "Get an introduction to stream processing using Kafka Streams."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Kafka in Production",
+        "description": "Learn about replication, partitioning strategy, and scaling Kafka clusters."
+      }
+    ]
+  },
+  {
+    "skillId": "a9d237ff-62f2-414a-9caf-ff0ac257f86b",
+    "skillName": "Kubernetes",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Kubernetes Basics & Architecture",
+        "description": "Understand the control plane, nodes, and core Kubernetes concepts."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Pods, Deployments & Services",
+        "description": "Deploy applications using Pods, Deployments, and expose them via Services."
+      },
+      {
+        "orderIndex": 2,
+        "title": "ConfigMaps & Secrets",
+        "description": "Manage configuration and sensitive data using ConfigMaps and Secrets."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Scaling & Rolling Updates",
+        "description": "Scale workloads and perform zero-downtime rolling updates."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Ingress & Networking",
+        "description": "Expose services externally using Ingress and understand cluster networking."
+      },
+      {
+        "orderIndex": 5,
+        "title": "kubectl & Helm Basics",
+        "description": "Use kubectl for cluster management and Helm for packaging applications."
+      }
+    ]
+  },
+  {
+    "skillId": "3cb79767-eee5-47c6-b411-7b785e7cf5fc",
+    "skillName": "Nginx",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Nginx Basics & Configuration",
+        "description": "Install Nginx and understand its core configuration file structure."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Reverse Proxy Setup",
+        "description": "Configure Nginx as a reverse proxy in front of an application server."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Load Balancing with Nginx",
+        "description": "Distribute traffic across multiple backend servers using Nginx."
+      },
+      {
+        "orderIndex": 3,
+        "title": "SSL/TLS Configuration",
+        "description": "Set up HTTPS with SSL/TLS certificates in Nginx."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Caching with Nginx",
+        "description": "Configure Nginx to cache responses and reduce backend load."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Nginx Performance Tuning",
+        "description": "Tune worker processes, connections, and buffers for better performance."
+      }
+    ]
+  },
+  {
+    "skillId": "010dc4b9-ab00-41d1-9f1a-3280fa5f1ef0",
+    "skillName": "Apache",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Apache HTTP Server Basics",
+        "description": "Install Apache and understand its configuration structure."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Virtual Hosts Configuration",
+        "description": "Configure virtual hosts to serve multiple sites from one server."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Modules & mod_rewrite",
+        "description": "Enable Apache modules and write URL rewrite rules with mod_rewrite."
+      },
+      {
+        "orderIndex": 3,
+        "title": "SSL/TLS with Apache",
+        "description": "Configure HTTPS support using SSL/TLS certificates in Apache."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Apache as Reverse Proxy",
+        "description": "Set up Apache to proxy requests to a backend application."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Performance Tuning & Logging",
+        "description": "Tune Apache performance settings and configure access/error logging."
+      }
+    ]
+  },
+  {
+    "skillId": "95af169b-06b5-4b20-bb3c-e76359cbd55d",
+    "skillName": "Prisma",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Prisma Basics & Setup",
+        "description": "Install Prisma and connect it to a database."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Schema Definition",
+        "description": "Define models and fields using the Prisma schema language."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Prisma Client Queries",
+        "description": "Use the generated Prisma Client to read and write data type-safely."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Migrations with Prisma",
+        "description": "Generate and apply schema migrations using Prisma Migrate."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Relations in Prisma",
+        "description": "Define and query one-to-many and many-to-many relations."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Prisma with Postgres/MySQL",
+        "description": "Configure Prisma to work with a Postgres or MySQL database."
+      }
+    ]
+  },
+  {
+    "skillId": "9b281833-542c-4bfc-aa57-87422e922b5f",
+    "skillName": "TypeORM",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "TypeORM Basics & Setup",
+        "description": "Install TypeORM and connect it to a relational database."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Entities & Decorators",
+        "description": "Define entities using TypeORM's decorator-based syntax."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Repository Pattern & Queries",
+        "description": "Use repositories to perform CRUD operations and custom queries."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Migrations in TypeORM",
+        "description": "Generate and run migrations to evolve your database schema."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Relations in TypeORM",
+        "description": "Define one-to-one, one-to-many, and many-to-many relationships."
+      },
+      {
+        "orderIndex": 5,
+        "title": "TypeORM with NestJS",
+        "description": "Integrate TypeORM into a NestJS application for persistence."
+      }
+    ]
+  },
+  {
+    "skillId": "eab5e3ef-cdd4-419c-abb7-9d616c59e91f",
+    "skillName": "CI/CD",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "CI/CD Concepts & Pipelines",
+        "description": "Understand continuous integration and continuous delivery/deployment concepts."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Setting Up a CI Pipeline",
+        "description": "Configure a basic pipeline using GitHub Actions or GitLab CI."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Automated Testing in Pipelines",
+        "description": "Run unit and integration tests automatically as part of a pipeline."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Build & Artifact Management",
+        "description": "Build application artifacts and manage versioned build outputs."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Deployment Strategies",
+        "description": "Compare deployment strategies like blue-green, canary, and rolling releases."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Monitoring & Rollbacks",
+        "description": "Set up basic monitoring and understand how to roll back a failed deployment."
+      }
+    ]
+  },
+  {
+    "skillId": "00451686-cdd1-42e5-9bf8-aad72e2c80a5",
+    "skillName": "System Design",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "System Design Fundamentals",
+        "description": "Learn the basics of designing scalable, reliable software systems."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Scalability & Load Balancing",
+        "description": "Understand horizontal/vertical scaling and load balancing strategies."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Caching Strategies",
+        "description": "Apply caching at different layers to reduce latency and load."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Database Scaling: Sharding & Replication",
+        "description": "Learn techniques to scale databases beyond a single server."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Microservices Architecture",
+        "description": "Understand the trade-offs of splitting a system into microservices."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Reliability & Fault Tolerance",
+        "description": "Design systems that gracefully handle failures using redundancy and retries."
+      }
+    ]
+  },
+  {
+    "skillId": "53b4371e-2cc1-4635-a067-0539c78c3b4d",
+    "skillName": "Testing",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Testing Fundamentals & Types",
+        "description": "Understand the testing pyramid: unit, integration, and end-to-end tests."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Unit Testing",
+        "description": "Write unit tests for individual functions and modules."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Integration Testing",
+        "description": "Test how multiple components work together, including database interactions."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Test-Driven Development (TDD)",
+        "description": "Practice writing tests before implementation using the red-green-refactor cycle."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Mocking & Stubbing",
+        "description": "Use mocks and stubs to isolate code under test from external dependencies."
+      },
+      {
+        "orderIndex": 5,
+        "title": "End-to-End Testing & CI Integration",
+        "description": "Write e2e tests and integrate automated test runs into a CI pipeline."
+      }
+    ]
+  }
+]

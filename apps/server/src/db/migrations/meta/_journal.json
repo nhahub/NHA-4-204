@@ -8,6 +8,27 @@
       "when": 1772134744274,
       "tag": "0000_goofy_thor_girl",
       "breakpoints": true
+    },
+    {
+      "idx": 1,
+      "version": "7",
+      "when": 1782992115704,
+      "tag": "0001_plain_captain_flint",
+      "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1783071305846,
+      "tag": "0002_ambiguous_sasquatch",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "7",
+      "when": 1783169676087,
+      "tag": "0003_lively_loa",
+      "breakpoints": true
     }
   ]
 }

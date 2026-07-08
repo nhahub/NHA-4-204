@@ -1,13 +1,10 @@
-export * from "./auth";
+export * from "../../modules/auth/db/schema";
+export * from "../../modules/cv/db/schema";
+export * from "../../modules/github/db/schema";
+export * from "../../modules/roles/db/schema";
+export * from "../../modules/skills/db/skills_schema";
+export * from "../../modules/roadmap/db/schema";
+export * from "../../modules/user/db/schema";
+export * from "../../modules/skills/db/curriculum_schema";
 
-export * from "./roles";
-export * from "./skills";
-export * from "./role_skills";
-export * from "./projects";
-export * from "./project_skills";
-export * from "./user_skills";
-export * from "./github_stats";
-export * from "./readiness_reports";
-export * from "./skill_gap_results";
-export * from "./roadmaps";
-export * from "./roadmap_steps";
+

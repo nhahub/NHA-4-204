@@ -1,0 +1,719 @@
+[
+  {
+    "skillId": "da25492f-9d21-41b0-bba6-9ab825729b8b",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "HTML Document Structure",
+        "description": "Learn the basic structure of an HTML document, common tags, and how browsers render web pages."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Text, Lists, and Links",
+        "description": "Create headings, paragraphs, lists, hyperlinks, and organize content effectively."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Images, Audio, and Video",
+        "description": "Embed images and multimedia while understanding accessibility considerations."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Forms and Input Elements",
+        "description": "Build forms using input elements, labels, validation attributes, and form submission."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Semantic HTML",
+        "description": "Use semantic elements to improve accessibility, SEO, and document structure."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Build a Multi-Page Website",
+        "description": "Apply HTML knowledge by creating a simple multi-page website."
+      }
+    ]
+  },
+  {
+    "skillId": "b7532819-7b33-4290-8077-ae1a859a735e",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "CSS Selectors and Styling",
+        "description": "Learn selectors, colors, typography, and applying styles to HTML elements."
+      },
+      {
+        "orderIndex": 1,
+        "title": "The CSS Box Model",
+        "description": "Understand margin, padding, border, width, and height."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Flexbox Layout",
+        "description": "Create flexible one-dimensional layouts using Flexbox."
+      },
+      {
+        "orderIndex": 3,
+        "title": "CSS Grid",
+        "description": "Build two-dimensional layouts with CSS Grid."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Responsive Design",
+        "description": "Use media queries and responsive units for multiple screen sizes."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Transitions and Animations",
+        "description": "Add smooth transitions and keyframe animations."
+      },
+      {
+        "orderIndex": 6,
+        "title": "Modern CSS Features",
+        "description": "Explore variables, pseudo-elements, pseudo-classes, and custom properties."
+      },
+      {
+        "orderIndex": 7,
+        "title": "Responsive Landing Page",
+        "description": "Build a complete responsive landing page using CSS."
+      }
+    ]
+  },
+  {
+    "skillId": "a7a2b3f9-7ba6-4944-b7a3-5da754b785cf",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Variables and Data Types",
+        "description": "Learn JavaScript variables, primitive types, and declarations."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Operators and Conditions",
+        "description": "Practice comparisons, logical operators, and conditional statements."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Loops",
+        "description": "Use for, while, and array iteration methods."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Functions",
+        "description": "Write reusable functions and understand scope."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Arrays",
+        "description": "Manipulate arrays using common methods."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Objects",
+        "description": "Create objects and access nested properties."
+      },
+      {
+        "orderIndex": 6,
+        "title": "DOM Manipulation",
+        "description": "Interact with HTML elements using the DOM API."
+      },
+      {
+        "orderIndex": 7,
+        "title": "Handling Events",
+        "description": "Respond to user interactions using event listeners."
+      },
+      {
+        "orderIndex": 8,
+        "title": "Fetch API",
+        "description": "Retrieve data from APIs using fetch."
+      },
+      {
+        "orderIndex": 9,
+        "title": "Async and Await",
+        "description": "Write asynchronous JavaScript using async functions."
+      },
+      {
+        "orderIndex": 10,
+        "title": "Modern ES6 Features",
+        "description": "Learn destructuring, spread syntax, modules, and arrow functions."
+      },
+      {
+        "orderIndex": 11,
+        "title": "JavaScript Project",
+        "description": "Build a small interactive application using JavaScript."
+      }
+    ]
+  },
+  {
+    "skillId": "3ecc39e2-38ca-4ec9-8715-c680aef0e9af",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Introduction to TypeScript",
+        "description": "Understand why TypeScript exists and how it improves JavaScript."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Types and Interfaces",
+        "description": "Use primitive types, interfaces, and type aliases."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Functions and Generics",
+        "description": "Create typed functions and reusable generic types."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Classes and Enums",
+        "description": "Build object-oriented structures using TypeScript."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Type Narrowing",
+        "description": "Safely work with unions and conditional types."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Migrating JavaScript to TypeScript",
+        "description": "Convert a JavaScript project into TypeScript."
+      }
+    ]
+  },
+  {
+    "skillId": "58b1c551-f149-4d6a-9e67-df7c9ad97460",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "React Fundamentals",
+        "description": "Understand React, component-based architecture, and project setup."
+      },
+      {
+        "orderIndex": 1,
+        "title": "JSX",
+        "description": "Write JSX and render UI elements."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Components",
+        "description": "Create reusable functional components."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Props",
+        "description": "Pass data between components using props."
+      },
+      {
+        "orderIndex": 4,
+        "title": "State Management",
+        "description": "Manage component state using useState."
+      },
+      {
+        "orderIndex": 5,
+        "title": "React Hooks",
+        "description": "Learn useEffect and other essential hooks."
+      },
+      {
+        "orderIndex": 6,
+        "title": "Forms",
+        "description": "Build controlled forms in React."
+      },
+      {
+        "orderIndex": 7,
+        "title": "Lists and Keys",
+        "description": "Render collections efficiently."
+      },
+      {
+        "orderIndex": 8,
+        "title": "Context API",
+        "description": "Share state between components using Context."
+      },
+      {
+        "orderIndex": 9,
+        "title": "Performance Basics",
+        "description": "Optimize rendering with memoization techniques."
+      },
+      {
+        "orderIndex": 10,
+        "title": "React Router",
+        "description": "Build navigation for single-page applications."
+      },
+      {
+        "orderIndex": 11,
+        "title": "React Project",
+        "description": "Develop a complete React application."
+      }
+    ]
+  },
+  {
+    "skillId": "f5f398f6-9b4c-4e12-bc70-d3a438ab4845",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Getting Started with Next.js",
+        "description": "Understand the advantages of Next.js and create a project."
+      },
+      {
+        "orderIndex": 1,
+        "title": "App Router",
+        "description": "Organize routes using the App Router."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Layouts and Pages",
+        "description": "Create shared layouts and nested pages."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Server and Client Components",
+        "description": "Understand rendering strategies in Next.js."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Data Fetching",
+        "description": "Fetch server-side and client-side data."
+      },
+      {
+        "orderIndex": 5,
+        "title": "API Routes",
+        "description": "Build backend endpoints inside Next.js."
+      },
+      {
+        "orderIndex": 6,
+        "title": "Authentication Basics",
+        "description": "Implement authentication fundamentals."
+      },
+      {
+        "orderIndex": 7,
+        "title": "Deploying Next.js",
+        "description": "Prepare and deploy a production-ready application."
+      }
+    ]
+  },
+  {
+    "skillId": "a77919c2-a1e3-4f92-bba1-a53da6963d45",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Tailwind CSS Basics",
+        "description": "Understand utility-first styling and project setup."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Layout Utilities",
+        "description": "Create layouts using spacing, flexbox, and grid utilities."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Responsive Utilities",
+        "description": "Build responsive interfaces using breakpoint modifiers."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Build a Responsive UI",
+        "description": "Create a responsive interface using Tailwind CSS."
+      }
+    ]
+  },
+  {
+    "skillId": "d35eed82-ac0b-4d7d-8c3a-d7651c5508e5",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Mobile-First Design",
+        "description": "Learn the principles of mobile-first development."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Media Queries",
+        "description": "Adapt layouts for different screen sizes."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Fluid Layout Techniques",
+        "description": "Use flexible units and responsive images."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Responsive Project",
+        "description": "Convert a desktop layout into a responsive website."
+      }
+    ]
+  },
+  {
+    "skillId": "e0b98311-8b9a-41c8-9648-ffa85933d882",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Git Fundamentals",
+        "description": "Initialize repositories and understand version control."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Branching",
+        "description": "Create, switch, and manage Git branches."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Merging and Rebasing",
+        "description": "Combine work safely using merge and rebase."
+      },
+      {
+        "orderIndex": 3,
+        "title": "GitHub Workflow",
+        "description": "Push code, create pull requests, and collaborate with GitHub."
+      }
+    ]
+  },
+  
+  {
+    "skillId": "2aed516b-7ac3-4089-ac28-dbe185a0fea6",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Bootstrap Fundamentals",
+        "description": "Learn Bootstrap's grid system, utilities, and component library."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Responsive Components",
+        "description": "Build responsive layouts using Bootstrap components."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Bootstrap Project",
+        "description": "Create a responsive landing page using Bootstrap."
+      }
+    ]
+  },
+  {
+    "skillId": "1567eb1d-5390-41ac-9844-3e08915226d9",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Material UI Basics",
+        "description": "Install Material UI and understand its design system."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Using Material Components",
+        "description": "Build interfaces with common Material UI components."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Theming and Customization",
+        "description": "Customize themes and component styles."
+      }
+    ]
+  },
+  {
+    "skillId": "0824f181-78b5-433c-8348-cb02ae5054c1",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Sass Fundamentals",
+        "description": "Learn variables, nesting, and partials."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Mixins and Functions",
+        "description": "Write reusable styles using mixins and functions."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Organizing Large Stylesheets",
+        "description": "Structure scalable Sass projects."
+      }
+    ]
+  },
+  {
+    "skillId": "5bea5577-3701-4e19-9782-2bf7e13b0a64",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Redux Fundamentals",
+        "description": "Understand global state management concepts."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Redux Toolkit",
+        "description": "Create slices and configure the Redux store."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Async Actions",
+        "description": "Handle asynchronous operations with Redux Toolkit."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Connecting Redux to React",
+        "description": "Use selectors and dispatch actions from components."
+      },
+      {
+        "orderIndex": 4,
+        "title": "Optimizing Redux Applications",
+        "description": "Organize state and improve application performance."
+      },
+      {
+        "orderIndex": 5,
+        "title": "Redux Project",
+        "description": "Build a React application using Redux Toolkit."
+      }
+    ]
+  },
+  {
+    "skillId": "6d6ea6fb-e1e7-4014-b489-35c4d027b6ca",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Getting Started with Zustand",
+        "description": "Create lightweight global stores using Zustand."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Managing State",
+        "description": "Update and consume state efficiently."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Build a Small Zustand Project",
+        "description": "Apply Zustand in a practical React application."
+      }
+    ]
+  },
+  {
+    "skillId": "f26d6e88-c153-4bb1-83e2-315262f71e0d",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Vite Fundamentals",
+        "description": "Create and configure projects using Vite."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Building and Optimizing with Vite",
+        "description": "Understand development server, build process, and plugins."
+      }
+    ]
+  },
+  {
+    "skillId": "3d4cea8a-a128-4426-8427-cd06826460aa",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Webpack Fundamentals",
+        "description": "Understand bundling concepts and project configuration."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Loaders and Plugins",
+        "description": "Configure loaders and plugins for modern applications."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Production Builds",
+        "description": "Optimize Webpack builds for production."
+      }
+    ]
+  },
+  {
+    "skillId": "50c347f1-eb66-48d0-ac6c-8f04c5dce934",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Parcel Basics",
+        "description": "Create projects using the Parcel bundler."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Development and Production Builds",
+        "description": "Bundle and optimize applications with Parcel."
+      }
+    ]
+  },
+  {
+    "skillId": "5ff1455b-757f-41e4-b55e-118340431577",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Storybook Fundamentals",
+        "description": "Set up Storybook and understand component-driven development."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Writing Component Stories",
+        "description": "Document UI components using stories."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Building a Component Library",
+        "description": "Organize reusable UI components with Storybook."
+      }
+    ]
+  },
+  {
+    "skillId": "b916585c-3499-41e0-8a31-0777486cbd9d",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Jest Fundamentals",
+        "description": "Write your first unit tests using Jest."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Mocking and Assertions",
+        "description": "Mock dependencies and validate application behavior."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Testing React Components",
+        "description": "Test React components using Jest."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Jest Best Practices",
+        "description": "Write maintainable and reliable unit tests."
+      }
+    ]
+  },
+  {
+    "skillId": "cf825e1b-9d03-42a1-adbf-4607cb9b27c1",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Vitest Fundamentals",
+        "description": "Set up Vitest and write basic tests."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Testing Components",
+        "description": "Test React components using Vitest."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Mocking and Coverage",
+        "description": "Use mocks and generate test coverage reports."
+      }
+    ]
+  },
+  {
+    "skillId": "fb514caa-6c85-4f2f-a2ba-f906dc93cb23",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Cypress Fundamentals",
+        "description": "Set up Cypress and write end-to-end tests."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Testing User Flows",
+        "description": "Automate common user interactions."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Working with APIs",
+        "description": "Intercept and mock network requests."
+      },
+      {
+        "orderIndex": 3,
+        "title": "End-to-End Testing Project",
+        "description": "Test a complete web application using Cypress."
+      }
+    ]
+  },
+  {
+    "skillId": "07c4f1f0-c49c-4845-99f6-9c4a6f6f1de6",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Playwright Fundamentals",
+        "description": "Install Playwright and write browser automation tests."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Cross-Browser Testing",
+        "description": "Run tests across Chromium, Firefox, and WebKit."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Advanced Testing",
+        "description": "Handle authentication, fixtures, and network mocking."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Playwright Project",
+        "description": "Automate testing for a complete web application."
+      }
+    ]
+  },
+  {
+    "skillId": "46438ab3-ec17-4a1e-9913-399e8a5f5b8f",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "PWA Fundamentals",
+        "description": "Understand Progressive Web Apps and their benefits."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Service Workers",
+        "description": "Cache assets and enable offline functionality."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Building a PWA",
+        "description": "Convert an existing web app into a Progressive Web App."
+      }
+    ]
+  },
+  {
+    "skillId": "134bf460-78fd-4d4c-85fe-3cffe85251a9",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "Accessibility Fundamentals",
+        "description": "Understand accessibility principles and WCAG guidelines."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Semantic Accessibility",
+        "description": "Use semantic HTML and ARIA attributes correctly."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Keyboard Navigation",
+        "description": "Make web applications fully keyboard accessible."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Accessibility Auditing",
+        "description": "Evaluate and improve accessibility using developer tools."
+      }
+    ]
+  },
+  {
+    "skillId": "4401571f-66bd-4408-9ce4-39bf36af3636",
+    "nodes": [
+      {
+        "orderIndex": 0,
+        "title": "WebSocket Fundamentals",
+        "description": "Understand real-time communication and the WebSocket protocol."
+      },
+      {
+        "orderIndex": 1,
+        "title": "Client-Server Communication",
+        "description": "Send and receive real-time messages between client and server."
+      },
+      {
+        "orderIndex": 2,
+        "title": "Handling Connection States",
+        "description": "Manage reconnection, errors, and connection lifecycle."
+      },
+      {
+        "orderIndex": 3,
+        "title": "Real-Time Chat Project",
+        "description": "Build a simple chat application using WebSockets."
+      }
+    ]
+  }
+
+]

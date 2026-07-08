@@ -21,7 +21,7 @@ const features = [
   {
     icon: Brain,
     title: 'AI Mentor',
-    description: '24/7 guidance on portfolio reviews, mock interviews, and technical questions.',
+    description: '24/7 roadmap on portfolio reviews, mock interviews, and technical questions.',
   },
   {
     icon: Wrench,

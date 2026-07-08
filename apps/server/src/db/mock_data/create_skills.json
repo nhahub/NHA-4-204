@@ -1,0 +1,138 @@
+[
+  { "name": "HTML", "hasNoDependencies": true },
+  { "name": "CSS", "hasNoDependencies": true },
+  { "name": "JavaScript", "hasNoDependencies": true },
+  { "name": "TypeScript", "hasNoDependencies": false, "dependencyIds": ["JavaScript"] },
+
+  { "name": "Responsive Design", "hasNoDependencies": false, "dependencyIds": ["CSS"] },
+  { "name": "Web Accessibility", "hasNoDependencies": false, "dependencyIds": ["HTML", "CSS"] },
+
+  { "name": "Sass", "hasNoDependencies": false, "dependencyIds": ["CSS"] },
+  { "name": "Bootstrap", "hasNoDependencies": false, "dependencyIds": ["CSS"] },
+  { "name": "Tailwind CSS", "hasNoDependencies": false, "dependencyIds": ["CSS"] },
+
+  { "name": "React", "hasNoDependencies": false, "dependencyIds": ["JavaScript"] },
+  { "name": "Next.js", "hasNoDependencies": false, "dependencyIds": ["React"] },
+  { "name": "Vue.js", "hasNoDependencies": false, "dependencyIds": ["JavaScript"] },
+  { "name": "Nuxt.js", "hasNoDependencies": false, "dependencyIds": ["Vue.js"] },
+  { "name": "Angular", "hasNoDependencies": false, "dependencyIds": ["TypeScript"] },
+  { "name": "Svelte", "hasNoDependencies": false, "dependencyIds": ["JavaScript"] },
+  { "name": "SvelteKit", "hasNoDependencies": false, "dependencyIds": ["Svelte"] },
+
+  { "name": "Redux", "hasNoDependencies": false, "dependencyIds": ["React"] },
+  { "name": "Zustand", "hasNoDependencies": false, "dependencyIds": ["React"] },
+  { "name": "Material UI", "hasNoDependencies": false, "dependencyIds": ["React"] },
+
+  { "name": "Webpack", "hasNoDependencies": false, "dependencyIds": ["JavaScript"] },
+  { "name": "Vite", "hasNoDependencies": false, "dependencyIds": ["JavaScript"] },
+  { "name": "Parcel", "hasNoDependencies": false, "dependencyIds": ["JavaScript"] },
+
+  { "name": "Jest", "hasNoDependencies": false, "dependencyIds": ["JavaScript"] },
+  { "name": "Vitest", "hasNoDependencies": false, "dependencyIds": ["JavaScript"] },
+  { "name": "Cypress", "hasNoDependencies": false, "dependencyIds": ["JavaScript"] },
+  { "name": "Playwright", "hasNoDependencies": false, "dependencyIds": ["JavaScript"] },
+  { "name": "Storybook", "hasNoDependencies": false, "dependencyIds": ["React"] },
+
+  { "name": "REST API", "hasNoDependencies": false, "dependencyIds": ["JavaScript"] },
+  { "name": "GraphQL", "hasNoDependencies": false, "dependencyIds": ["REST API"] },
+  { "name": "PWA", "hasNoDependencies": false, "dependencyIds": ["JavaScript"] },
+
+  { "name": "Node.js", "hasNoDependencies": false, "dependencyIds": ["JavaScript"] },
+  { "name": "Express.js", "hasNoDependencies": false, "dependencyIds": ["Node.js"] },
+  { "name": "NestJS", "hasNoDependencies": false, "dependencyIds": ["Node.js", "TypeScript"] },
+  { "name": "Fastify", "hasNoDependencies": false, "dependencyIds": ["Node.js"] },
+
+  { "name": "Python", "hasNoDependencies": true },
+  { "name": "Django", "hasNoDependencies": false, "dependencyIds": ["Python"] },
+  { "name": "Flask", "hasNoDependencies": false, "dependencyIds": ["Python"] },
+  { "name": "FastAPI", "hasNoDependencies": false, "dependencyIds": ["Python"] },
+
+  { "name": "Java", "hasNoDependencies": true },
+  { "name": "Spring Boot", "hasNoDependencies": false, "dependencyIds": ["Java"] },
+
+  { "name": "C#", "hasNoDependencies": true },
+  { "name": "ASP.NET Core", "hasNoDependencies": false, "dependencyIds": ["C#"] },
+
+  { "name": "PHP", "hasNoDependencies": true },
+  { "name": "Laravel", "hasNoDependencies": false, "dependencyIds": ["PHP"] },
+
+  { "name": "Ruby", "hasNoDependencies": true },
+  { "name": "Ruby on Rails", "hasNoDependencies": false, "dependencyIds": ["Ruby"] },
+
+  { "name": "Go", "hasNoDependencies": true },
+  { "name": "Rust", "hasNoDependencies": true },
+  { "name": "Kotlin", "hasNoDependencies": true },
+
+  { "name": "SQL", "hasNoDependencies": true },
+  { "name": "PostgreSQL", "hasNoDependencies": false, "dependencyIds": ["SQL"] },
+  { "name": "MySQL", "hasNoDependencies": false, "dependencyIds": ["SQL"] },
+  { "name": "SQLite", "hasNoDependencies": false, "dependencyIds": ["SQL"] },
+  { "name": "MongoDB", "hasNoDependencies": true },
+  { "name": "Redis", "hasNoDependencies": false, "dependencyIds": ["Node.js"] },
+
+  { "name": "Prisma", "hasNoDependencies": false, "dependencyIds": ["Node.js", "SQL"] },
+  { "name": "Drizzle ORM", "hasNoDependencies": false, "dependencyIds": ["Node.js", "SQL"] },
+  { "name": "TypeORM", "hasNoDependencies": false, "dependencyIds": ["Node.js", "TypeScript", "SQL"] },
+
+  { "name": "Docker", "hasNoDependencies": true },
+  { "name": "Kubernetes", "hasNoDependencies": false, "dependencyIds": ["Docker"] },
+
+  { "name": "Linux", "hasNoDependencies": true },
+  { "name": "Nginx", "hasNoDependencies": false, "dependencyIds": ["Linux"] },
+  { "name": "Apache", "hasNoDependencies": false, "dependencyIds": ["Linux"] },
+
+  { "name": "RabbitMQ", "hasNoDependencies": false, "dependencyIds": ["Node.js"] },
+  { "name": "Kafka", "hasNoDependencies": false, "dependencyIds": ["Node.js"] },
+
+  { "name": "WebSocket", "hasNoDependencies": false, "dependencyIds": ["Node.js"] },
+  { "name": "gRPC", "hasNoDependencies": false, "dependencyIds": ["REST API"] },
+
+  { "name": "JWT", "hasNoDependencies": false, "dependencyIds": ["REST API"] },
+  { "name": "OAuth", "hasNoDependencies": false, "dependencyIds": ["JWT"] },
+
+  { "name": "Git", "hasNoDependencies": true },
+  { "name": "CI/CD", "hasNoDependencies": false, "dependencyIds": ["Git"] },
+
+  { "name": "Testing", "hasNoDependencies": true },
+  { "name": "Agile", "hasNoDependencies": true },
+  { "name": "System Design", "hasNoDependencies": false, "dependencyIds": ["REST API", "SQL"] },
+  { "name": "UI Design", "hasNoDependencies": true, "dependencyIds": [] },
+{ "name": "UX Design", "hasNoDependencies": true, "dependencyIds": [] },
+
+{ "name": "Figma", "hasNoDependencies": true, "dependencyIds": [] },
+
+{ "name": "Typography", "hasNoDependencies": false, "dependencyIds": ["UI Design"] },
+{ "name": "Color Theory", "hasNoDependencies": false, "dependencyIds": ["UI Design"] },
+{ "name": "Visual Design", "hasNoDependencies": false, "dependencyIds": ["UI Design", "Typography", "Color Theory"] },
+
+{ "name": "Wireframing", "hasNoDependencies": false, "dependencyIds": ["UX Design", "Figma"] },
+{ "name": "Prototyping", "hasNoDependencies": false, "dependencyIds": ["Wireframing", "Figma"] },
+
+{ "name": "User Research", "hasNoDependencies": false, "dependencyIds": ["UX Design"] },
+{ "name": "Personas", "hasNoDependencies": false, "dependencyIds": ["User Research"] },
+{ "name": "User Journey Mapping", "hasNoDependencies": false, "dependencyIds": ["Personas"] },
+{ "name": "User Flow", "hasNoDependencies": false, "dependencyIds": ["User Journey Mapping"] },
+
+{ "name": "Information Architecture", "hasNoDependencies": false, "dependencyIds": ["User Research"] },
+{ "name": "Interaction Design", "hasNoDependencies": false, "dependencyIds": ["User Flow"] },
+
+{ "name": "Usability Testing", "hasNoDependencies": false, "dependencyIds": ["Prototyping", "User Research"] },
+{ "name": "Heuristic Evaluation", "hasNoDependencies": false, "dependencyIds": ["Usability Testing"] },
+
+
+{ "name": "Design Systems", "hasNoDependencies": false, "dependencyIds": ["UI Design", "Figma"] },
+{ "name": "Auto Layout", "hasNoDependencies": false, "dependencyIds": ["Figma"] },
+{ "name": "Components & Variants", "hasNoDependencies": false, "dependencyIds": ["Figma", "Auto Layout"] },
+
+{ "name": "Design Handoff", "hasNoDependencies": false, "dependencyIds": ["Design Systems", "Prototyping"] },
+
+{ "name": "Motion Design", "hasNoDependencies": false, "dependencyIds": ["Prototyping"] },
+{ "name": "Micro-interactions", "hasNoDependencies": false, "dependencyIds": ["Motion Design", "Interaction Design"] },
+
+{ "name": "FigJam", "hasNoDependencies": false, "dependencyIds": ["Figma"] },
+{ "name": "Miro", "hasNoDependencies": false, "dependencyIds": ["User Research"] },
+
+{ "name": "Framer", "hasNoDependencies": false, "dependencyIds": ["Prototyping"] },
+{ "name": "Sketch", "hasNoDependencies": false, "dependencyIds": ["UI Design"] },
+{ "name": "Adobe XD", "hasNoDependencies": false, "dependencyIds": ["UI Design"] }
+]

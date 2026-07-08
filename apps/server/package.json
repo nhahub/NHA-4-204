@@ -11,7 +11,9 @@
     "db:push": "drizzle-kit push",
     "db:generate": "drizzle-kit generate",
     "db:studio": "drizzle-kit studio",
-    "db:migrate": "drizzle-kit migrate"
+    "db:migrate": "drizzle-kit migrate",
+    "test": "bun test",
+    "seed:curriculum": "bun run src/modules/roadmap/db/curriculum-nodes.seed.ts"
   },
   "dependencies": {
     "@careergps/env": "workspace:*",
@@ -23,7 +25,9 @@
     "express": "^5.1.0",
     "zod": "catalog:",
     "drizzle-orm": "^0.45.1",
-    "pg": "^8.17.1"
+    "pg": "^8.17.1",
+    "cloudinary": "^1.34.0",
+    "multer": "^1.4.5-lts.1"
   },
   "devDependencies": {
     "@careergps/config": "workspace:*",
@@ -34,6 +38,7 @@
     "tsx": "^4.19.2",
     "drizzle-kit": "^0.31.8",
     "@types/pg": "^8.16.0",
-    "typescript": "^5"
+    "typescript": "^5",
+    "@types/multer": "^1.4.7"
   }
 }

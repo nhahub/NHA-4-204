@@ -24,12 +24,39 @@ First, install the dependencies:
 bun install
 ```
 
+## environment variable setup 
+1. make `app\server\.env` file and add 
+```
+DATABASE_URL=
+
+BETTER_AUTH_SECRET=
+BETTER_AUTH_URL=
+
+CORS_ORIGIN=
+SERVER_URL=
+
+CLOUDINARY_CLOUD_NAME =
+CLOUDINARY_API_KEY =
+CLOUDINARY_API_SECRET =
+
+# AI_TEAM_URL = (not ready yet)
+AI_TEAM_SECRET = 
+
+```
+
+2. make `app\web\.env` file and add 
+```
+VITE_SERVER_URL=
+
+```
+
 ## Database Setup
 
 This project uses PostgreSQL with Drizzle ORM.
 
 1. Make sure you have a PostgreSQL database set up.
 2. Update your `apps/server/.env` file with your PostgreSQL connection details.
+
 
 3. Apply the schema to your database:
 

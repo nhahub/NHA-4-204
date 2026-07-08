@@ -1,7 +1,7 @@
 import { z } from "zod";
 import { router, protectedProcedure } from "@/trpc/index";
 import { db } from "@/db";
-import { roles, roleSkills, skills, user } from "@/db/schema";
+import { roles, roleSkills, user } from "@/db/schema";
 import { eq, sql } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 import { evaluateUserForRoleName } from "../service";

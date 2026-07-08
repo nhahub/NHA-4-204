@@ -1,5 +1,5 @@
 import type { AppRouter } from "../../../server/src/trpc/routers/index";
-
+import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 import { env } from "@careergps/env/web";
 import { QueryCache, QueryClient } from "@tanstack/react-query";
 import { createTRPCClient, httpBatchLink } from "@trpc/client";
@@ -37,3 +37,6 @@ export const trpc = createTRPCOptionsProxy<AppRouter>({
   client: trpcClient,
   queryClient,
 });
+
+export type RouterInput = inferRouterInputs<AppRouter>;
+export type RouterOutput = inferRouterOutputs<AppRouter>;

@@ -38,28 +38,57 @@ export function TimeSlotEditor({
   timeSlots: initialSlots,
   onSave,
 }: TimeSlotEditorProps) {
+  const now = useMemo(() => new Date(), []);
+  const isToday =
+    year === now.getFullYear() &&
+    month === now.getMonth() &&
+    day === now.getDate();
+
+  const currentTimeStr = useMemo(
+    () =>
+      `${String(now.getHours()).padStart(2, "0")}:${String(now.getMinutes()).padStart(2, "0")}`,
+    [now]
+  );
+
+  const nextHourStart = useMemo(() => {
+    const d = new Date(now);
+    d.setHours(d.getHours() + 1, 0, 0, 0);
+    return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+  }, [now]);
+
+  const nextHourEnd = useMemo(() => {
+    const d = new Date(now);
+    d.setHours(d.getHours() + 2, 0, 0, 0);
+    return `${String(d.getHours()).padStart(2, "0")}:${String(d.getMinutes()).padStart(2, "0")}`;
+  }, [now]);
+
   const [slots, setSlots] = useState<TimeSlot[]>(initialSlots);
 
   const errors = useMemo(() => {
-    const errs: { endBeforeStart?: boolean; duplicate?: boolean }[] = [];
+    const errs: { endBeforeStart?: boolean; duplicate?: boolean; pastTime?: boolean }[] = [];
     const seen = new Set<string>();
     for (let i = 0; i < slots.length; i++) {
       const slot = slots[i];
       const key = `${slot.start}-${slot.end}`;
       const endBeforeStart = !isTimeBefore(slot.start, slot.end);
       const duplicate = seen.has(key);
+      const pastTime = isToday && slot.start < currentTimeStr;
       seen.add(key);
-      errs.push({ endBeforeStart, duplicate });
+      errs.push({ endBeforeStart, duplicate, pastTime });
     }
     return errs;
-  }, [slots]);
+  }, [slots, isToday, currentTimeStr]);
 
-  const hasErrors = errors.some((e) => e.endBeforeStart || e.duplicate);
+  const hasErrors = errors.some((e) => e.endBeforeStart || e.duplicate || e.pastTime);
   const isNewDay = initialSlots.length === 0;
   const cannotSave = hasErrors || (isNewDay && slots.length === 0);
 
   const addSlot = () => {
-    setSlots((prev) => [...prev, { start: "09:00", end: "10:00" }]);
+    if (isToday) {
+      setSlots((prev) => [...prev, { start: nextHourStart, end: nextHourEnd }]);
+    } else {
+      setSlots((prev) => [...prev, { start: "09:00", end: "10:00" }]);
+    }
   };
 
   const removeSlot = (index: number) => {
@@ -156,6 +185,12 @@ export function TimeSlotEditor({
                   <p className="mt-1 flex items-center gap-1 text-xs text-destructive">
                     <AlertCircleIcon className="size-3" />
                     Duplicate time slot
+                  </p>
+                )}
+                {error?.pastTime && (
+                  <p className="mt-1 flex items-center gap-1 text-xs text-destructive">
+                    <AlertCircleIcon className="size-3" />
+                    Start time must be in the future
                   </p>
                 )}
               </div>

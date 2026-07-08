@@ -64,7 +64,7 @@ export function ScheduleSummary({
               size="icon-xs"
               onClick={() => onEditDay(d)}
               aria-label="Edit time slots"
-              className="opacity-0 group-hover:opacity-100 transition-opacity"
+              className="opacity-60 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
             >
               <PencilIcon className="size-3" />
             </Button>
@@ -73,7 +73,7 @@ export function ScheduleSummary({
               size="icon-xs"
               onClick={() => onRemoveDay(d.day)}
               aria-label="Remove study day"
-              className="opacity-0 group-hover:opacity-100 transition-opacity"
+              className="opacity-60 sm:opacity-0 sm:group-hover:opacity-100 transition-opacity"
             >
               <XIcon className="size-3" />
             </Button>

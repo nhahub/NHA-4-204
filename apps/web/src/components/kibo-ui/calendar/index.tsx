@@ -14,6 +14,7 @@ import {
   type ReactNode,
   useCallback,
   useContext,
+  useEffect,
   useMemo,
   useState,
 } from "react";
@@ -125,7 +126,7 @@ const Combobox = ({
 
   return (
     <Popover onOpenChange={setOpen} open={open}>
-      <PopoverTrigger render={<Button aria-expanded={open} className={cn("w-40 justify-between capitalize", className)} variant="outline" />}>{value
+      <PopoverTrigger render={<Button aria-expanded={open} className={cn("w-32 sm:w-40 justify-between capitalize", className)} variant="outline" />}>{value
                       ? data.find((item) => item.value === value)?.label
                       : labels.button}<ChevronsUpDown className="ms-2 h-4 w-4 shrink-0 opacity-50" /></PopoverTrigger>
       <PopoverContent className="w-40 p-0">
@@ -318,15 +319,30 @@ export const CalendarMonthPicker = ({
   className,
 }: CalendarMonthPickerProps) => {
   const [month, setMonth] = useCalendarMonth();
+  const [year] = useCalendarYear();
   const { locale } = useContext(CalendarContext);
 
-  // Memoize month data to avoid recalculating date formatting
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth();
+
+  // Auto-correct to current month if viewing current year with a past month
+  useEffect(() => {
+    if (year === currentYear && month < currentMonth) {
+      setMonth(currentMonth as CalendarState["month"]);
+    }
+  }, [year, month, currentYear, currentMonth, setMonth]);
+
+  // Memoize month data — filter out past months when on current year
   const monthData = useMemo(() => {
-    return monthsForLocale(locale).map((month, index) => ({
+    const allMonths = monthsForLocale(locale).map((label, index) => ({
       value: index.toString(),
-      label: month,
+      label,
     }));
-  }, [locale]);
+    if (year === currentYear) {
+      return allMonths.slice(currentMonth);
+    }
+    return allMonths;
+  }, [locale, year, currentYear, currentMonth]);
 
   return (
     <Combobox
@@ -358,12 +374,15 @@ export const CalendarYearPicker = ({
 }: CalendarYearPickerProps) => {
   const [year, setYear] = useCalendarYear();
 
+  const currentYear = new Date().getFullYear();
+  const effectiveStart = Math.max(start, currentYear);
+
   return (
     <Combobox
       className={className}
-      data={Array.from({ length: end - start + 1 }, (_, i) => ({
-        value: (start + i).toString(),
-        label: (start + i).toString(),
+      data={Array.from({ length: end - effectiveStart + 1 }, (_, i) => ({
+        value: (effectiveStart + i).toString(),
+        label: (effectiveStart + i).toString(),
       }))}
       labels={{
         button: "Select year",
@@ -386,14 +405,19 @@ export const CalendarDatePagination = ({
   const [month, setMonth] = useCalendarMonth();
   const [year, setYear] = useCalendarYear();
 
+  const currentYear = new Date().getFullYear();
+  const currentMonth = new Date().getMonth();
+  const isAtMin = year === currentYear && month === currentMonth;
+
   const handlePreviousMonth = useCallback(() => {
+    if (isAtMin) return;
     if (month === 0) {
       setMonth(11);
       setYear(year - 1);
     } else {
       setMonth((month - 1) as CalendarState["month"]);
     }
-  }, [month, year, setMonth, setYear]);
+  }, [month, year, isAtMin, setMonth, setYear]);
 
   const handleNextMonth = useCallback(() => {
     if (month === 11) {
@@ -406,7 +430,7 @@ export const CalendarDatePagination = ({
 
   return (
     <div className={cn("flex items-center gap-2", className)}>
-      <Button onClick={handlePreviousMonth} size="icon" variant="ghost">
+      <Button onClick={handlePreviousMonth} size="icon" variant="ghost" disabled={isAtMin}>
         <ChevronLeftIcon size={16} />
       </Button>
       <Button onClick={handleNextMonth} size="icon" variant="ghost">
@@ -421,7 +445,7 @@ export type CalendarDateProps = {
 };
 
 export const CalendarDate = ({ children }: CalendarDateProps) => (
-  <div className="flex items-center justify-between p-3">{children}</div>
+  <div className="flex flex-wrap items-center justify-between gap-1 sm:gap-2 p-3">{children}</div>
 );
 
 export type CalendarHeaderProps = {
@@ -439,7 +463,7 @@ export const CalendarHeader = ({ className }: CalendarHeaderProps) => {
   return (
     <div className={cn("grid flex-grow grid-cols-7", className)}>
       {daysData.map((day) => (
-        <div className="p-3 text-end text-muted-foreground text-xs" key={day}>
+        <div className="p-1 sm:p-3 text-end text-muted-foreground text-xs" key={day}>
           {day}
         </div>
       ))}

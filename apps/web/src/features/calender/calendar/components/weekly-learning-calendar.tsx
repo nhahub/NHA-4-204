@@ -28,6 +28,7 @@ import {
   useUpdateTimeSlots,
   useClearMonth,
   useStudyNotifications,
+  useNotificationsEnabled,
 } from "../service";
 import { LearningCalendarBody } from "./learning-calendar-body";
 import { TimeSlotEditor } from "./time-slot-editor";
@@ -59,8 +60,9 @@ function CalendarInner({
 
   const [editorDay, setEditorDay] = useState<StudyDayData | null>(null);
   const [confirmDeleteDay, setConfirmDeleteDay] = useState<StudyDayData | null>(null);
+  const [confirmClearMonth, setConfirmClearMonth] = useState(false);
   const [showNotifPrompt, setShowNotifPrompt] = useState(false);
-  const [notificationsOn, setNotificationsOn] = useState(false);
+  const [notificationsOn, setNotificationsOn] = useNotificationsEnabled();
   const { requestPermission, isSupported, permission } =
     useStudyNotifications(notificationsOn);
 
@@ -91,7 +93,9 @@ function CalendarInner({
     }
     updateTimeSlots(month, year, editorDay.day, timeSlots);
     setEditorDay(null);
-    setShowNotifPrompt(true);
+    if (!notificationsOn) {
+      setShowNotifPrompt(true);
+    }
   };
 
   const handleConfirmDelete = (confirmed: boolean) => {
@@ -132,7 +136,14 @@ function CalendarInner({
   };
 
   const handleClear = () => {
-    clearMonth(month, year);
+    setConfirmClearMonth(true);
+  };
+
+  const handleConfirmClear = (confirmed: boolean) => {
+    if (confirmed) {
+      clearMonth(month, year);
+    }
+    setConfirmClearMonth(false);
   };
 
   const handleToggleNotifications = async () => {
@@ -270,6 +281,30 @@ function CalendarInner({
               No
             </Button>
             <Button variant="destructive" onClick={() => handleConfirmDelete(true)}>
+              Yes
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog
+        open={confirmClearMonth}
+        onOpenChange={(open) => {
+          if (!open) setConfirmClearMonth(false);
+        }}
+      >
+        <DialogContent className="sm:max-w-sm" role="alertdialog">
+          <DialogHeader>
+            <DialogTitle>Clear Month?</DialogTitle>
+          </DialogHeader>
+          <p className="text-muted-foreground text-sm">
+            Remove all study days for this month?
+          </p>
+          <DialogFooter>
+            <Button variant="outline" onClick={() => handleConfirmClear(false)}>
+              No
+            </Button>
+            <Button variant="destructive" onClick={() => handleConfirmClear(true)}>
               Yes
             </Button>
           </DialogFooter>

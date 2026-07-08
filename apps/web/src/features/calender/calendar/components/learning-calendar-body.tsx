@@ -1,6 +1,6 @@
 "use client";
 
-import { getDay, getDaysInMonth, isPast, startOfDay } from "date-fns";
+import { getDay, getDaysInMonth, startOfDay } from "date-fns";
 import { useMemo } from "react";
 import { ClockIcon, PencilIcon } from "lucide-react";
 import {
@@ -114,19 +114,19 @@ export function LearningCalendarBody({
   ]);
 
   return (
-    <div className="grid flex-grow grid-cols-7">
+    <div className="grid flex-grow grid-cols-7 text-[10px] sm:text-xs">
       {dayNodes.map((node, index) => {
         const isSelected = node.type === "current" && daysSet.has(node.day);
         const studyDay = isSelected ? daysSet.get(node.day) : undefined;
         const isPastDay =
           node.type === "current" &&
-          isPast(startOfDay(new Date(year, month, node.day)));
+          startOfDay(new Date(year, month, node.day)) < today;
 
         if (isPastDay) {
           return (
             <div
               key={node.day}
-              className="relative aspect-square overflow-hidden border-t border-e bg-secondary p-1"
+              className="relative aspect-square overflow-hidden border-t border-e bg-secondary p-0.5 sm:p-1"
               style={{
                 borderInlineEnd: index % 7 === 6 ? "none" : undefined,
               }}
@@ -157,7 +157,7 @@ export function LearningCalendarBody({
           return (
             <div
               key={`${node.type}-${index}`}
-              className="relative aspect-square overflow-hidden border-t border-e bg-secondary p-1 text-muted-foreground text-xs"
+              className="relative aspect-square overflow-hidden border-t border-e bg-secondary p-0.5 sm:p-1 text-muted-foreground text-xs"
               style={{
                 borderInlineEnd: index % 7 === 6 ? "none" : undefined,
               }}
@@ -171,7 +171,7 @@ export function LearningCalendarBody({
           <div
             key={node.day}
             className={cn(
-              "relative aspect-square overflow-hidden border-t border-e cursor-pointer transition-colors p-1",
+              "relative aspect-square overflow-hidden border-t border-e cursor-pointer transition-colors p-0.5 sm:p-1",
               isSelected && "bg-blue-50 dark:bg-blue-950/40",
               !isSelected && "hover:bg-muted"
             )}

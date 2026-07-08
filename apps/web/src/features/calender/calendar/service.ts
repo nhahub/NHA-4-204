@@ -10,8 +10,17 @@ const studyScheduleAtom = atomWithStorage<StudyDayData[]>(
   []
 );
 
+const notificationsAtom = atomWithStorage<boolean>(
+  "kibo-notifications",
+  false
+);
+
 export function useStudySchedule() {
   return useAtom(studyScheduleAtom);
+}
+
+export function useNotificationsEnabled() {
+  return useAtom(notificationsAtom);
 }
 
 export function useCurrentMonthDays(month: number, year: number) {

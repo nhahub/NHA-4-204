@@ -24,7 +24,7 @@ export default function CVUpload({ onParsed }: CVUploadProps) {
   const [status, setStatus] = useState<"idle" | "uploading" | "parsing" | "done">("idle");
   const [error, setError] = useState<string>("");
   const syncGithub = trpc.github.syncProjects.useMutation();
-
+  const addSkills = trpc.skills.addManualSkill.useMutation();
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     accept: {
       "application/pdf": [".pdf"],
@@ -125,7 +125,21 @@ githubSkills = ((githubData.skills ?? []) as ParsedSkill[]).map((skill) => ({
 
         return acc;
       }, []);
-
+try {
+  await addSkills.mutateAsync(
+    allSkills.map((skill) => ({
+      skillName: skill.name,
+      level:
+        Number(skill.strength) >= 80
+          ? "expert"
+          : Number(skill.strength) >= 50
+          ? "intermediate"
+          : "beginner",
+    }))
+  );
+} catch (error) {
+  console.error("Failed to save skills", error);
+}
 localStorage.setItem("all_skills", JSON.stringify(allSkills));
 
 navigate("/loading");

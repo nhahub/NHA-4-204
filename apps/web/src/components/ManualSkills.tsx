@@ -3,7 +3,6 @@ import Stepper from "../components/Stepper";
 import { useState } from "react";
 import { trpc } from "../utils/trpc";
 
-// تعريف بنية بيانات المهارة
 interface Skill {
   id: string | number;
   name: string;
@@ -12,7 +11,6 @@ interface Skill {
   isAiExtracted: boolean;
 }
 
-// تعريف بنية الـ State القادمة من الـ Location (React Router)
 interface LocationState {
   inheritedSkills?: string[];
 }
@@ -25,11 +23,9 @@ export default function AddSkills({ onSubmit }: AddSkillsProps) {
   const location = useLocation();
   const navigate = useNavigate();
 
-  // الحصول على المهارات الممررة عبر الـ State مع حمايتها بـ Type Casting
   const state = location.state as LocationState;
   const inheritedSkills = state?.inheritedSkills || [];
 
-  // دالة لتحديد نوع الأيقونة بناءً على اسم المهارة
   const getSkillType = (name: string): "design" | "js" | "code" => {
     const lowerName = name.toLowerCase();
     if (lowerName.includes("design") || lowerName === "figma" || lowerName.includes("ui") || lowerName.includes("ux")) return "design";
@@ -41,13 +37,12 @@ export default function AddSkills({ onSubmit }: AddSkillsProps) {
     return skillsArray.map((skillName, index) => ({
       id: `ai-${Date.now()}-${index}`,
       name: skillName,
-      level: "Mid", // مستوى افتراضي للمهارات المستخرجة
+      level: "Mid",
       type: getSkillType(skillName),
-      isAiExtracted: true, // لتمييزها في شاشة المراجعة
+      isAiExtracted: true, 
     }));
   };
 
-  // States الإدارة الأساسية للمهارات والبحث والتنبيهات
   const [skills, setSkills] = useState<Skill[]>(() => formatInheritedSkills(inheritedSkills));
   const [inputSkill, setInputSkill] = useState<string>("");
   const [selectedLevel, setSelectedLevel] = useState<"Beginner" | "Mid" | "Expert">("Beginner");
@@ -66,7 +61,6 @@ export default function AddSkills({ onSubmit }: AddSkillsProps) {
   const addManualSkill = trpc.skills.addManualSkill.useMutation();
   const updateUserSkill = trpc.skills.updateUserSkill.useMutation();
 
-  // تأكيد أن الـ suggestions مصفوفة تحتوي على معرف واسم
   const suggestions = (searchSkill.data as { id: string | number; name: string }[]) || [];
 
   const triggerAlert = (message: string) => {
@@ -131,7 +125,7 @@ export default function AddSkills({ onSubmit }: AddSkillsProps) {
     };
 
     await updateUserSkill.mutateAsync({
-      skillId: id as string, // تحويله حسب متطلبات الـ API الخاص بك (غالباً string)
+      skillId: id as string, 
       strengthScore: scoreMap[level],
     });
 
@@ -148,23 +142,19 @@ export default function AddSkills({ onSubmit }: AddSkillsProps) {
       return;
     }
     if (onSubmit) onSubmit(skills);
-    // التوجيه إلى صفحة المواعيد مع تمرير المهارات في الـ state
     navigate("/availability", { state: { skills } });
   };
 
-  // تصفية المهارات عند البحث
   const filteredSkills = skills.filter((skill) =>
     skill.name.toLowerCase().includes(search.toLowerCase())
   );
 
-  // تقسيم المهارات لعرض شاشة مراجعة مهارات الـ AI بشكل منفصل عن المهارات اليدوية
   const aiSkills = filteredSkills.filter(s => s.isAiExtracted);
   const manualSkills = filteredSkills.filter(s => !s.isAiExtracted);
 
   return (
     <div className="min-h-screen w-full bg-neutral-50 flex flex-col items-center py-6 px-6 font-sans antialiased text-neutral-900 relative">
       
-      {/* 🔔 التنبيه المخصص الجميل (Toast Notification) */}
       {errorMessage && (
         <div className="fixed top-6 left-1/2 transform -translate-x-1/2 z-50 flex items-center gap-2.5 bg-black text-white text-xs font-semibold px-5 py-3.5 rounded-2xl shadow-[0_20px_50px_rgba(0,0,0,0.15)] border border-neutral-800 animate-toastIn">
           <svg className="w-4 h-4 text-neutral-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -181,7 +171,6 @@ export default function AddSkills({ onSubmit }: AddSkillsProps) {
       </div>
 
       <div className="max-w-4xl mx-auto px-6 pt-6 relative z-10 w-full">
-        {/* العناوين في المنتصف */}
         <div className="mb-10 text-center">
           <h1 className="text-4xl md:text-4xl font-bold tracking-normal mb-4 antialiased">
             <span className="text-neutral-900">
@@ -193,7 +182,6 @@ export default function AddSkills({ onSubmit }: AddSkillsProps) {
           </p>
         </div>
 
-        {/* 🧠 شاشة مراجعة المهارات المستخرجة بواسطة الـ AI */}
         {aiSkills.length > 0 && (
           <div className="mb-10 bg-neutral-100/50 border border-neutral-200 rounded-3xl p-6 backdrop-blur-sm animate-fadeIn">
             <h2 className="text-xs font-bold tracking-wider text-neutral-700 uppercase mb-4 flex items-center justify-center gap-2">
@@ -234,7 +222,6 @@ export default function AddSkills({ onSubmit }: AddSkillsProps) {
           </div>
         )}
 
-        {/* نموذج إضافة وتعديل المهارات اليدوية */}
         <div className="bg-white p-12 rounded-3xl border border-neutral-200 shadow-[0_10px_40px_rgba(0,0,0,0.02)] mb-10 group">
           <label className="block text-center text-xs font-bold uppercase tracking-widest text-neutral-500 mb-4 group-focus-within:text-black">
             Add Custom or Selected Skill
@@ -284,7 +271,6 @@ export default function AddSkills({ onSubmit }: AddSkillsProps) {
           </div>
         </div>
 
-        {/* قسم الاقتراحات السريعة */}
         <div className="mb-10 text-center">
           <h2 className="text-xs font-bold tracking-wider text-neutral-400 uppercase mb-4 flex items-center justify-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-neutral-900"></span>
@@ -307,7 +293,6 @@ export default function AddSkills({ onSubmit }: AddSkillsProps) {
           </div>
         </div>
 
-        {/* خانة تصفية البحث */}
         {skills.length > 0 && (
           <div className="relative mb-6 group animate-fadeIn">
             <span className="absolute inset-y-0 left-0 flex items-center pl-4 text-neutral-400 group-focus-within:text-black transition-colors duration-300">
@@ -325,7 +310,6 @@ export default function AddSkills({ onSubmit }: AddSkillsProps) {
           </div>
         )}
 
-        {/* قائمة المهارات المضافة يدوياً */}
         <div>
           <h2 className="text-xs font-bold tracking-wider text-neutral-500 uppercase mb-2 flex items-center justify-center gap-2">
             <span className="w-1.5 h-1.5 rounded-full bg-neutral-900"></span>
@@ -396,7 +380,6 @@ export default function AddSkills({ onSubmit }: AddSkillsProps) {
           )}
         </div>
 
-        {/* زر الخطوة التالية */}
         <div className="mt-8 flex justify-end">
           <button
             onClick={handleConfirm}
@@ -410,7 +393,6 @@ export default function AddSkills({ onSubmit }: AddSkillsProps) {
         </div>
       </div>
 
-      {/* إضافة كلاس الأنيميشن الخاص بظهور الـ Toast */}
       <style>{`
         @keyframes fadeIn {
           from { opacity: 0; transform: translateY(16px) scale(0.98); }

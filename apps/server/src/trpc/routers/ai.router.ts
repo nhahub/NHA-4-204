@@ -103,16 +103,13 @@ export const aiRouter = router({
       });
       formData.set("file", file);
 
-      const response = await fetch(
-        "https://nourhan214-cv-ats.hf.space/evaluate",
-        {
-          method: "POST",
-          headers: {
-            "X-API-Key": env.HUGGING_FACE_CV_ATS_API_KEY,
-          },
-          body: formData,
+      const response = await fetch(env.AI_TEAM_ATS_URL, {
+        method: "POST",
+        headers: {
+          "X-API-Key": env.HUGGING_FACE_CV_ATS_API_KEY,
         },
-      );
+        body: formData,
+      });
 
       if (!response.ok) {
         const errorText = await response.text();
@@ -155,16 +152,13 @@ export const aiRouter = router({
         formData.set("job_description", input.jobDescription ?? "");
       }
 
-      const response = await fetch(
-        "https://nourhan214-skill-matching-engine.hf.space/match/upload",
-        {
-          method: "POST",
-          headers: {
-            "X-API-Key": env.HUGGING_FACE_SKILL_MATCHING_API_KEY,
-          },
-          body: formData,
+      const response = await fetch(env.AI_TEAM_MATCHING_URL, {
+        method: "POST",
+        headers: {
+          "X-API-Key": env.HUGGING_FACE_SKILL_MATCHING_API_KEY,
         },
-      );
+        body: formData,
+      });
 
       if (!response.ok) {
         const errorText = await response.text();

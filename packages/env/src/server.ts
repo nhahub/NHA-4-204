@@ -12,7 +12,9 @@ export const env = createEnv({
     CLOUDINARY_CLOUD_NAME: z.string().min(1),
     CLOUDINARY_API_KEY: z.string().min(1),
     CLOUDINARY_API_SECRET: z.string().min(1),
-    AI_TEAM_URL: z.string().url(),
+    AI_TEAM_PARSER_URL: z.string().url(),
+    AI_TEAM_ATS_URL: z.string().url(),
+    AI_TEAM_MATCHING_URL: z.string().url(),
     AI_TEAM_SECRET: z.string().min(32),
 
     HUGGING_FACE_CV_ATS_API_KEY: z.string().min(1),

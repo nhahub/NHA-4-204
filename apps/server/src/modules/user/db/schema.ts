@@ -1,6 +1,6 @@
 import { roles } from "@/db/schema";
 import { sql } from "drizzle-orm";
-import { pgTable, text, timestamp, boolean, uuid, integer ,check } from "drizzle-orm/pg-core";
+import { pgTable, text, timestamp, boolean, uuid, integer ,check, time } from "drizzle-orm/pg-core";
 
 
 export const user = pgTable("user", {
@@ -12,7 +12,10 @@ export const user = pgTable("user", {
     roleId: uuid("role_id")
         .references(() => roles.id, { onDelete: "set null" }),
     availableDaysPerWeek: integer("available_days_per_week"),
+    availableWeekdays: integer("available_weekdays").array(),
     availableHoursPerDay: integer("available_hours_per_day"),
+    timezone: text("timezone"),
+    preferredStartTime: time("preferred_start_time"),
 
     createdAt: timestamp("created_at").defaultNow().notNull(),
     updatedAt: timestamp("updated_at")

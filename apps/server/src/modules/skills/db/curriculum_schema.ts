@@ -10,6 +10,7 @@ export const skillCurriculumNodes = pgTable("skill_curriculum_nodes", {
         .notNull()
         .references(() => skills.id, { onDelete: "cascade" }),
     orderIndex: integer("order_index").notNull(),
+    estimatedDurationHours: integer("estimated_duration_hours").notNull().default(2),
     title: text("title").notNull(),
     description: text("description").notNull(),
 }, (table) => ({

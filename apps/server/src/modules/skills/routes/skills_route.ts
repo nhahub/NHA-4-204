@@ -310,7 +310,7 @@ export const skillsRouter = router({
             z.array(
                 z.object({
                     skillName: z.string().trim().min(1),
-                    level: z.enum(["beginner", "intermediate", "expert"]).nullable(),
+                    strength: z.number().min(1).max(100),
                 })
             ).min(1)
         )
@@ -320,7 +320,7 @@ export const skillsRouter = router({
                     addManualSkill({
                         userId: ctx.session.user.id,
                         skillName: skill.skillName,
-                        level: skill.level,
+                        strength : skill.strength,
                     })
                 )
             );

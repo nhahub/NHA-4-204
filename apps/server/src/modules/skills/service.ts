@@ -388,11 +388,11 @@ function categorizeSkills(skillMap: Map<string, number>) {
 export async function addManualSkill({
     userId,
     skillName,
-    level,
+    strength,
 }: {
     userId: string;
     skillName: string;
-    level: "beginner" | "intermediate" | "expert" | null ;
+    strength: number ;
 }) {
     const normalizedName = normalizeSkillName(skillName);
 
@@ -415,10 +415,6 @@ export async function addManualSkill({
         } as const;
     }
     
-    let baseScore = 30; // beginner
-    if (level === "intermediate") baseScore = 60;
-    else if (level === "expert") baseScore = 90;
-    
     const existingUserSkill = await db.query.userSkills.findFirst({
         where: and(
             eq(userSkills.userId, userId),
@@ -431,7 +427,7 @@ export async function addManualSkill({
         : 0;
 
     // Update if the manual score is higher
-    const newStrength = Math.max(existingStrength, baseScore);
+    const newStrength = Math.max(existingStrength, strength);
 
     await db
         .insert(userSkills)
@@ -448,7 +444,6 @@ export async function addManualSkill({
     return {
         skillId: skill.id,
         skillName: skill.name,
-        level,
         strengthScore: newStrength
     };
 }

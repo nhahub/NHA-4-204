@@ -17,7 +17,7 @@ export async function parseCVData(cvId: string, url: string): Promise<unknown> {
 
     // console.log("cv marked as parsing", cvId);
 
-    const parsingEndPoint = `${env.AI_TEAM_URL}/parse`;
+    const parsingEndPoint = new URL("parse", env.AI_TEAM_URL).toString();
 
 
 

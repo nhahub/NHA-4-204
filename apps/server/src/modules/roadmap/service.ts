@@ -14,6 +14,7 @@ import {
     curriculumNodeResources,
     skills,
     skillDependencies,
+    calendarEvents,
 } from "@/db/schema";
 import { normalizeSkillName } from "@/modules/github/utils";
 
@@ -199,6 +200,16 @@ export async function completeRoadmapNode({
         .update(roadmapNodes)
         .set({ status: "completed", completedAt: new Date() })
         .where(eq(roadmapNodes.id, node.nodeId));
+
+    await db
+        .update(calendarEvents)
+        .set({ status: "skipped" })
+        .where(
+            and(
+                eq(calendarEvents.roadmapNodeId, node.nodeId),
+                eq(calendarEvents.status, "scheduled")
+            )
+        );
 
     const firstPendingNode = await db
         .select()

@@ -21,5 +21,33 @@ export const auth = betterAuth({
       httpOnly: true,
     },
   },
+  user: {
+    additionalFields: {
+      roleId: {
+        type: "string",
+        input: false,
+      },
+      availableDaysPerWeek: {
+        type: "number",
+        input: true,
+      },
+      availableWeekdays: {
+        type: "number[]",
+        input: true,
+      },
+      availableHoursPerDay: {
+        type: "number",
+        input: true,
+      },
+      timezone: {
+        type: "string",
+        input: true,
+      },
+      preferredStartTime: {
+        type: "string",
+        input: true,
+      },
+    }
+  },
   plugins: [],
 });

@@ -22,17 +22,18 @@ app.use(
   }),
 );
 
-app.use(express.json());
-
-app.all("/api/auth{/*path}", toNodeHandler(auth));
-
 app.use(
   "/trpc",
+  express.json({ limit: "15mb" }),
   createExpressMiddleware({
     router: appRouter,
     createContext,
   }),
 );
+
+app.use(express.json());
+
+app.all("/api/auth{/*path}", toNodeHandler(auth));
 
 app.use("/cv", cvRoute);
 app.use(

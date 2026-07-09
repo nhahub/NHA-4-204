@@ -5,6 +5,7 @@ import { roles, roleSkills, user } from "@/db/schema";
 import { eq, sql } from "drizzle-orm";
 import { TRPCError } from "@trpc/server";
 import { evaluateUserForRoleName } from "../service";
+import { auth } from "@/shared/auth/auth";
 
 export const rolesRouter = router({
     create: protectedProcedure
@@ -19,13 +20,13 @@ export const rolesRouter = router({
                 .insert(roles)
                 .values({
                     title: input.title,
-                    description:input.description
+                    description: input.description
                 })
                 .onConflictDoUpdate({
                     target: roles.title,
                     set: {
                         title: input.title,
-                        description:input.description
+                        description: input.description
                     },
                 })
                 .returning();
@@ -91,7 +92,7 @@ export const rolesRouter = router({
                 .onConflictDoUpdate({
                     target: [roleSkills.roleId, roleSkills.skillId],
                     set: {
-                         isCore: sql.raw(`excluded.is_core`),
+                        isCore: sql.raw(`excluded.is_core`),
                     },
                 })
                 .returning();
@@ -107,26 +108,26 @@ export const rolesRouter = router({
         }),
 
     getAllRoles: protectedProcedure
-        .input(z.object({ includeScore:z.boolean()}))
-        .query(async ({ ctx , input }) => {
-            const rolesData =await db.query.roles.findMany({
+        .input(z.object({ includeScore: z.boolean() }))
+        .query(async ({ ctx, input }) => {
+            const rolesData = await db.query.roles.findMany({
                 orderBy: (roles, { asc }) => [asc(roles.title)],
             });
 
-            if(!input.includeScore) return rolesData; 
+            if (!input.includeScore) return rolesData;
 
             const userId = ctx.session.user.id;
-            const RolesScore = await Promise.all(rolesData.map(async (role)=>{
-               const evaluation = await evaluateUserForRoleName({
-                    userId: userId ,
+            const RolesScore = await Promise.all(rolesData.map(async (role) => {
+                const evaluation = await evaluateUserForRoleName({
+                    userId: userId,
                     roleName: role.title,
                 });
-                return{
+                return {
                     ...role,
-                    "score":evaluation.finalScore
+                    "score": evaluation.finalScore
                 }
             }));
-            
+
             return RolesScore;
         }),
 
@@ -138,13 +139,19 @@ export const rolesRouter = router({
                 .set({ roleId: input.roleId })
                 .where(eq(user.id, ctx.session.user.id))
                 .returning();
-            
+
             if (!updated[0]) {
                 throw new TRPCError({
                     code: "INTERNAL_SERVER_ERROR",
                     message: "Failed to update user role",
                 });
             }
+
+            await auth.api.updateSession({
+                body: { roleId: input.roleId },
+                headers: ctx.headers,
+            });
+
             return updated[0];
         }),
 
@@ -155,7 +162,7 @@ export const rolesRouter = router({
                 where: eq(roles.id, input.roleId),
                 with: {
                     skills: {
-                        columns:{
+                        columns: {
                             roleId: false,
                             skillId: false,
                         },

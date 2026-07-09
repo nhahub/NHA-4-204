@@ -46,6 +46,8 @@
 	--success-foreground: oklch(98% 0.0160 153.06);
 	--warning: oklch(0.8446 0.1525 80.6);
 	--warning-foreground: oklch(15% 0.0457 80.60);
+	--info: oklch(0.55 0.22 255);
+	--info-foreground: oklch(0.99 0.01 255);
 
 	/* herocn surface */
 	--surface: oklch(100.00% 0.0000 0.00);
@@ -94,6 +96,8 @@
 	--success-foreground: oklch(15% 0.0396 156.22);
 	--warning: oklch(0.8803 0.1348 86.06);
 	--warning-foreground: oklch(15% 0.0404 86.06);
+	--info: oklch(0.68 0.16 255);
+	--info-foreground: oklch(0.15 0.03 255);
 
 	/* herocn surface */
 	--surface: oklch(21.03% 0.0000 0.00);
@@ -153,6 +157,8 @@
 	--color-success-foreground: var(--success-foreground);
 	--color-warning: var(--warning);
 	--color-warning-foreground: var(--warning-foreground);
+	--color-info: var(--info);
+	--color-info-foreground: var(--info-foreground);
 
 	/* herocn surface */
 	--color-surface: var(--surface);

@@ -1,0 +1,194 @@
+{
+  "roadmap": {
+    "trackName": "DEPI Front-End Track",
+    "nodes": [
+      {
+        "id": "internet-basics",
+        "title": "Internet Basics",
+        "status": "completed",
+        "difficulty": "Easy",
+        "timeEstimate": "2–3 hrs",
+        "description": "Understand how the internet works — DNS, HTTP, browsers, and servers.",
+        "whatYoullLearn": [
+          "How the internet works",
+          "DNS & IP addresses",
+          "Browsers & servers"
+        ],
+        "playlist": {
+          "title": "How The Internet Works (2024)",
+          "lessons": 6,
+          "duration": "1h 20m",
+          "url": "https://www.youtube.com/watch?v=Dxcc6ycZ73M",
+          "thumbnail": "https://img.youtube.com/vi/Dxcc6ycZ73M/maxresdefault.jpg"
+        }
+      },
+      {
+        "id": "html-semantic",
+        "title": "HTML Semantic",
+        "status": "completed",
+        "difficulty": "Easy",
+        "timeEstimate": "3–4 hrs",
+        "description": "Learn semantic HTML5 elements that give structure and meaning to web pages.",
+        "whatYoullLearn": [
+          "Semantic tags",
+          "Forms & inputs",
+          "Accessibility basics"
+        ],
+        "playlist": {
+          "title": "HTML5 Full Course (2024)",
+          "lessons": 8,
+          "duration": "2h 10m",
+          "url": "https://www.youtube.com/watch?v=kUMe1FH4CGY",
+          "thumbnail": "https://img.youtube.com/vi/kUMe1FH4CGY/maxresdefault.jpg"
+        }
+      },
+      {
+        "id": "javascript-basics",
+        "title": "JavaScript Basics",
+        "status": "completed",
+        "difficulty": "Medium",
+        "timeEstimate": "4–6 hrs",
+        "description": "Master the core logic that powers the modern web. From variables to control flow.",
+        "whatYoullLearn": [
+          "Variables, Let & Const",
+          "Data types & operators",
+          "Functions & scope",
+          "Array methods"
+        ],
+        "playlist": {
+          "title": "JS: The Definite Guide (2024)",
+          "lessons": 12,
+          "duration": "2h 45m",
+          "url": "https://www.youtube.com/watch?v=W6NZfCO5SIk",
+          "thumbnail": "https://img.youtube.com/vi/W6NZfCO5SIk/maxresdefault.jpg"
+        }
+      },
+      {
+        "id": "react-basics",
+        "title": "React Basics",
+        "status": "in-progress",
+        "difficulty": "Hard",
+        "timeEstimate": "8–10 hrs",
+        "description": "Build component-based UIs with React — the most in-demand front-end framework.",
+        "whatYoullLearn": [
+          "Components & JSX",
+          "Props & state",
+          "useEffect & hooks",
+          "Conditional rendering"
+        ],
+        "playlist": {
+          "title": "React Full Course (2024)",
+          "lessons": 20,
+          "duration": "5h 30m",
+          "url": "https://www.youtube.com/watch?v=bMknfKXIFA8",
+          "thumbnail": "https://img.youtube.com/vi/bMknfKXIFA8/maxresdefault.jpg"
+        }
+      },
+      {
+        "id": "react-basics",
+        "title": "React Basics",
+        "status": "locked",
+        "difficulty": "Hard",
+        "timeEstimate": "8–10 hrs",
+        "description": "Build component-based UIs with React — the most in-demand front-end framework.",
+        "whatYoullLearn": [
+          "Components & JSX",
+          "Props & state",
+          "useEffect & hooks",
+          "Conditional rendering"
+        ],
+        "playlist": {
+          "title": "React Full Course (2024)",
+          "lessons": 20,
+          "duration": "5h 30m",
+          "url": "https://www.youtube.com/watch?v=bMknfKXIFA8",
+          "thumbnail": "https://img.youtube.com/vi/bMknfKXIFA8/maxresdefault.jpg"
+        }
+      },
+      {
+        "id": "react-basics",
+        "title": "React Basics",
+        "status": "locked",
+        "difficulty": "Hard",
+        "timeEstimate": "8–10 hrs",
+        "description": "Build component-based UIs with React — the most in-demand front-end framework.",
+        "whatYoullLearn": [
+          "Components & JSX",
+          "Props & state",
+          "useEffect & hooks",
+          "Conditional rendering"
+        ],
+        "playlist": {
+          "title": "React Full Course (2024)",
+          "lessons": 20,
+          "duration": "5h 30m",
+          "url": "https://www.youtube.com/watch?v=bMknfKXIFA8",
+          "thumbnail": "https://img.youtube.com/vi/bMknfKXIFA8/maxresdefault.jpg"
+        }
+      },
+      {
+        "id": "react-basics",
+        "title": "React Basics",
+        "status": "locked",
+        "difficulty": "Hard",
+        "timeEstimate": "8–10 hrs",
+        "description": "Build component-based UIs with React — the most in-demand front-end framework.",
+        "whatYoullLearn": [
+          "Components & JSX",
+          "Props & state",
+          "useEffect & hooks",
+          "Conditional rendering"
+        ],
+        "playlist": {
+          "title": "React Full Course (2024)",
+          "lessons": 20,
+          "duration": "5h 30m",
+          "url": "https://www.youtube.com/watch?v=bMknfKXIFA8",
+          "thumbnail": "https://img.youtube.com/vi/bMknfKXIFA8/maxresdefault.jpg"
+        }
+      },
+      {
+        "id": "react-basics",
+        "title": "React Basics",
+        "status": "locked",
+        "difficulty": "Hard",
+        "timeEstimate": "8–10 hrs",
+        "description": "Build component-based UIs with React — the most in-demand front-end framework.",
+        "whatYoullLearn": [
+          "Components & JSX",
+          "Props & state",
+          "useEffect & hooks",
+          "Conditional rendering"
+        ],
+        "playlist": {
+          "title": "React Full Course (2024)",
+          "lessons": 20,
+          "duration": "5h 30m",
+          "url": "https://www.youtube.com/watch?v=bMknfKXIFA8",
+          "thumbnail": "https://img.youtube.com/vi/bMknfKXIFA8/maxresdefault.jpg"
+        }
+      },
+      {
+        "id": "react-basics",
+        "title": "React Basics",
+        "status": "locked",
+        "difficulty": "Hard",
+        "timeEstimate": "8–10 hrs",
+        "description": "Build component-based UIs with React — the most in-demand front-end framework.",
+        "whatYoullLearn": [
+          "Components & JSX",
+          "Props & state",
+          "useEffect & hooks",
+          "Conditional rendering"
+        ],
+        "playlist": {
+          "title": "React Full Course (2024)",
+          "lessons": 20,
+          "duration": "5h 30m",
+          "url": "https://www.youtube.com/watch?v=bMknfKXIFA8",
+          "thumbnail": "https://img.youtube.com/vi/bMknfKXIFA8/maxresdefault.jpg"
+        }
+      }
+    ]
+  }
+}

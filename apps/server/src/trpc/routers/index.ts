@@ -1,5 +1,4 @@
 import { router } from "../index";
-import { authRouter } from "../../modules/auth/routes/trpc_route";
 import { cvRouter } from "../../modules/cv/routes/trpc_route";
 import { githubRouter } from "../../modules/github/routes/github_route";
 import { rolesRouter } from "../../modules/roles/routes/trpc_route";
@@ -14,7 +13,6 @@ import { aiRouter } from "./ai.router";
 
 export const appRouter = router({
     ai: aiRouter,
-    auth: authRouter,
     cv: cvRouter,
     github: githubRouter,
     roles: rolesRouter,

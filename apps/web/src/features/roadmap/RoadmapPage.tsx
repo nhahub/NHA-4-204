@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from "react";
 import { useQueryClient, useQuery, useMutation } from "@tanstack/react-query";
-import { RoadmapCanvas } from "./RoadmapCanvas";
+import { RoadmapCanvas, buildSkillColorMap } from "./RoadmapCanvas";
 import { RoadmapDetails } from "./RoadmapDetails";
 import { trpc } from "../../utils/trpc";
 import type { ActiveRoadmapNode, ApiRoadmapNode } from "./roadmap.data";
@@ -161,6 +161,7 @@ export function RoadmapPage() {
   }
 
   const selectedStep = mappedNodes.find((n) => n.nodeId === selectedId) || mappedNodes[0];
+  const skillColorMap = useMemo(() => buildSkillColorMap(mappedNodes), [mappedNodes]);
 
   const completedCount = mappedNodes.filter((n) => n.status === "completed").length;
   const totalCount = mappedNodes.length;
@@ -206,27 +207,30 @@ export function RoadmapPage() {
           />
         )}
 
-        <aside
-          className={`
-            fixed top-0 h-full z-[100] bg-zinc-50 dark:bg-[#0a0a0a] shadow-[-4px_0_24px_rgba(0,0,0,0.15)] transition-all duration-300 ease-in-out w-[85%] max-w-[380px] overflow-y-auto
-            md:sticky md:top-0 md:max-h-screen md:w-[300px] md:shrink-0 md:shadow-none md:transition-none
-            ${isMobileDrawerOpen ? "right-0" : "right-[-100%] md:right-0"}
-          `}
-        >
-          <RoadmapDetails
-            mapNode={selectedStep}
-            isMutating={completeNodeMutation.isPending}
-            onMarkComplete={handleMarkComplete}
-            onOpenNext={() => {
-              const currentIndex = mappedNodes.findIndex((n) => n.nodeId === selectedId);
-              const nextNode = mappedNodes[currentIndex + 1];
-              if (nextNode) {
-                setSelectedId(nextNode.nodeId);
-              }
-            }}
-            onCloseMobile={() => setIsMobileDrawerOpen(false)}
-          />
-        </aside>
+        {!showCongrats && (
+          <aside
+            className={`
+              fixed top-0 h-full z-[100] bg-zinc-50 dark:bg-[#0a0a0a] shadow-[-4px_0_24px_rgba(0,0,0,0.15)] transition-all duration-300 ease-in-out w-[85%] max-w-[380px] overflow-y-auto
+              md:sticky md:top-0 md:max-h-screen md:w-[300px] md:shrink-0 md:shadow-none md:transition-none
+              ${isMobileDrawerOpen ? "right-0" : "right-[-100%] md:right-0"}
+            `}
+          >
+            <RoadmapDetails
+              mapNode={selectedStep}
+              skillColor={selectedStep ? skillColorMap.get(selectedStep.skillName) : undefined}
+              isMutating={completeNodeMutation.isPending}
+              onMarkComplete={handleMarkComplete}
+              onOpenNext={() => {
+                const currentIndex = mappedNodes.findIndex((n) => n.nodeId === selectedId);
+                const nextNode = mappedNodes[currentIndex + 1];
+                if (nextNode) {
+                  setSelectedId(nextNode.nodeId);
+                }
+              }}
+              onCloseMobile={() => setIsMobileDrawerOpen(false)}
+            />
+          </aside>
+        )}
       </div>
 
       {showCongrats && (

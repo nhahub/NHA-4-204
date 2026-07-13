@@ -13,6 +13,7 @@ interface Props {
   onMarkComplete: (id: string) => void;
   onOpenNext: () => void;
   onCloseMobile?: () => void;
+  skillColor?: string;
 }
 
 const PRIORITY_VARIANT: Record<string, "default" | "success" | "destructive" | "foreground" | "primary" | "warning"> = {
@@ -20,7 +21,7 @@ const PRIORITY_VARIANT: Record<string, "default" | "success" | "destructive" | "
   medium: "warning",
 };
 
-export function RoadmapDetails({ mapNode, isMutating, onMarkComplete, onOpenNext, onCloseMobile }: Props) {
+export function RoadmapDetails({ mapNode, isMutating, onMarkComplete, onOpenNext, onCloseMobile, skillColor }: Props) {
   if (!mapNode) return null;
 
   const isLocked = mapNode.status === "pending";
@@ -40,7 +41,15 @@ export function RoadmapDetails({ mapNode, isMutating, onMarkComplete, onOpenNext
     <div className="flex flex-col gap-4 p-5 pb-7 min-h-full">
       <div className="flex justify-between items-start gap-3">
         <div className="flex-1">
-          <Badge variant="primary" className="mb-2.5 text-[10px] font-bold uppercase tracking-widest rounded-md border border-border">
+          <Badge
+            variant="primary"
+            className="mb-2.5 text-[10px] font-bold uppercase tracking-widest rounded-md border"
+            style={
+              skillColor
+                ? { color: skillColor, borderColor: skillColor, backgroundColor: `${skillColor}1a` }
+                : undefined
+            }
+          >
             Skill: {mapNode.skillName}
           </Badge>
 

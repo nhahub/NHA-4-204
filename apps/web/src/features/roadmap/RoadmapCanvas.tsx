@@ -17,7 +17,7 @@ function generatePath(startX: number, startY: number, endX: number, endY: number
 // A friendly, high-contrast palette (works on light + dark surfaces).
 // Colors are assigned to skills in order of first appearance so the same
 // skill always gets the same color across renders.
-const SKILL_PALETTE = [
+export const SKILL_PALETTE = [
   "#f59e0b", // amber
   "#8b5cf6", // violet
   "#22d3ee", // cyan
@@ -30,7 +30,7 @@ const SKILL_PALETTE = [
   "#2dd4bf", // teal
 ];
 
-function buildSkillColorMap(nodes: ActiveRoadmapNode[]): Map<string, string> {
+export function buildSkillColorMap(nodes: ActiveRoadmapNode[]): Map<string, string> {
   const map = new Map<string, string>();
   let i = 0;
   for (const node of nodes) {
@@ -63,18 +63,52 @@ function NodeCard({ node, isSelected, skillColor, onClick }: { node: ActiveRoadm
 
   return (
     <g style={{ cursor: c.cursor, filter: glow }} onClick={!isPending ? onClick : undefined}>
-      {/* Pulsing halo draws the eye to the single unlocked node */}
+      {/* Pulsing halo draws the eye to the single unlocked node: a dot
+          travels the rounded outline while the dashed border marches along. */}
       {isActive && (
-        <rect x={-7} y={-7} width={W + 14} height={H + 14} rx={13} fill="none" stroke={borderColor} strokeWidth={2}>
-          <animate attributeName="opacity" values="0.15;0.55;0.15" dur="2.4s" repeatCount="indefinite" />
-          <animate attributeName="stroke-width" values="1.5;2.5;1.5" dur="2.4s" repeatCount="indefinite" />
-        </rect>
+        <>
+          <defs>
+            <path
+              id={`activePath-${node.nodeId}`}
+              d={`
+                M ${-7 + 13} ${-7}
+                H ${W - 6}
+                A 13 13 0 0 1 ${W + 7} 6
+                V ${H - 6}
+                A 13 13 0 0 1 ${W - 6} ${H + 7}
+                H 6
+                A 13 13 0 0 1 -7 ${H - 6}
+                V 6
+                A 13 13 0 0 1 6 -7
+              `}
+              fill="none"
+            />
+          </defs>
+
+          <circle r={4} fill={borderColor}>
+            <animateMotion dur="10s" repeatCount="indefinite" rotate="auto">
+              <mpath href={`#activePath-${node.nodeId}`} />
+            </animateMotion>
+          </circle>
+          <rect
+            x={-7}
+            y={-7}
+            width={W + 14}
+            height={H + 14}
+            rx={13}
+            fill="none"
+            stroke={borderColor}
+            strokeWidth={2}
+            strokeDasharray="10 8"
+          >
+            <animate attributeName="stroke-dashoffset" from="0" to="-36" dur="1.5s" repeatCount="indefinite" />
+          </rect>
+        </>
       )}
       {isSelected && !isPending && (
         <rect x={-5} y={-5} width={W + 10} height={H + 10} rx={10} fill="none" stroke={borderColor} strokeWidth={1.5} opacity={0.35} />
       )}
       <rect x={0} y={0} width={W} height={H} rx={8} fill={c.bg} stroke={borderColor} strokeOpacity={borderOpacity} strokeWidth={isSelected ? 2 : 1.25} opacity={isPending ? 0.7 : 1} />
-      <rect x={0} y={0} width={3} height={H} rx={2} fill={c.accentBar} opacity={isPending ? 0.7 : 1} />
 
       {/* foreignObject truncates long titles with an ellipsis instead of
           letting SVG <text> spill outside the card boundary */}
@@ -96,7 +130,7 @@ function NodeCard({ node, isSelected, skillColor, onClick }: { node: ActiveRoadm
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: 7, minWidth: 0 }}>
-            <span style={{ fontSize: 13, color: c.accentBar, flexShrink: 0, lineHeight: 1 }}>{c.icon}</span>
+            <span style={{ fontSize: 13, color: borderColor, flexShrink: 0, lineHeight: 1 }}>{c.icon}</span>
             <span
               style={{
                 fontSize: 12.5,
@@ -111,7 +145,7 @@ function NodeCard({ node, isSelected, skillColor, onClick }: { node: ActiveRoadm
               {node.curriculumTitle}
             </span>
           </div>
-          <span style={{ fontSize: 9, fontWeight: 700, color: c.label, letterSpacing: 1, marginLeft: 20 }}>
+          <span style={{ fontSize: 9, fontWeight: 700, color: borderColor, letterSpacing: 1, marginLeft: 20 }}>
             {c.statusText}
           </span>
         </div>
@@ -127,15 +161,22 @@ function getDynamicPosition(index: number, isMobile: boolean) {
 
 export function RoadmapCanvas({ nodes, selectedId, onSelect }: Props) {
   const isMobile = useIsMobile();
-  const activeNodeRef = useRef<SVGGElement | null>(null);
+  const nodeRefs = useRef<Map<string, SVGGElement>>(new Map());
   const hasAutoScrolled = useRef(false);
+
+  function scrollToNode(nodeId: string) {
+    nodeRefs.current.get(nodeId)?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
 
   // On first load, jump straight to the node the learner is actually on
   // instead of dropping them at node 1 and making them scroll down.
   useEffect(() => {
-    if (hasAutoScrolled.current || nodes.length === 0 || !activeNodeRef.current) return;
-    activeNodeRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
-    hasAutoScrolled.current = true;
+    if (hasAutoScrolled.current || nodes.length === 0) return;
+    const activeNode = nodes.find((n) => n.status === "inProgress");
+    if (activeNode) {
+      scrollToNode(activeNode.nodeId);
+      hasAutoScrolled.current = true;
+    }
   }, [nodes]);
 
   if (nodes.length === 0) return null;
@@ -145,15 +186,44 @@ export function RoadmapCanvas({ nodes, selectedId, onSelect }: Props) {
   const viewBoxWidth = isMobile ? 360 : 700;
   const skillColorMap = buildSkillColorMap(nodes);
 
+  function handleSkillClick(skillName: string) {
+    const firstNode = nodes.find((n) => n.skillName === skillName);
+    if (!firstNode) return;
+    onSelect(firstNode.nodeId);
+    scrollToNode(firstNode.nodeId);
+  }
+
   return (
     <div className="roadmap-canvas-scroll">
-      {/* Legend: same color = same skill, so it's clear at a glance which
-          modules belong together as you scroll down the path */}
+      {/* Legend: same color = same skill. Click a skill to jump straight to
+          its first module. */}
       <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 14px", padding: "14px 20px 4px" }}>
         {Array.from(skillColorMap.entries()).map(([skillName, color]) => (
-          <div key={skillName} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <div
+            key={skillName}
+            role="button"
+            tabIndex={0}
+            title={`Jump to ${skillName}`}
+            onClick={() => handleSkillClick(skillName)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") handleSkillClick(skillName);
+            }}
+            style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer" }}
+          >
             <span style={{ width: 8, height: 8, borderRadius: 999, background: color, flexShrink: 0 }} />
-            <span style={{ fontSize: 11, fontWeight: 600, color: "var(--muted-foreground)", fontFamily: "'Inter', sans-serif" }}>
+            <span
+              style={{
+                fontSize: 11,
+                fontWeight: 600,
+                color: "var(--muted-foreground)",
+                fontFamily: "'Inter', sans-serif",
+                textDecoration: "underline",
+                textDecorationColor: "transparent",
+                textUnderlineOffset: 3,
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.textDecorationColor = color)}
+              onMouseLeave={(e) => (e.currentTarget.style.textDecorationColor = "transparent")}
+            >
               {skillName}
             </span>
           </div>
@@ -176,18 +246,27 @@ export function RoadmapCanvas({ nodes, selectedId, onSelect }: Props) {
           // The segment leading INTO the currently unlocked node gets an
           // animated "flowing" dash so it visually reads as "walk this way".
           const leadsToActive = nodes[i + 1]?.status === "inProgress";
+          // Completed lines pick up the color of the skill they're leaving,
+          // instead of a generic green, so the whole branch reads as one color.
+          const sourceColor = skillColorMap.get(node.skillName) ?? "var(--success)";
           return (
             <path
               key={`path-${i}`}
+              pathLength={1}
               d={generatePath(posA.x + NODE_WIDTH / 2, posA.y + NODE_HEIGHT, posB.x + NODE_WIDTH / 2, posB.y)}
               fill="none"
-              stroke={isDone ? "var(--success)" : leadsToActive ? "var(--info)" : "var(--foreground)"}
-              strokeWidth={isDone ? 2 : leadsToActive ? 2 : 1.5}
-              strokeDasharray={isDone ? "none" : "6 6"}
+              stroke={isDone || leadsToActive ? sourceColor : "var(--foreground)"}
+              strokeWidth={isDone ? 2.5 : leadsToActive ? 2 : 1.5}
+              strokeDasharray={isDone ? 1 : "0.08 0.05"}
               opacity={isDone ? 1 : leadsToActive ? 0.8 : 0.4}
+              style={{ transition: "stroke 0.5s ease, opacity 0.5s ease" }}
             >
-              {!isDone && (
-                <animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.6s" repeatCount="indefinite" />
+              {isDone ? (
+                // One-shot "draw" reveal: plays the moment this segment
+                // flips to completed (and again, harmlessly, on page load).
+                <animate attributeName="stroke-dashoffset" from={1} to={0} dur="0.9s" fill="freeze" />
+              ) : (
+                <animate attributeName="stroke-dashoffset" from={0.13} to={0} dur="1.6s" repeatCount="indefinite" />
               )}
             </path>
           );
@@ -196,7 +275,10 @@ export function RoadmapCanvas({ nodes, selectedId, onSelect }: Props) {
         {nodes.map((node, i) => (
           <g
             key={node.nodeId}
-            ref={node.status === "inProgress" ? activeNodeRef : undefined}
+            ref={(el) => {
+              if (el) nodeRefs.current.set(node.nodeId, el);
+              else nodeRefs.current.delete(node.nodeId);
+            }}
             transform={`translate(${getDynamicPosition(i, isMobile).x}, ${getDynamicPosition(i, isMobile).y})`}
           >
             <NodeCard

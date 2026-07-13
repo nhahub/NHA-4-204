@@ -17,7 +17,7 @@ function generatePath(startX: number, startY: number, endX: number, endY: number
 // A friendly, high-contrast palette (works on light + dark surfaces).
 // Colors are assigned to skills in order of first appearance so the same
 // skill always gets the same color across renders.
-const SKILL_PALETTE = [
+export const SKILL_PALETTE = [
   "#f59e0b", // amber
   "#8b5cf6", // violet
   "#22d3ee", // cyan
@@ -30,7 +30,7 @@ const SKILL_PALETTE = [
   "#2dd4bf", // teal
 ];
 
-function buildSkillColorMap(nodes: ActiveRoadmapNode[]): Map<string, string> {
+export function buildSkillColorMap(nodes: ActiveRoadmapNode[]): Map<string, string> {
   const map = new Map<string, string>();
   let i = 0;
   for (const node of nodes) {
@@ -63,7 +63,8 @@ function NodeCard({ node, isSelected, skillColor, onClick }: { node: ActiveRoadm
 
   return (
     <g style={{ cursor: c.cursor, filter: glow }} onClick={!isPending ? onClick : undefined}>
-      {/* Pulsing halo draws the eye to the single unlocked node */}
+      {/* Pulsing halo draws the eye to the single unlocked node: a dot
+          travels the rounded outline while the dashed border marches along. */}
       {isActive && (
       <>
         <defs>
@@ -163,15 +164,22 @@ function getDynamicPosition(index: number, isMobile: boolean) {
 
 export function RoadmapCanvas({ nodes, selectedId, onSelect }: Props) {
   const isMobile = useIsMobile();
-  const activeNodeRef = useRef<SVGGElement | null>(null);
+  const nodeRefs = useRef<Map<string, SVGGElement>>(new Map());
   const hasAutoScrolled = useRef(false);
+
+  function scrollToNode(nodeId: string) {
+    nodeRefs.current.get(nodeId)?.scrollIntoView({ behavior: "smooth", block: "center" });
+  }
 
   // On first load, jump straight to the node the learner is actually on
   // instead of dropping them at node 1 and making them scroll down.
   useEffect(() => {
-    if (hasAutoScrolled.current || nodes.length === 0 || !activeNodeRef.current) return;
-    activeNodeRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
-    hasAutoScrolled.current = true;
+    if (hasAutoScrolled.current || nodes.length === 0) return;
+    const activeNode = nodes.find((n) => n.status === "inProgress");
+    if (activeNode) {
+      scrollToNode(activeNode.nodeId);
+      hasAutoScrolled.current = true;
+    }
   }, [nodes]);
 
   if (nodes.length === 0) return null;
@@ -181,15 +189,44 @@ export function RoadmapCanvas({ nodes, selectedId, onSelect }: Props) {
   const viewBoxWidth = isMobile ? 360 : 700;
   const skillColorMap = buildSkillColorMap(nodes);
 
+  function handleSkillClick(skillName: string) {
+    const firstNode = nodes.find((n) => n.skillName === skillName);
+    if (!firstNode) return;
+    onSelect(firstNode.nodeId);
+    scrollToNode(firstNode.nodeId);
+  }
+
   return (
     <div className="roadmap-canvas-scroll">
-      {/* Legend: same color = same skill, so it's clear at a glance which
-          modules belong together as you scroll down the path */}
+      {/* Legend: same color = same skill. Click a skill to jump straight to
+          its first module. */}
       <div style={{ display: "flex", flexWrap: "wrap", gap: "6px 14px", padding: "14px 20px 4px" }}>
         {Array.from(skillColorMap.entries()).map(([skillName, color]) => (
-          <div key={skillName} style={{ display: "flex", alignItems: "center", gap: 6 }}>
+          <div
+            key={skillName}
+            role="button"
+            tabIndex={0}
+            title={`Jump to ${skillName}`}
+            onClick={() => handleSkillClick(skillName)}
+            onKeyDown={(e) => {
+              if (e.key === "Enter" || e.key === " ") handleSkillClick(skillName);
+            }}
+            style={{ display: "flex", alignItems: "center", gap: 6, cursor: "pointer" }}
+          >
             <span style={{ width: 8, height: 8, borderRadius: 999, background: color, flexShrink: 0 }} />
-            <span style={{ fontSize: 11, fontWeight: 600, color: "var(--muted-foreground)", fontFamily: "'Inter', sans-serif" }}>
+            <span
+              style={{
+                fontSize: 11,
+                fontWeight: 600,
+                color: "var(--muted-foreground)",
+                fontFamily: "'Inter', sans-serif",
+                textDecoration: "underline",
+                textDecorationColor: "transparent",
+                textUnderlineOffset: 3,
+              }}
+              onMouseEnter={(e) => (e.currentTarget.style.textDecorationColor = color)}
+              onMouseLeave={(e) => (e.currentTarget.style.textDecorationColor = "transparent")}
+            >
               {skillName}
             </span>
           </div>
@@ -212,18 +249,27 @@ export function RoadmapCanvas({ nodes, selectedId, onSelect }: Props) {
           // The segment leading INTO the currently unlocked node gets an
           // animated "flowing" dash so it visually reads as "walk this way".
           const leadsToActive = nodes[i + 1]?.status === "inProgress";
+          // Completed lines pick up the color of the skill they're leaving,
+          // instead of a generic green, so the whole branch reads as one color.
+          const sourceColor = skillColorMap.get(node.skillName) ?? "var(--success)";
           return (
             <path
               key={`path-${i}`}
+              pathLength={1}
               d={generatePath(posA.x + NODE_WIDTH / 2, posA.y + NODE_HEIGHT, posB.x + NODE_WIDTH / 2, posB.y)}
               fill="none"
-              stroke={isDone ? "var(--success)" : leadsToActive ? "var(--info)" : "var(--foreground)"}
-              strokeWidth={isDone ? 2 : leadsToActive ? 2 : 1.5}
-              strokeDasharray={isDone ? "none" : "6 6"}
+              stroke={isDone || leadsToActive ? sourceColor : "var(--foreground)"}
+              strokeWidth={isDone ? 2.5 : leadsToActive ? 2 : 1.5}
+              strokeDasharray={isDone ? 1 : "0.08 0.05"}
               opacity={isDone ? 1 : leadsToActive ? 0.8 : 0.4}
+              style={{ transition: "stroke 0.5s ease, opacity 0.5s ease" }}
             >
-              {!isDone && (
-                <animate attributeName="stroke-dashoffset" from="24" to="0" dur="1.6s" repeatCount="indefinite" />
+              {isDone ? (
+                // One-shot "draw" reveal: plays the moment this segment
+                // flips to completed (and again, harmlessly, on page load).
+                <animate attributeName="stroke-dashoffset" from={1} to={0} dur="0.9s" fill="freeze" />
+              ) : (
+                <animate attributeName="stroke-dashoffset" from={0.13} to={0} dur="1.6s" repeatCount="indefinite" />
               )}
             </path>
           );
@@ -232,7 +278,10 @@ export function RoadmapCanvas({ nodes, selectedId, onSelect }: Props) {
         {nodes.map((node, i) => (
           <g
             key={node.nodeId}
-            ref={node.status === "inProgress" ? activeNodeRef : undefined}
+            ref={(el) => {
+              if (el) nodeRefs.current.set(node.nodeId, el);
+              else nodeRefs.current.delete(node.nodeId);
+            }}
             transform={`translate(${getDynamicPosition(i, isMobile).x}, ${getDynamicPosition(i, isMobile).y})`}
           >
             <NodeCard

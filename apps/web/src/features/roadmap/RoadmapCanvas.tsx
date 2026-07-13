@@ -1,3 +1,4 @@
+import { useEffect, useRef } from "react";
 import { useIsMobile } from "@/hooks/use-mobile";
 import type { ActiveRoadmapNode } from "./roadmap.data";
 import { NODE_HEIGHT, NODE_WIDTH } from "./roadmap.data";
@@ -126,6 +127,17 @@ function getDynamicPosition(index: number, isMobile: boolean) {
 
 export function RoadmapCanvas({ nodes, selectedId, onSelect }: Props) {
   const isMobile = useIsMobile();
+  const activeNodeRef = useRef<SVGGElement | null>(null);
+  const hasAutoScrolled = useRef(false);
+
+  // On first load, jump straight to the node the learner is actually on
+  // instead of dropping them at node 1 and making them scroll down.
+  useEffect(() => {
+    if (hasAutoScrolled.current || nodes.length === 0 || !activeNodeRef.current) return;
+    activeNodeRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
+    hasAutoScrolled.current = true;
+  }, [nodes]);
+
   if (nodes.length === 0) return null;
 
   const lastNodePos = getDynamicPosition(nodes.length - 1, isMobile);
@@ -182,7 +194,11 @@ export function RoadmapCanvas({ nodes, selectedId, onSelect }: Props) {
         })}
 
         {nodes.map((node, i) => (
-          <g key={node.nodeId} transform={`translate(${getDynamicPosition(i, isMobile).x}, ${getDynamicPosition(i, isMobile).y})`}>
+          <g
+            key={node.nodeId}
+            ref={node.status === "inProgress" ? activeNodeRef : undefined}
+            transform={`translate(${getDynamicPosition(i, isMobile).x}, ${getDynamicPosition(i, isMobile).y})`}
+          >
             <NodeCard
               node={node}
               isSelected={node.nodeId === selectedId}

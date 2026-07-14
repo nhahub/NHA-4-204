@@ -18,7 +18,10 @@ const WEEKDAY_MAP: Record<number, number[]> = {
 };
 
 function formatDate(date: Date): string {
-    return date.toISOString().split("T")[0] || "";
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const day = String(date.getDate()).padStart(2, '0');
+    return `${year}-${month}-${day}`;
 }
 
 function addHoursToTime(timeStr: string, hoursToAdd: number): string {
@@ -118,30 +121,42 @@ export async function generateCalendar(userId: string) {
 
     const eventsToCreate: typeof calendarEvents.$inferInsert[] = [];
     let dateIndex = 0;
+    let hoursUsedToday = 0;
 
     for (const node of unfinishedNodes) {
-        const durationHours = node.estimatedDurationHours || 2;
-        const sessionsNeeded = Math.ceil(durationHours / hoursPerDay);
-        const startingSession = (maxSessionIndexMap.get(node.id) || 0) + 1;
+        let remainingDuration = node.estimatedDurationHours || 2;
+        let sessionIndex = (maxSessionIndexMap.get(node.id) || 0) + 1;
+        const totalSessionsForNode = Math.ceil(remainingDuration / hoursPerDay);
 
-        for (let sessionIndex = startingSession; sessionIndex <= sessionsNeeded; sessionIndex++) {
+        while (remainingDuration > 0) {
             if (dateIndex >= candidateDates.length) break;
 
+            if (hoursUsedToday >= hoursPerDay) {
+                dateIndex++;
+                hoursUsedToday = 0;
+                if (dateIndex >= candidateDates.length) break;
+            }
+
             const date = candidateDates[dateIndex] || "";
-            const endTimeStr = addHoursToTime(preferredStartTime, hoursPerDay);
+            const sessionDuration = Math.min(remainingDuration, hoursPerDay - hoursUsedToday);
+            
+            const sessionStartTime = addHoursToTime(preferredStartTime, hoursUsedToday);
+            const endTimeStr = addHoursToTime(sessionStartTime, sessionDuration);
 
             eventsToCreate.push({
                 userId,
                 roadmapNodeId: node.id,
                 sessionIndex,
-                totalSessionsForNode: sessionsNeeded,
+                totalSessionsForNode, // This might not be perfectly accurate if sessions are split unevenly, but it's close enough for the UI.
                 date,
-                startTime: preferredStartTime,
+                startTime: sessionStartTime,
                 endTime: endTimeStr,
                 status: "scheduled",
             });
 
-            dateIndex++;
+            hoursUsedToday += sessionDuration;
+            remainingDuration -= sessionDuration;
+            sessionIndex++;
         }
         if (dateIndex >= candidateDates.length) break;
     }

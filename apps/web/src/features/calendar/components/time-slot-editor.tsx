@@ -20,7 +20,8 @@ type TimeSlotEditorProps = {
   onOpenChange: (open: boolean) => void;
   event: CalendarEvent;
   maxHours: number;
-  onSave: (eventId: string, startTime: string, endTime: string) => void;
+  weekDates: string[];
+  onSave: (eventId: string, date: string, startTime: string, endTime: string) => void;
 };
 
 function isTimeBefore(a: string, b: string) {
@@ -37,8 +38,10 @@ export function TimeSlotEditor({
   onOpenChange,
   event,
   maxHours,
+  weekDates,
   onSave,
 }: TimeSlotEditorProps) {
+  const [selectedDate, setSelectedDate] = useState(event.date);
   const [startTime, setStartTime] = useState(event.startTime.slice(0, 5));
   const [endTime, setEndTime] = useState(event.endTime.slice(0, 5));
 
@@ -59,23 +62,42 @@ export function TimeSlotEditor({
 
   const handleSave = () => {
     if (hasErrors) return;
-    onSave(event.id, startTime + ":00", endTime + ":00");
+    onSave(event.id, selectedDate, startTime + ":00", endTime + ":00");
     onOpenChange(false);
   };
 
-  const dateLabel = new Date(event.date + "T00:00:00").toLocaleDateString("en-US", {
-    weekday: "long",
-    month: "long",
-    day: "numeric",
-  });
+  const dayAbbreviations = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-sm">
         <DialogHeader>
-          <DialogTitle>Edit Time for {dateLabel}</DialogTitle>
+          <DialogTitle>Reschedule Session</DialogTitle>
         </DialogHeader>
         <div className="flex flex-col gap-4">
+          <div className="flex items-center justify-between gap-1">
+            {weekDates.map((dateStr) => {
+              const d = new Date(dateStr + "T00:00:00");
+              const dayIndex = d.getDay();
+              const isSelected = selectedDate === dateStr;
+              return (
+                <Button
+                  key={dateStr}
+                  variant={isSelected ? "default" : "outline"}
+                  size="sm"
+                  className="flex-1 px-0 text-xs"
+                  onClick={() => setSelectedDate(dateStr)}
+                >
+                  <div className="flex flex-col items-center">
+                    <span className={isSelected ? "" : "text-muted-foreground"}>
+                      {dayAbbreviations[dayIndex]}
+                    </span>
+                    <span>{d.getDate()}</span>
+                  </div>
+                </Button>
+              );
+            })}
+          </div>
           <div className="flex items-center gap-2">
             <Input
               type="time"

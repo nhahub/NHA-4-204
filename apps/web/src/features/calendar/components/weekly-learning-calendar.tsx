@@ -1,7 +1,8 @@
 "use client";
 
-import { RefreshCwIcon, BellIcon, BellOffIcon, CalendarDaysIcon, SparklesIcon } from "lucide-react";
-import { useState } from "react";
+import { RefreshCwIcon, CalendarDaysIcon, SparklesIcon, SaveIcon } from "lucide-react";
+import { useState, useEffect } from "react";
+import { toast } from "sonner";
 import {
   CalendarProvider,
   CalendarDate,
@@ -14,6 +15,7 @@ import {
   useCalendarYear,
 } from "@/components/kibo-ui/calendar";
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import {
   Dialog,
@@ -30,34 +32,129 @@ import {
   useCalendarEvents,
   useGenerateCalendar,
   useUpdateEvent,
-  useStudyNotifications,
+  useSetAvailability,
 } from "../service";
 import { CalendarSetup } from "./calendar-setup";
 import { LearningCalendarBody } from "./learning-calendar-body";
 import { TimeSlotEditor } from "./time-slot-editor";
 
-function CalendarInner() {
+import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { useMemo } from "react";
+
+const timeToMinutes = (t: string) => {
+  const [h, m] = t.split(":").map(Number);
+  return (h || 0) * 60 + (m || 0);
+};
+
+export function CalendarInner() {
   const [month] = useCalendarMonth();
   const [year] = useCalendarYear();
 
-  const { data: userInfo, isLoading: userLoading } = useUserInfo() as any;
-  const { data: activeRole, isLoading: roleLoading } = useActiveRole() as any;
+  const { data: userInfo, isLoading: userLoading } = useUserInfo();
+  const { data: activeRole, isLoading: roleLoading } = useActiveRole();
   const hasAvailability = !!(userInfo?.availableDaysPerWeek && userInfo?.availableHoursPerDay);
 
   const [needsSetup, setNeedsSetup] = useState(false);
+  const [viewMode, setViewMode] = useState<"week" | "month">("week");
 
   const {
     data: calendarData,
     isLoading: eventsLoading,
     refetch: refetchEvents,
-  } = useCalendarEvents(month, year) as any;
+  } = useCalendarEvents(month, year);
 
-  const generateCalendar = useGenerateCalendar() as any;
-  const updateEvent = useUpdateEvent() as any;
-  const { requestPermission, isSupported, permission } = useStudyNotifications();
+  const generateCalendar = useGenerateCalendar();
+  const updateEvent = useUpdateEvent();
 
   const [selectedDayEvents, setSelectedDayEvents] = useState<any[] | null>(null);
   const [editingEvent, setEditingEvent] = useState<any | null>(null);
+  const [editingTimes, setEditingTimes] = useState<Record<string, { startTime: string; endTime: string }>>({});
+  
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [editDays, setEditDays] = useState(userInfo?.availableDaysPerWeek ?? 5);
+  const [editHours, setEditHours] = useState(userInfo?.availableHoursPerDay ?? 2);
+  const { mutate: mutateAvailability, isPending: isSavingAvailability } = useSetAvailability();
+
+  useEffect(() => {
+    if (userInfo) {
+      setEditDays(userInfo.availableDaysPerWeek ?? 5);
+      setEditHours(userInfo.availableHoursPerDay ?? 2);
+    }
+  }, [userInfo]);
+
+  const handleSaveSettings = () => {
+    mutateAvailability(
+      { availableDaysPerWeek: editDays, availableHoursPerDay: editHours },
+      {
+        onSuccess: () => {
+          setIsSettingsOpen(false);
+          toast.success("Schedule preferences saved.");
+          handleRegenerate(); // Regenerate schedule to respect new limits
+        },
+        onError: () => {
+          toast.error("Failed to save preferences.");
+        }
+      }
+    );
+  };
+
+  useEffect(() => {
+    if (selectedDayEvents) {
+      const initialTimes: Record<string, { startTime: string; endTime: string }> = {};
+      selectedDayEvents.forEach((ev: any) => {
+        initialTimes[ev.event.id] = { startTime: ev.event.startTime.slice(0, 5), endTime: ev.event.endTime.slice(0, 5) };
+      });
+      setEditingTimes(initialTimes);
+    }
+  }, [selectedDayEvents]);
+
+  const handleBatchSaveTimes = async () => {
+    if (!selectedDayEvents) return;
+    
+    for (const ev of selectedDayEvents) {
+      if (ev.event.status !== "scheduled") continue;
+      const times = editingTimes[ev.event.id];
+      if (!times) continue;
+      if (timeToMinutes(times.endTime) <= timeToMinutes(times.startTime)) {
+        toast.error("End time must be after start time for all sessions.");
+        return;
+      }
+    }
+
+    try {
+      for (const ev of selectedDayEvents) {
+        if (ev.event.status !== "scheduled") continue;
+        const times = editingTimes[ev.event.id];
+        if (times && (times.startTime !== ev.event.startTime.slice(0, 5) || times.endTime !== ev.event.endTime.slice(0, 5))) {
+          await updateEvent.mutateAsync({
+            eventId: ev.event.id,
+            startTime: times.startTime + ":00",
+            endTime: times.endTime + ":00"
+          });
+        }
+      }
+      toast.success("Sessions updated successfully!");
+      setSelectedDayEvents(null);
+      refetchEvents();
+    } catch (err) {
+      toast.error("Failed to update sessions.");
+    }
+  };
+
+  const weekDates = useMemo(() => {
+    if (!editingEvent?.event?.date) return [];
+    const date = new Date(editingEvent.event.date + "T00:00:00");
+    const day = date.getDay(); // 0 is Sunday
+    const start = new Date(date);
+    start.setDate(date.getDate() - day);
+    const dates = [];
+    for (let i = 0; i < 7; i++) {
+      const d = new Date(start);
+      d.setDate(start.getDate() + i);
+      dates.push(d.toISOString().split("T")[0]);
+    }
+    return dates;
+  }, [editingEvent?.event?.date]);
 
   const handleSetupComplete = () => {
     setNeedsSetup(false);
@@ -73,7 +170,7 @@ function CalendarInner() {
     }
   };
 
-  const handleMarkStatus = (eventId: string, status: string) => {
+  const handleMarkStatus = (eventId: string, status: "completed" | "scheduled" | "skipped") => {
     updateEvent.mutate({ eventId, status });
   };
 
@@ -82,8 +179,8 @@ function CalendarInner() {
     setSelectedDayEvents(null);
   };
 
-  const handleSaveTimeSlots = (eventId: string, startTime: string, endTime: string) => {
-    updateEvent.mutate({ eventId, startTime, endTime });
+  const handleSaveTimeSlots = (eventId: string, date: string, startTime: string, endTime: string) => {
+    updateEvent.mutate({ eventId, date, startTime, endTime });
     setEditingEvent(null);
   };
 
@@ -91,12 +188,6 @@ function CalendarInner() {
     generateCalendar.mutate(undefined, {
       onSuccess: () => refetchEvents(),
     });
-  };
-
-  const handleToggleNotifications = async () => {
-    if (permission === "default") {
-      await requestPermission();
-    }
   };
 
   if (userLoading || roleLoading) {
@@ -131,41 +222,38 @@ function CalendarInner() {
   const needsNewSchedule = calendarData?.needsNewSchedule ?? false;
 
   return (
-    <>
+    <div className="flex flex-col h-full w-full">
       <CalendarDate>
-        <CalendarDatePicker>
-          <CalendarMonthPicker />
-          <CalendarYearPicker start={2024} end={2030} />
-          <CalendarDatePagination />
-        </CalendarDatePicker>
-        <div className="flex items-center gap-2">
-          {isSupported && (
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between w-full gap-4">
+          <CalendarDatePicker>
+            <CalendarMonthPicker />
+            <CalendarYearPicker start={2024} end={2030} />
+            <CalendarDatePagination />
+          </CalendarDatePicker>
+          <div className="flex items-center gap-2">
+            <Tabs value={viewMode} onValueChange={(v) => setViewMode(v as any)}>
+              <TabsList className="h-8">
+                <TabsTrigger value="week" className="text-xs px-3 py-1">Week</TabsTrigger>
+                <TabsTrigger value="month" className="text-xs px-3 py-1">Month</TabsTrigger>
+              </TabsList>
+            </Tabs>
             <Button
-              variant={permission === "granted" ? "default" : "outline"}
+              variant="outline"
               size="sm"
-              onClick={handleToggleNotifications}
-              title={
-                permission === "denied"
-                  ? "Notifications blocked in browser settings"
-                  : "Toggle study reminders"
-              }
+              onClick={() => setIsSettingsOpen(true)}
             >
-              {permission === "granted" ? (
-                <BellIcon className="size-4" />
-              ) : (
-                <BellOffIcon className="size-4" />
-              )}
+              Edit Preferences
             </Button>
-          )}
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={handleRegenerate}
-            disabled={generateCalendar.isPending}
-          >
-            <RefreshCwIcon className={`size-4 ${generateCalendar.isPending ? "animate-spin" : ""}`} />
-            Regenerate
-          </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={handleRegenerate}
+              disabled={generateCalendar.isPending}
+            >
+              <RefreshCwIcon className={`size-4 ${generateCalendar.isPending ? "animate-spin" : ""}`} />
+              Regenerate
+            </Button>
+          </div>
         </div>
       </CalendarDate>
 
@@ -174,6 +262,49 @@ function CalendarInner() {
       <LearningCalendarBody
         events={calendarData?.events ?? []}
         onDayClick={handleDayClick}
+        viewMode={viewMode}
+        onEventDrop={(eventId, date) => {
+          const events = calendarData?.events ?? [];
+          const droppedEvent = events.find(e => e.event.id === eventId);
+          if (!droppedEvent) return;
+
+          const todayStr = new Date().toISOString().split("T")[0];
+          const targetDateObj = new Date(date);
+          const todayObj = new Date(todayStr);
+          const twoWeeksFromToday = new Date(todayObj.getTime() + 14 * 24 * 60 * 60 * 1000);
+          
+          if (targetDateObj < todayObj || targetDateObj > twoWeeksFromToday) {
+            toast.error("You can only reschedule events within the upcoming 2 weeks.", { position: "top-center" });
+            return;
+          }
+
+          const targetDayEvents = events.filter(e => e.event.date === date && e.event.id !== eventId);
+          const currentDayMinutes = targetDayEvents.reduce((acc, e) => acc + timeToMinutes(e.event.endTime) - timeToMinutes(e.event.startTime), 0);
+          const droppedEventMinutes = timeToMinutes(droppedEvent.event.endTime) - timeToMinutes(droppedEvent.event.startTime);
+          const availableHours = (calendarData as any)?.availableHoursPerDay ?? 2;
+          const totalHours = (currentDayMinutes + droppedEventMinutes) / 60;
+          
+          if (totalHours > availableHours + 0.01) {
+            toast.error(`Cannot exceed daily limit of ${availableHours}h. This would make it ${totalHours.toFixed(1)}h.`, { position: "top-center" });
+            return;
+          }
+
+          const currentIndex = events.findIndex(e => e.event.id === eventId);
+          if (currentIndex !== -1) {
+            const prevEvent = events[currentIndex - 1];
+            const nextEvent = events[currentIndex + 1];
+            
+            if (prevEvent && new Date(date) < new Date(prevEvent.event.date)) {
+              toast.error("You cannot move this event before its prerequisite.", { position: "top-center" });
+              return;
+            }
+            if (nextEvent && new Date(date) > new Date(nextEvent.event.date)) {
+              toast.error("You cannot move this event past its next dependent event.", { position: "top-center" });
+              return;
+            }
+          }
+          updateEvent.mutate({ eventId, date });
+        }}
       />
 
       {needsNewSchedule && (
@@ -216,22 +347,37 @@ function CalendarInner() {
                   className="flex flex-col gap-2 rounded-lg border p-3"
                 >
                   <div className="flex items-start justify-between gap-2">
-                    <div className="min-w-0">
+                    <div className="min-w-0 flex-1">
                       <p className="text-sm font-medium">{nodeTitle}</p>
-                      <p className="text-xs text-muted-foreground">
-                        {event.startTime.slice(0, 5)} - {event.endTime.slice(0, 5)}
-                      </p>
-                      <p className="text-xs text-muted-foreground">
-                        Session {event.sessionIndex} of {event.totalSessionsForNode}
-                      </p>
+                      {event.status === "scheduled" ? (
+                         <div className="flex items-center gap-2 mt-1">
+                           <Input 
+                             type="time" 
+                             className="h-7 text-xs px-2 w-24"
+                             value={editingTimes[event.id]?.startTime ?? ""}
+                             onChange={(e) => setEditingTimes(prev => ({ ...prev, [event.id]: { ...prev[event.id], startTime: e.target.value } }))}
+                           />
+                           <span className="text-muted-foreground">-</span>
+                           <Input 
+                             type="time" 
+                             className="h-7 text-xs px-2 w-24"
+                             value={editingTimes[event.id]?.endTime ?? ""}
+                             onChange={(e) => setEditingTimes(prev => ({ ...prev, [event.id]: { ...prev[event.id], endTime: e.target.value } }))}
+                           />
+                         </div>
+                      ) : (
+                        <p className="text-xs text-muted-foreground">
+                          {event.startTime.slice(0, 5)} - {event.endTime.slice(0, 5)}
+                        </p>
+                      )}
                     </div>
                     <span
                       className={`shrink-0 rounded-full px-2 py-0.5 text-[10px] font-medium ${
                         event.status === "completed"
-                          ? "bg-green-100 text-green-700"
+                          ? "bg-primary/20 text-primary"
                           : event.status === "skipped"
                             ? "bg-muted text-muted-foreground"
-                            : "bg-blue-100 text-blue-700"
+                            : "bg-primary text-primary-foreground"
                       }`}
                     >
                       {event.status}
@@ -239,13 +385,6 @@ function CalendarInner() {
                   </div>
                   {event.status === "scheduled" && (
                     <div className="flex gap-2">
-                      <Button
-                        size="xs"
-                        variant="outline"
-                        onClick={() => handleEditEvent({ event, nodeTitle, nodeDescription: "" })}
-                      >
-                        Edit time
-                      </Button>
                       <Button
                         size="xs"
                         variant="default"
@@ -266,8 +405,15 @@ function CalendarInner() {
               ))}
             </div>
           </ScrollArea>
-          <DialogFooter>
-            <DialogClose render={<Button variant="outline" />}>Close</DialogClose>
+          <DialogFooter className="flex sm:justify-between items-center w-full gap-2 mt-4">
+            <DialogClose render={<Button variant="outline" className="w-full sm:w-auto" />}>
+              Close
+            </DialogClose>
+            {selectedDayEvents?.some((e: any) => e.event.status === "scheduled") && (
+               <Button onClick={handleBatchSaveTimes} className="w-full sm:w-auto">
+                 <SaveIcon className="size-4 mr-2" /> Save Times
+               </Button>
+            )}
           </DialogFooter>
         </DialogContent>
       </Dialog>
@@ -280,19 +426,59 @@ function CalendarInner() {
           }}
           event={editingEvent.event}
           maxHours={userInfo?.availableHoursPerDay ?? 2}
+          weekDates={weekDates}
           onSave={handleSaveTimeSlots}
         />
       )}
-    </>
+
+      {/* Settings Modal */}
+      <Dialog open={isSettingsOpen} onOpenChange={setIsSettingsOpen}>
+        <DialogContent className="sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle>Edit Schedule Preferences</DialogTitle>
+          </DialogHeader>
+          <div className="flex flex-col gap-4 py-4">
+            <div className="flex flex-col gap-2">
+              <label className="text-sm font-medium">Days per week</label>
+              <Input 
+                type="number" 
+                min={1} max={7} 
+                value={editDays} 
+                onChange={e => setEditDays(Number(e.target.value))}
+              />
+            </div>
+            <div className="flex flex-col gap-2">
+              <label className="text-sm font-medium">Hours per day</label>
+              <Input 
+                type="number" 
+                min={1} max={24} 
+                value={editHours} 
+                onChange={e => setEditHours(Number(e.target.value))}
+              />
+            </div>
+          </div>
+          <DialogFooter>
+            <DialogClose asChild>
+              <Button variant="outline">Cancel</Button>
+            </DialogClose>
+            <Button onClick={handleSaveSettings} disabled={isSavingAvailability}>
+              {isSavingAvailability ? "Saving..." : "Save Preferences"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 }
 
 export function WeeklyLearningCalendar() {
   return (
-    <CalendarProvider locale="en-US" startDay={0}>
-      <Card>
-        <CalendarInner />
-      </Card>
-    </CalendarProvider>
+    <div className="w-full flex-1 flex flex-col">
+      <CalendarProvider locale="en-US" startDay={0}>
+        <Card className="flex-1 flex flex-col">
+          <CalendarInner />
+        </Card>
+      </CalendarProvider>
+    </div>
   );
 }

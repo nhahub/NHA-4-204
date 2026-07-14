@@ -118,9 +118,16 @@ export const calendarRouter = router({
             await settleStreak(ctx.session.user.id, today, false);
             await fireScheduleEmptyIfNeeded(ctx.session.user.id, needsNewSchedule);
 
+            const userData = await db.query.user.findFirst({
+                where: eq(user.id, ctx.session.user.id),
+                columns: { availableHoursPerDay: true }
+            });
+            const availableHoursPerDay = userData?.availableHoursPerDay ?? 2;
+
             return {
                 events,
-                needsNewSchedule
+                needsNewSchedule,
+                availableHoursPerDay
             };
         }),
 
@@ -155,9 +162,16 @@ export const calendarRouter = router({
         await settleStreak(ctx.session.user.id, today, false);
         await fireScheduleEmptyIfNeeded(ctx.session.user.id, needsNewSchedule);
 
+        const userData = await db.query.user.findFirst({
+            where: eq(user.id, ctx.session.user.id),
+            columns: { availableHoursPerDay: true }
+        });
+        const availableHoursPerDay = userData?.availableHoursPerDay ?? 2;
+
         return {
             events,
-            needsNewSchedule
+            needsNewSchedule,
+            availableHoursPerDay
         };
     }),
 
@@ -237,7 +251,8 @@ export const calendarRouter = router({
                 }
 
                 if (updates.status === "completed") {
-                    await settleStreak(ctx.session.user.id, event.date, true);
+                    const todayStr = new Date().toISOString().split("T")[0];
+                    await settleStreak(ctx.session.user.id, todayStr, true);
                 }
             }
 
